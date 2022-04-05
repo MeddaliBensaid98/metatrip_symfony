@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VoyageOrganise{% endblock %}
+
+{% block body %}
+    <h1>VoyageOrganise</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idvo</th>
+                <td>{{ voyage_organise.idvo }}</td>
+            </tr>
+            <tr>
+                <th>PrixBillet</th>
+                <td>{{ voyage_organise.prixBillet }}</td>
+            </tr>
+            <tr>
+                <th>Airline</th>
+                <td>{{ voyage_organise.airline }}</td>
+            </tr>
+            <tr>
+                <th>NbNuitees</th>
+                <td>{{ voyage_organise.nbNuitees }}</td>
+            </tr>
+            <tr>
+                <th>Etatvoyage</th>
+                <td>{{ voyage_organise.etatvoyage }}</td>
+            </tr>
+            <tr>
+                <th>Nbplaces</th>
+                <td>{{ voyage_organise.nbplaces }}</td>
+            </tr>
+            <tr>
+                <th>Idv</th>
+                <td>{{ voyage_organise.idv }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_voyage_organise_index') }}">back to list</a>
+
+    <a href="{{ path('app_voyage_organise_edit', {'idvo': voyage_organise.idvo}) }}">edit</a>
+
+    {{ include('voyage_organise/_delete_form.html.twig') }}
+{% endblock %}
