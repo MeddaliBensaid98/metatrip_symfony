@@ -29,6 +29,15 @@ class UserController extends AbstractController
         ]);
     }
 
+       /**
+     * @Route("/admin", name="indexAdmin", methods={"GET"})
+     */
+    public function indexAdmin(EntityManagerInterface $entityManager): Response
+    {
+       
+
+        return $this->render('Admin/index.html.twig');
+    }
     /**
      * @Route("/new", name="app_user_new", methods={"GET", "POST"})
      */
