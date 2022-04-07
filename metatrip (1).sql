@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 05 avr. 2022 à 02:18
+-- Généré le : ven. 08 avr. 2022 à 01:45
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.2
 
@@ -29,57 +29,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `abonnement` (
   `Ida` int(11) NOT NULL,
-  `Type` varchar(255) NOT NULL,
-  `Prix_a` varchar(110) NOT NULL,
+  `Type` varchar(20) NOT NULL,
+  `Prix_a` int(11) NOT NULL,
   `Date_achat` date NOT NULL,
   `Date_expiration` date NOT NULL,
   `Etat` varchar(20) NOT NULL,
-  `Ref_paiment` int(11) NOT NULL DEFAULT 1
+  `Ref_paiement` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `abonnement`
---
-
-INSERT INTO `abonnement` (`Ida`, `Type`, `Prix_a`, `Date_achat`, `Date_expiration`, `Etat`, `Ref_paiment`) VALUES
-(1, 'Gold', '90', '2010-09-11', '2011-10-01', 'Etat', 1),
-(2, 'Gold', '90', '2010-09-11', '2011-10-01', 'Etat', 1),
-(3, 'Bronze', '50', '2022-02-01', '2022-02-09', 'A', 1),
-(4, 'Silver', '70', '2022-02-08', '2022-02-02', 'A', 1),
-(10, 'Silver', '11', '2022-03-02', '2022-03-04', 'aa', 1),
-(11, 'Silver', '10', '2022-03-02', '2022-03-03', '5', 1),
-(17, 'Silver', '17', '2022-03-17', '2022-03-03', 'hia', 1),
-(18, 'Bronze', '11', '2022-03-11', '2022-03-17', 'wow', 1),
-(19, 'Gold', '29', '2022-03-10', '2022-03-11', 'gold', 1),
-(20, 'Gold', '27', '2022-03-19', '2022-03-05', 'ee', 1),
-(21, 'Silver', '77', '2022-03-17', '2022-03-09', 'eee', 1),
-(22, 'Gold', '12', '2022-03-03', '2022-03-03', 'YALUNA', 1),
-(23, 'Gold', '12', '2022-03-11', '2022-03-10', 'www', 1),
-(24, 'Gold', '13', '2022-03-18', '2022-03-11', 'gg', 1),
-(25, 'Gold', '13', '2022-03-18', '2022-03-11', 'gg', 1),
-(26, 'Silver', '12', '2022-03-10', '2022-03-11', 'qqq', 1),
-(27, 'Silver', '12', '2022-03-03', '2022-03-04', 'ee', 1),
-(28, 'Silver', '11', '2022-03-11', '2022-03-10', 'qq', 1),
-(29, 'Bronze', '11', '2022-03-09', '2022-03-03', 'ww', 1),
-(30, 'Silver', '11', '2022-03-11', '2022-03-10', 'qq', 1),
-(31, 'Gold', '11', '2022-03-10', '2022-03-11', 'ww', 1),
-(32, 'Silver', '11', '2022-03-11', '2022-03-04', 'qqq', 1),
-(33, 'Bronze', '11', '2022-03-03', '2022-03-11', 'qq', 1),
-(99, 'Bronze', '144', '2022-03-10', '2022-03-25', 'Non payè', 1),
-(124, 'Gold', '150DT', '2022-03-01', '2022-03-31', 'Non payé', 1),
-(129, 'Bronze', '50DT', '2022-03-02', '2022-04-01', 'Non payé', 1),
-(133, 'Silver', '100DT', '2022-03-25', '2022-04-24', 'Non payé', 1),
-(134, 'Gold', '150DT', '2022-03-19', '2022-04-18', 'Non payé', 1),
-(135, 'Gold', '150DT', '2022-03-31', '2022-04-30', 'Non payé', 1),
-(136, 'Gold', '150DT', '2022-03-25', '2022-04-24', 'Non payé', 1),
-(137, 'Silver', '100DT', '2022-03-18', '2022-04-17', 'Non payé', 1),
-(138, 'Bronze', '50DT', '2022-03-25', '2022-04-24', 'Non payé', 1),
-(139, 'Bronze', '50DT', '2022-03-25', '2022-04-24', 'Non payé', 1),
-(140, 'Silver', '100DT', '2022-03-01', '2022-03-31', 'Non payé', 1),
-(141, 'Gold', '150DT', '2022-03-01', '2022-03-31', 'Non payé', 1),
-(142, 'Gold', '150DT', '2022-03-25', '2022-04-24', 'Non payé', 1),
-(143, 'Gold', '150DT', '2022-03-01', '2022-03-31', 'Non payé', 1),
-(999, 'Gold', '150DT', '2022-03-01', '2022-03-31', 'Non payé', 1);
 
 -- --------------------------------------------------------
 
@@ -90,11 +46,22 @@ INSERT INTO `abonnement` (`Ida`, `Type`, `Prix_a`, `Date_achat`, `Date_expiratio
 CREATE TABLE `chambre` (
   `idc` int(11) NOT NULL,
   `numc` int(20) NOT NULL,
-  `image` varchar(40) NOT NULL,
+  `image` varchar(1000) NOT NULL,
   `type` varchar(20) NOT NULL,
-  `etat` enum('DISPO','INDISPO') NOT NULL,
-  `idh` int(11) DEFAULT NULL
+  `etat` varchar(40) NOT NULL,
+  `idh` int(11) NOT NULL,
+  `prixc` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `chambre`
+--
+
+INSERT INTO `chambre` (`idc`, `numc`, `image`, `type`, `etat`, `idh`, `prixc`) VALUES
+(139, 122, 'C:\\\\Users\\\\Nayrouz\\\\Documents\\\\NetBeansProjects\\\\metaFinal\\\\src\\\\image\\\\hotel1.jpg', 'Single', 'Disponible', 12236, 0),
+(140, 5, 'C:\\\\Users\\\\Nayrouz\\\\Documents\\\\NetBeansProjects\\\\metaFinal\\\\src\\\\image\\\\cigale.jpg', 'Double', 'Disponible', 12235, 70),
+(141, 20, 'ImageView[id=image_view, styleClass=image-view]', 'Double', 'Non Disponible', 12236, 80),
+(143, 17, 'C:\\\\Users\\\\Nayrouz\\\\Documents\\\\NetBeansProjects\\\\metaFinal\\\\src\\\\image\\\\hotel4.jpg', 'Single', 'Disponible', 12235, 500);
 
 -- --------------------------------------------------------
 
@@ -109,20 +76,15 @@ CREATE TABLE `chauffeur` (
   `photo` varchar(20) NOT NULL,
   `tel` varchar(20) NOT NULL,
   `description` varchar(20) NOT NULL,
-  `etatDispo` enum('DISPO','INDISPO') NOT NULL
+  `etatDispo` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
 --
--- Structure de la table `doctrine_migration_versions`
+-- Déchargement des données de la table `chauffeur`
 --
 
-CREATE TABLE `doctrine_migration_versions` (
-  `version` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
-  `executed_at` datetime DEFAULT NULL,
-  `execution_time` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+INSERT INTO `chauffeur` (`idch`, `nom`, `prenom`, `photo`, `tel`, `description`, `etatDispo`) VALUES
+(666, 'lam', 'fares', 'fares.png', '99999999', 'flam', 'DISPO');
 
 -- --------------------------------------------------------
 
@@ -139,6 +101,14 @@ CREATE TABLE `evenement` (
   `prix_e` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `evenement`
+--
+
+INSERT INTO `evenement` (`Ide`, `Type_event`, `Chanteur`, `Adresse`, `Date_event`, `prix_e`) VALUES
+(2, 'hhhuhonl', 'c', '7 rue 2938', '2020-09-01', 12),
+(3, 'aaaaaaa', 'c', '7 rue 2938', '2020-09-01', 120);
+
 -- --------------------------------------------------------
 
 --
@@ -150,21 +120,19 @@ CREATE TABLE `hotel` (
   `Nom_hotel` varchar(20) NOT NULL,
   `Nb_etoiles` int(11) NOT NULL,
   `Adresse` varchar(50) NOT NULL,
-  `image` varchar(40) NOT NULL
+  `image` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
 --
--- Structure de la table `localisationvoyage`
+-- Déchargement des données de la table `hotel`
 --
 
-CREATE TABLE `localisationvoyage` (
-  `Idlocalisation` int(11) NOT NULL,
-  `latitude` float NOT NULL,
-  `longitude` float NOT NULL,
-  `idv` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `hotel` (`Idh`, `Nom_hotel`, `Nb_etoiles`, `Adresse`, `image`) VALUES
+(12235, 'mouradi', 5, 'hammamet', 'C:\\Users\\Nayrouz\\Documents\\NetBeansProjects\\metaFinal\\src\\image\\hotel2.jpeg'),
+(12236, 'movenpick ', 5, 'gammarth', 'C:UsersNayrouzDocumentsNetBeansProjectsmetaFinalsrcimagehotel3.jpg'),
+(12238, 'la cigale ', 5, 'taba', 'C:\\Users\\Nayrouz\\Documents\\NetBeansProjects\\metaFinal\\src\\image\\cigale.jpg'),
+(12239, 'golden tulip', 4, 'tunis', 'C:\\\\Users\\\\Nayrouz\\\\Documents\\\\NetBeansProjects\\\\metaFinal\\\\src\\\\image\\\\hotel4.jpg'),
+(12240, 'movenpick ', 4, 'gammarth', 'C:UsersNayrouzDocumentsNetBeansProjectsmetaFinalsrcimagehotel3.jpg');
 
 -- --------------------------------------------------------
 
@@ -176,6 +144,13 @@ CREATE TABLE `paiement` (
   `Ref_paiement` int(11) NOT NULL,
   `Date_paiement` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `paiement`
+--
+
+INSERT INTO `paiement` (`Ref_paiement`, `Date_paiement`) VALUES
+(1, '2022-02-16');
 
 -- --------------------------------------------------------
 
@@ -190,6 +165,16 @@ CREATE TABLE `reservation_event` (
   `Idu` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `reservation_event`
+--
+
+INSERT INTO `reservation_event` (`Idrev`, `Nb_pers`, `Ide`, `Idu`) VALUES
+(6, 5, 2, 813),
+(17, 5, 2, 813),
+(20, 5, 2, 816),
+(21, 5, 2, 817);
+
 -- --------------------------------------------------------
 
 --
@@ -202,10 +187,26 @@ CREATE TABLE `reservation_hotel` (
   `Nb_personnes` int(11) NOT NULL,
   `Prix` float NOT NULL,
   `Idu` int(11) NOT NULL,
-  `idc` int(11) NOT NULL,
+  `idh` int(11) NOT NULL,
   `Date_depart` date DEFAULT NULL,
   `Date_arrivee` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `reservation_hotel`
+--
+
+INSERT INTO `reservation_hotel` (`Idrh`, `Nb_nuitees`, `Nb_personnes`, `Prix`, `Idu`, `idh`, `Date_depart`, `Date_arrivee`) VALUES
+(24, 5, 10, 3000, 41, 12236, '2022-03-15', '2022-03-17'),
+(25, 2, 2, 240, 41, 12235, '2022-03-08', '2022-03-08'),
+(26, 4, 2, 0, 41, 12236, '2022-03-03', '2022-03-17'),
+(29, 5, 5, 1500, 41, 12236, '2022-03-09', '2022-03-24'),
+(31, 5, 5, 1500, 41, 12236, '2022-03-17', '2022-03-18'),
+(32, 5, 2, 600, 41, 12235, '2022-03-09', '2022-03-16'),
+(33, 5, 4, 1200, 41, 12239, '2022-03-23', '2022-03-27'),
+(34, 5, 2, 600, 41, 12235, '2022-03-10', '2022-03-14'),
+(35, 2, 2, 240, 41, 12235, '2022-03-01', '2022-03-08'),
+(36, 2, 2, 240, 41, 12235, '2022-03-01', '2022-03-15');
 
 -- --------------------------------------------------------
 
@@ -222,6 +223,13 @@ CREATE TABLE `reservation_voiture` (
   `idch` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `reservation_voiture`
+--
+
+INSERT INTO `reservation_voiture` (`Idrvoit`, `prix_rent`, `Trajet`, `Idu`, `Idvoit`, `idch`) VALUES
+(10, 5.5, 'jandouba', 41, 55, 666);
+
 -- --------------------------------------------------------
 
 --
@@ -233,9 +241,9 @@ CREATE TABLE `reservation_voyage` (
   `Date_depart` date NOT NULL,
   `Date_arrivee` date NOT NULL,
   `etat` varchar(20) NOT NULL,
-  `Idu` int(11) DEFAULT NULL,
-  `Idv` int(11) DEFAULT NULL,
-  `Ref_paiement` int(11) NOT NULL
+  `Idu` int(11) NOT NULL,
+  `Idv` int(11) NOT NULL,
+  `Ref_paiement` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -246,10 +254,7 @@ INSERT INTO `reservation_voyage` (`Idrv`, `Date_depart`, `Date_arrivee`, `etat`,
 (7, '2022-02-16', '2022-02-16', 'Paye', 26, 97, 0),
 (9, '2022-02-16', '2022-02-16', 'NonPaye', 26, 18, 0),
 (10, '2020-09-01', '2050-09-01', 'Paye', 26, 97, 0),
-(11, '2050-09-01', '2050-09-01', 'Paye', 26, 97, 0),
-(12, '2022-03-15', '2022-03-15', 'NonPaye', 842, 605, 0),
-(13, '2022-03-10', '2022-03-10', 'NonPaye', 843, 97, 0),
-(14, '2024-04-01', '2024-04-01', 'NonPaye', 842, 605, 0);
+(11, '2050-09-01', '2050-09-01', 'Paye', 26, 97, 0);
 
 -- --------------------------------------------------------
 
@@ -267,6 +272,21 @@ CREATE TABLE `sponsor` (
   `ide` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `sponsor`
+--
+
+INSERT INTO `sponsor` (`ids`, `nomsponsor`, `tel`, `email`, `date_sp`, `prix_sp`, `ide`) VALUES
+(1, 'Vitalait', '22252718', 'amine@zarga.tn', '2011-10-01', 12, 2),
+(2, 'Vitalait', '22252718', 'amine@zarga.tn', '2011-10-01', 12, 2),
+(3, 'Vitalait', '22252718', 'amine@zarga.tn', '2011-10-01', 12, 2),
+(4, 'Vitalait', '22252718', 'amine@zarga.tn', '2011-10-01', 12, 2),
+(5, 'Vitalait', '22252718', 'amine@zarga.tn', '2011-10-01', 12, 2),
+(6, 'Vitalait', '22252718', 'amine@zarga.tn', '2011-10-01', 12, 2),
+(7, 'Vitalait', '22252718', 'amine@zarga.tn', '2011-10-01', 12, 2),
+(8, 'Vitalait', '22252718', 'amine@zarga.tn', '2011-10-01', 12, 2),
+(9, 'Vitalait', '22252718', 'amine@zarga.tn', '2011-10-01', 12, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -281,8 +301,8 @@ CREATE TABLE `user` (
   `Tel` varchar(20) NOT NULL,
   `Email` varchar(38) NOT NULL,
   `Password` varchar(50) NOT NULL,
-  `Image` varchar(1000) NOT NULL,
-  `Role` int(11) DEFAULT NULL,
+  `Image` varchar(40) NOT NULL,
+  `Role` int(11) DEFAULT 0,
   `dateNaissance` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -291,9 +311,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`Idu`, `Cin`, `Nom`, `Prenom`, `Tel`, `Email`, `Password`, `Image`, `Role`, `dateNaissance`) VALUES
-(26, '196525', 'ssss', 'cxx', '2568435', 'fares@live.fr', '25d55ad283aa400af464c76d713c07ad', 'image', 0, '2011-10-01'),
+(41, '196525', 'ssss', 'cxx', '29845823', 'gasmi.nayrouz@esprit.tn', '25d55ad283aa400af464c76d713c07ad', 'image', 0, '2011-10-01'),
 (42, '196525', 'ssss', 'cxx', '2568435', 'fares@live.fr', '25d55ad283aa400af464c76d713c07ad', 'image', 0, '2011-10-01'),
 (43, '196525', 'ssss', 'cxx', '2568435', 'fares@live.fr', '25d55ad283aa400af464c76d713c07ad', 'image', 0, '2011-10-01'),
+(44, '196525', 'ssss', 'cxx', '2568435', 'fares@live.fr', '25d55ad283aa400af464c76d713c07ad', 'image', 0, '2011-10-01'),
 (45, '196525', 'ssss', 'cxx', '2568435', 'fares@live.fr', '25d55ad283aa400af464c76d713c07ad', 'image', 0, '2011-10-01'),
 (47, '196525', 'ssss', 'cxx', '2568435', 'fares@live.fr', 'e882b72bccfc2ad578c27b0d9b472a14', 'image', 0, '2011-10-01'),
 (48, '196525', 'ssss', 'cxx', '2568435', 'fares@live.fr', '25d55ad283aa400af464c76d713c07ad', 'image', 0, '2011-10-01'),
@@ -344,14 +365,7 @@ INSERT INTO `user` (`Idu`, `Cin`, `Nom`, `Prenom`, `Tel`, `Email`, `Password`, `
 (826, '11223344', 'lamloum', 'fares', '98665580', 'fareslamloum@gmail.com', 'ab4f63f9ac65152575886860dde480a1', 'fares.png', 0, '2000-02-07'),
 (827, '1236987', 'lamloum', 'fares', '98663217', 'flam@gmail.com', '54965f9cd7e81588669cbbb393950569', 'fares.jpg', 0, '2000-02-07'),
 (828, '1230000', 'lamloum', 'fares', '98332140', 'fareslam@esprit.tn', '74b87337454200d4d33f80c4663dc5e5', 'fares.png', 0, '2000-07-08'),
-(831, '199525', 'ssss', 'cxx', '2568435', 'fares.lamloum@esprit.tn', '550e1bafe077ff0b0b67f4e32f29d751', 'image', 0, '2011-10-01'),
-(835, '09634840', 'sdsdsd', 'sdsdsdsd', '53084352', '69sxxxx@gmail.com', '4a7d1ed414474e4033ac29ccb8653d9b', 'C:\\\\Users\\\\medal\\\\OneDrive\\\\Images\\\\000.jpg', 0, '2022-03-01'),
-(836, '12345678', 'bs', 'dali', '53084352', 'test@gmail.com', '4a7d1ed414474e4033ac29ccb8653d9b', 'C:\\\\Users\\\\medal\\\\OneDrive\\\\Images\\\\000.jpg', 0, '2022-03-08'),
-(840, '11223340', 'lamloum', 'fares', '98226682', 'fareslamloum@esprit.tn', '4a7d1ed414474e4033ac29ccb8653d9b', 'C:\\\\Users\\\\FLAM\\\\Desktop\\\\flam.jpg', 1, '2022-03-07'),
-(842, '09632540', 'dali', 'dali', '23282360', 'daliv', '0000', 'C:\\\\Users\\\\FLAM\\\\Desktop\\\\chat.jpg', 0, '2022-03-08'),
-(843, '00112233', 'snoussi', 'med aziz', '98335654', 'aziz@esprit.tn', '4a7d1ed414474e4033ac29ccb8653d9b', 'C:\\\\Users\\\\FLAM\\\\Desktop\\\\flam.jpg', 0, '2022-03-01'),
-(844, '110066', 'lamloum', 'fares', '98663210', 'fareslamloum@gmail.fr', '337be3074ca499c5a397b2888c3dcda0', 'image', 0, '2011-10-01'),
-(845, '994406', 'fares', 'lamloum', '20444895', 'lamloum@gmail.com', 'af4dff190111fab70a4380122abd7e99', 'image', 0, '2000-10-01');
+(831, '199525', 'ssss', 'cxx', '2568435', 'fares.lamloum@esprit.tn', '550e1bafe077ff0b0b67f4e32f29d751', 'image', 0, '2011-10-01');
 
 -- --------------------------------------------------------
 
@@ -364,9 +378,26 @@ CREATE TABLE `voiture` (
   `Matricule` varchar(50) NOT NULL,
   `Puissance_fiscalle` int(11) NOT NULL,
   `Image_v` varchar(50) NOT NULL,
-  `Modele` varchar(20) NOT NULL,
-  `type` varchar(20) NOT NULL
+  `Modele` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `voiture`
+--
+
+INSERT INTO `voiture` (`Idvoit`, `Matricule`, `Puissance_fiscalle`, `Image_v`, `Modele`) VALUES
+(1, '120TU120', 12, 'image', 'Mercedes'),
+(2, '120TU120', 12, 'image', 'Mercedes'),
+(3, '220TU120', 12, 'image', 'bmw'),
+(55, '220TU120', 12, 'image', 'Mercedes'),
+(663, '220TU120', 12, 'image', 'bmw'),
+(669, '220TU120', 12, 'image', 'bmw'),
+(2000, '220TU120', 12, 'image', 'bmw'),
+(2001, '220TU120', 12, 'image', 'bmw'),
+(6390, '220TU120', 12, 'image', 'bmw'),
+(6600, '220TU120', 12, 'image', 'bmw'),
+(6690, '220TU120', 12, 'image', 'bmw'),
+(6890, '220TU120', 12, 'image', 'bmw');
 
 -- --------------------------------------------------------
 
@@ -418,25 +449,25 @@ CREATE TABLE `voyage_organise` (
   `Prix_billet` float NOT NULL,
   `Airline` varchar(20) NOT NULL,
   `Nb_nuitees` int(11) NOT NULL,
-  `etatVoyage` varchar(255) NOT NULL DEFAULT 'INDISPO',
   `nbplaces` int(11) NOT NULL,
-  `Idv` int(11) DEFAULT NULL
+  `etatVoyage` enum('DISPO','INDISPO') NOT NULL,
+  `Idv` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `voyage_organise`
 --
 
-INSERT INTO `voyage_organise` (`Idvo`, `Prix_billet`, `Airline`, `Nb_nuitees`, `etatVoyage`, `nbplaces`, `Idv`) VALUES
-(78, 170.6, 'nex', 3, 'DISPO', 0, 18),
-(79, 990.6, 'sounay', 3, 'DISPO', 0, 369),
-(80, 170.6, 'nex', 3, 'DISPO', 0, 369),
-(81, 10.6, 'flam', 3, 'INDISPO', 0, 369),
-(82, 170.6, 'nex', 3, 'INDISPO', 0, 600),
-(84, 170.6, 'nex', 3, 'INDISPO', 0, 605),
-(85, 170.6, 'nexdd', 3, 'DISPO', 0, 97),
-(86, 170.6, 'nexdd', 3, 'INDISPO', 0, 605),
-(87, 170.6, 'nexdd', 3, 'INDISPO', 0, 605);
+INSERT INTO `voyage_organise` (`Idvo`, `Prix_billet`, `Airline`, `Nb_nuitees`, `nbplaces`, `etatVoyage`, `Idv`) VALUES
+(78, 170.6, 'nex', 3, 0, 'DISPO', 18),
+(79, 990.6, 'sounay', 3, 0, '', 369),
+(80, 170.6, 'nex', 3, 0, '', 369),
+(81, 10.6, 'flam', 3, 0, '', 369),
+(82, 170.6, 'nex', 3, 0, '', 600),
+(84, 170.6, 'nex', 3, 0, 'INDISPO', 605),
+(85, 170.6, 'nexdd', 3, 0, 'DISPO', 97),
+(86, 170.6, 'nexdd', 3, 0, 'INDISPO', 605),
+(87, 170.6, 'nexdd', 3, 0, 'INDISPO', 605);
 
 -- --------------------------------------------------------
 
@@ -446,22 +477,11 @@ INSERT INTO `voyage_organise` (`Idvo`, `Prix_billet`, `Airline`, `Nb_nuitees`, `
 
 CREATE TABLE `voyage_virtuel` (
   `Idvv` int(11) NOT NULL,
-  `Image_v` varchar(255) NOT NULL,
-  `Idv` int(11) DEFAULT NULL,
-  `Ida` int(11) DEFAULT NULL,
-  `Video` varchar(255) NOT NULL,
-  `Nom` varchar(255) NOT NULL
+  `Video` varchar(50) NOT NULL,
+  `Image_v` varchar(50) NOT NULL,
+  `Idv` int(11) NOT NULL,
+  `Ida` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `voyage_virtuel`
---
-
-INSERT INTO `voyage_virtuel` (`Idvv`, `Image_v`, `Idv`, `Ida`, `Video`, `Nom`) VALUES
-(1, '../../images/img2.jpeg', 97, 1, 'Streaming', 'Istanbul'),
-(2, '../../images/imggg.jpeg', 199, 4, 'Video', 'Madrid'),
-(3, '../../images/imgg.jpeg', 600, 29, 'Streaming', 'Dubai'),
-(412, '../../images/louvre.jpeg', 199, 2, 'Video', 'Paris');
 
 --
 -- Index pour les tables déchargées
@@ -473,7 +493,7 @@ INSERT INTO `voyage_virtuel` (`Idvv`, `Image_v`, `Idv`, `Ida`, `Video`, `Nom`) V
 ALTER TABLE `abonnement`
   ADD PRIMARY KEY (`Ida`),
   ADD KEY `Ida` (`Ida`),
-  ADD KEY `FK_pai` (`Ref_paiment`);
+  ADD KEY `FK_pai` (`Ref_paiement`);
 
 --
 -- Index pour la table `chambre`
@@ -491,12 +511,6 @@ ALTER TABLE `chauffeur`
   ADD KEY `idch` (`idch`);
 
 --
--- Index pour la table `doctrine_migration_versions`
---
-ALTER TABLE `doctrine_migration_versions`
-  ADD PRIMARY KEY (`version`);
-
---
 -- Index pour la table `evenement`
 --
 ALTER TABLE `evenement`
@@ -507,13 +521,6 @@ ALTER TABLE `evenement`
 --
 ALTER TABLE `hotel`
   ADD PRIMARY KEY (`Idh`);
-
---
--- Index pour la table `localisationvoyage`
---
-ALTER TABLE `localisationvoyage`
-  ADD PRIMARY KEY (`Idlocalisation`),
-  ADD KEY `idv` (`idv`);
 
 --
 -- Index pour la table `paiement`
@@ -537,7 +544,7 @@ ALTER TABLE `reservation_hotel`
   ADD PRIMARY KEY (`Idrh`),
   ADD KEY `Idrh` (`Idrh`),
   ADD KEY `FK_u` (`Idu`),
-  ADD KEY `fk_chh` (`idc`);
+  ADD KEY `kk_h` (`idh`);
 
 --
 -- Index pour la table `reservation_voiture`
@@ -597,7 +604,6 @@ ALTER TABLE `voyage_organise`
 --
 ALTER TABLE `voyage_virtuel`
   ADD PRIMARY KEY (`Idvv`),
-  ADD UNIQUE KEY `Idvv` (`Idvv`),
   ADD KEY `FK_abb` (`Ida`),
   ADD KEY `FK_vv` (`Idv`);
 
@@ -609,13 +615,13 @@ ALTER TABLE `voyage_virtuel`
 -- AUTO_INCREMENT pour la table `abonnement`
 --
 ALTER TABLE `abonnement`
-  MODIFY `Ida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
+  MODIFY `Ida` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `chambre`
 --
 ALTER TABLE `chambre`
-  MODIFY `idc` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
 
 --
 -- AUTO_INCREMENT pour la table `chauffeur`
@@ -633,13 +639,7 @@ ALTER TABLE `evenement`
 -- AUTO_INCREMENT pour la table `hotel`
 --
 ALTER TABLE `hotel`
-  MODIFY `Idh` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT pour la table `localisationvoyage`
---
-ALTER TABLE `localisationvoyage`
-  MODIFY `Idlocalisation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Idh` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12241;
 
 --
 -- AUTO_INCREMENT pour la table `reservation_event`
@@ -651,7 +651,7 @@ ALTER TABLE `reservation_event`
 -- AUTO_INCREMENT pour la table `reservation_hotel`
 --
 ALTER TABLE `reservation_hotel`
-  MODIFY `Idrh` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Idrh` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT pour la table `reservation_voiture`
@@ -663,7 +663,7 @@ ALTER TABLE `reservation_voiture`
 -- AUTO_INCREMENT pour la table `reservation_voyage`
 --
 ALTER TABLE `reservation_voyage`
-  MODIFY `Idrv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Idrv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pour la table `sponsor`
@@ -675,7 +675,7 @@ ALTER TABLE `sponsor`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `Idu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=846;
+  MODIFY `Idu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=832;
 
 --
 -- AUTO_INCREMENT pour la table `voiture`
@@ -699,7 +699,7 @@ ALTER TABLE `voyage_organise`
 -- AUTO_INCREMENT pour la table `voyage_virtuel`
 --
 ALTER TABLE `voyage_virtuel`
-  MODIFY `Idvv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=415;
+  MODIFY `Idvv` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Contraintes pour les tables déchargées
@@ -709,19 +709,13 @@ ALTER TABLE `voyage_virtuel`
 -- Contraintes pour la table `abonnement`
 --
 ALTER TABLE `abonnement`
-  ADD CONSTRAINT `FK_pai` FOREIGN KEY (`Ref_paiment`) REFERENCES `paiement` (`Ref_paiement`);
+  ADD CONSTRAINT `FK_pai` FOREIGN KEY (`Ref_paiement`) REFERENCES `paiement` (`Ref_paiement`);
 
 --
 -- Contraintes pour la table `chambre`
 --
 ALTER TABLE `chambre`
-  ADD CONSTRAINT `FK_C509E4FFFABF6E74` FOREIGN KEY (`idh`) REFERENCES `hotel` (`Idh`);
-
---
--- Contraintes pour la table `localisationvoyage`
---
-ALTER TABLE `localisationvoyage`
-  ADD CONSTRAINT `FK_7CBDD6B8B05317` FOREIGN KEY (`idv`) REFERENCES `voyage` (`Idv`);
+  ADD CONSTRAINT `fk_hot` FOREIGN KEY (`idh`) REFERENCES `hotel` (`Idh`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `reservation_event`
@@ -734,7 +728,8 @@ ALTER TABLE `reservation_event`
 -- Contraintes pour la table `reservation_hotel`
 --
 ALTER TABLE `reservation_hotel`
-  ADD CONSTRAINT `FK_u` FOREIGN KEY (`Idu`) REFERENCES `user` (`Idu`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_u` FOREIGN KEY (`Idu`) REFERENCES `user` (`Idu`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `kk_h` FOREIGN KEY (`idh`) REFERENCES `hotel` (`Idh`);
 
 --
 -- Contraintes pour la table `reservation_voiture`
@@ -748,8 +743,7 @@ ALTER TABLE `reservation_voiture`
 -- Contraintes pour la table `reservation_voyage`
 --
 ALTER TABLE `reservation_voyage`
-  ADD CONSTRAINT `FK_776CC0CE38FD15F7` FOREIGN KEY (`Idv`) REFERENCES `voyage` (`Idv`),
-  ADD CONSTRAINT `FK_776CC0CEA1F4444D` FOREIGN KEY (`Idu`) REFERENCES `user` (`Idu`);
+  ADD CONSTRAINT `FK_resvoy` FOREIGN KEY (`Idv`) REFERENCES `voyage` (`Idv`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `sponsor`
@@ -761,7 +755,7 @@ ALTER TABLE `sponsor`
 -- Contraintes pour la table `voyage_organise`
 --
 ALTER TABLE `voyage_organise`
-  ADD CONSTRAINT `FK_22CA7F3238FD15F7` FOREIGN KEY (`Idv`) REFERENCES `voyage` (`Idv`);
+  ADD CONSTRAINT `FK_vo` FOREIGN KEY (`Idv`) REFERENCES `voyage` (`Idv`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `voyage_virtuel`
