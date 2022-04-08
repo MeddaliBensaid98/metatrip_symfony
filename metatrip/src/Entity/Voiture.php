@@ -49,13 +49,6 @@ class Voiture
      */
     private $modele;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=20, nullable=false)
-     */
-    private $type;
-
     public function getIdvoit(): ?int
     {
         return $this->idvoit;
@@ -105,18 +98,6 @@ class Voiture
     public function setModele(string $modele): self
     {
         $this->modele = $modele;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }

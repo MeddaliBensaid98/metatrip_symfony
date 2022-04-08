@@ -43,13 +43,6 @@ class VoyageOrganise
     private $nbNuitees;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="etatVoyage", type="string", length=255, nullable=false, options={"default"="INDISPO"})
-     */
-    private $etatvoyage = 'INDISPO';
-
-    /**
      * @var int
      *
      * @ORM\Column(name="nbplaces", type="integer", nullable=false)
@@ -57,9 +50,19 @@ class VoyageOrganise
     private $nbplaces;
 
     /**
-     * @var int|null
+     * @var string
      *
-     * @ORM\Column(name="Idv", type="integer", nullable=true)
+     * @ORM\Column(name="etatVoyage", type="string", length=0, nullable=false)
+     */
+    private $etatvoyage;
+
+    /**
+     * @var \Voyage
+     *
+     * @ORM\ManyToOne(targetEntity="Voyage")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Idv", referencedColumnName="Idv")
+     * })
      */
     private $idv;
 
@@ -104,18 +107,6 @@ class VoyageOrganise
         return $this;
     }
 
-    public function getEtatvoyage(): ?string
-    {
-        return $this->etatvoyage;
-    }
-
-    public function setEtatvoyage(string $etatvoyage): self
-    {
-        $this->etatvoyage = $etatvoyage;
-
-        return $this;
-    }
-
     public function getNbplaces(): ?int
     {
         return $this->nbplaces;
@@ -128,12 +119,24 @@ class VoyageOrganise
         return $this;
     }
 
-    public function getIdv(): ?int
+    public function getEtatvoyage(): ?string
+    {
+        return $this->etatvoyage;
+    }
+
+    public function setEtatvoyage(string $etatvoyage): self
+    {
+        $this->etatvoyage = $etatvoyage;
+
+        return $this;
+    }
+
+    public function getIdv(): ?Voyage
     {
         return $this->idv;
     }
 
-    public function setIdv(?int $idv): self
+    public function setIdv(?Voyage $idv): self
     {
         $this->idv = $idv;
 

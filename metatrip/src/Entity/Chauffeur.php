@@ -59,7 +59,7 @@ class Chauffeur
     /**
      * @var string
      *
-     * @ORM\Column(name="etatDispo", type="string", length=0, nullable=false)
+     * @ORM\Column(name="etatDispo", type="string", length=20, nullable=false)
      */
     private $etatdispo;
 

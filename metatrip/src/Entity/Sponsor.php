@@ -57,9 +57,12 @@ class Sponsor
     private $prixSp;
 
     /**
-     * @var int
+     * @var \Evenement
      *
-     * @ORM\Column(name="ide", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Evenement")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ide", referencedColumnName="Ide")
+     * })
      */
     private $ide;
 
@@ -128,12 +131,12 @@ class Sponsor
         return $this;
     }
 
-    public function getIde(): ?int
+    public function getIde(): ?Evenement
     {
         return $this->ide;
     }
 
-    public function setIde(int $ide): self
+    public function setIde(?Evenement $ide): self
     {
         $this->ide = $ide;
 
