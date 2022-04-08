@@ -31,7 +31,7 @@ class Chambre
     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="string", length=40, nullable=false)
+     * @ORM\Column(name="image", type="string", length=1000, nullable=false)
      */
     private $image;
 
@@ -45,9 +45,16 @@ class Chambre
     /**
      * @var string
      *
-     * @ORM\Column(name="etat", type="string", length=0, nullable=false)
+     * @ORM\Column(name="etat", type="string", length=40, nullable=false)
      */
     private $etat;
+
+    /**
+     * @var float|null
+     *
+     * @ORM\Column(name="prixc", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $prixc;
 
     /**
      * @var \Hotel
@@ -108,6 +115,18 @@ class Chambre
     public function setEtat(string $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getPrixc(): ?float
+    {
+        return $this->prixc;
+    }
+
+    public function setPrixc(?float $prixc): self
+    {
+        $this->prixc = $prixc;
 
         return $this;
     }

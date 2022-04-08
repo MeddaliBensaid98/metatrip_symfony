@@ -43,25 +43,28 @@ class ReservationVoyage
     private $etat;
 
     /**
-     * @var int|null
+     * @var int
      *
-     * @ORM\Column(name="Idu", type="integer", nullable=true)
+     * @ORM\Column(name="Idu", type="integer", nullable=false)
      */
     private $idu;
-
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="Idv", type="integer", nullable=true)
-     */
-    private $idv;
 
     /**
      * @var int
      *
      * @ORM\Column(name="Ref_paiement", type="integer", nullable=false)
      */
-    private $refPaiement;
+    private $refPaiement = '0';
+
+    /**
+     * @var \Voyage
+     *
+     * @ORM\ManyToOne(targetEntity="Voyage")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Idv", referencedColumnName="Idv")
+     * })
+     */
+    private $idv;
 
     public function getIdrv(): ?int
     {
@@ -109,21 +112,9 @@ class ReservationVoyage
         return $this->idu;
     }
 
-    public function setIdu(?int $idu): self
+    public function setIdu(int $idu): self
     {
         $this->idu = $idu;
-
-        return $this;
-    }
-
-    public function getIdv(): ?int
-    {
-        return $this->idv;
-    }
-
-    public function setIdv(?int $idv): self
-    {
-        $this->idv = $idv;
 
         return $this;
     }
@@ -136,6 +127,18 @@ class ReservationVoyage
     public function setRefPaiement(int $refPaiement): self
     {
         $this->refPaiement = $refPaiement;
+
+        return $this;
+    }
+
+    public function getIdv(): ?Voyage
+    {
+        return $this->idv;
+    }
+
+    public function setIdv(?Voyage $idv): self
+    {
+        $this->idv = $idv;
 
         return $this;
     }

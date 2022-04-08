@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Abonnement
  *
- * @ORM\Table(name="abonnement", indexes={@ORM\Index(name="Ida", columns={"Ida"}), @ORM\Index(name="FK_pai", columns={"Ref_paiment"})})
+ * @ORM\Table(name="abonnement", indexes={@ORM\Index(name="Ida", columns={"Ida"}), @ORM\Index(name="FK_pai", columns={"Ref_paiement"})})
  * @ORM\Entity
  */
 class Abonnement
@@ -24,14 +24,14 @@ class Abonnement
     /**
      * @var string
      *
-     * @ORM\Column(name="Type", type="string", length=255, nullable=false)
+     * @ORM\Column(name="Type", type="string", length=20, nullable=false)
      */
     private $type;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="Prix_a", type="string", length=110, nullable=false)
+     * @ORM\Column(name="Prix_a", type="integer", nullable=false)
      */
     private $prixA;
 
@@ -57,11 +57,14 @@ class Abonnement
     private $etat;
 
     /**
-     * @var int
+     * @var \Paiement
      *
-     * @ORM\Column(name="Ref_paiment", type="integer", nullable=false, options={"default"="1"})
+     * @ORM\ManyToOne(targetEntity="Paiement")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Ref_paiement", referencedColumnName="Ref_paiement")
+     * })
      */
-    private $refPaiment = 1;
+    private $refPaiement;
 
     public function getIda(): ?int
     {
@@ -80,12 +83,12 @@ class Abonnement
         return $this;
     }
 
-    public function getPrixA(): ?string
+    public function getPrixA(): ?int
     {
         return $this->prixA;
     }
 
-    public function setPrixA(string $prixA): self
+    public function setPrixA(int $prixA): self
     {
         $this->prixA = $prixA;
 
@@ -128,14 +131,14 @@ class Abonnement
         return $this;
     }
 
-    public function getRefPaiment(): ?int
+    public function getRefPaiement(): ?Paiement
     {
-        return $this->refPaiment;
+        return $this->refPaiement;
     }
 
-    public function setRefPaiment(int $refPaiment): self
+    public function setRefPaiement(?Paiement $refPaiement): self
     {
-        $this->refPaiment = $refPaiment;
+        $this->refPaiement = $refPaiement;
 
         return $this;
     }

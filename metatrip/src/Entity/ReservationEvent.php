@@ -29,16 +29,22 @@ class ReservationEvent
     private $nbPers;
 
     /**
-     * @var int
+     * @var \Evenement
      *
-     * @ORM\Column(name="Ide", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Evenement")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Ide", referencedColumnName="Ide")
+     * })
      */
     private $ide;
 
     /**
-     * @var int
+     * @var \User
      *
-     * @ORM\Column(name="Idu", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Idu", referencedColumnName="Idu")
+     * })
      */
     private $idu;
 
@@ -59,24 +65,24 @@ class ReservationEvent
         return $this;
     }
 
-    public function getIde(): ?int
+    public function getIde(): ?Evenement
     {
         return $this->ide;
     }
 
-    public function setIde(int $ide): self
+    public function setIde(?Evenement $ide): self
     {
         $this->ide = $ide;
 
         return $this;
     }
 
-    public function getIdu(): ?int
+    public function getIdu(): ?User
     {
         return $this->idu;
     }
 
-    public function setIdu(int $idu): self
+    public function setIdu(?User $idu): self
     {
         $this->idu = $idu;
 

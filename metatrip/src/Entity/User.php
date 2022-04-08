@@ -3,15 +3,24 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity
+ *@UniqueEntity("email",message="Email est deja exist") 
+  *@UniqueEntity("cin",message="cin est deja exist") 
+    *@UniqueEntity("tel",message="cin est deja exist") 
  */
-class User
+class User implements UserInterface 
+
 {
+
     /**
      * @var int
      *
@@ -25,6 +34,8 @@ class User
      * @var string
      *
      * @ORM\Column(name="Cin", type="string", length=20, nullable=false)
+     *   @Assert\Positive  
+     *  @Assert\Length(min="8", minMessage="Votre cin doit faire minimum 8 caractères")
      */
     private $cin;
 
@@ -46,6 +57,8 @@ class User
      * @var string
      *
      * @ORM\Column(name="Tel", type="string", length=20, nullable=false)
+     * @Assert\Length(min="8", minMessage="Votre tel doit faire minimum 8 caractères")
+     * @Assert\Positive  
      */
     private $tel;
 
@@ -53,20 +66,25 @@ class User
      * @var string
      *
      * @ORM\Column(name="Email", type="string", length=38, nullable=false)
+    *  @Assert\Email( message = "The email '{{ value }}' is not a valid email.")
      */
     private $email;
 
     /**
+     * 
      * @var string
      *
      * @ORM\Column(name="Password", type="string", length=50, nullable=false)
+       *      @Assert\Length(min="4", minMessage="Votre password doit faire minimum 4 caractères")
+     *  @Assert\PositiveOrZero 
      */
     private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Image", type="string", length=1000, nullable=false)
+     * @ORM\Column(name="Image", type="string", length=40, nullable=false)
+   
      */
     private $image;
 
@@ -75,7 +93,7 @@ class User
      *
      * @ORM\Column(name="Role", type="integer", nullable=true)
      */
-    private $role;
+    private $role = '0';
 
     /**
      * @var \DateTime|null
@@ -196,6 +214,13 @@ class User
 
         return $this;
     }
+    public function getRoles(){}
 
+
+  
+
+    public function getSalt(){}
+    public function eraseCredentials(){}
+    public function getUsername(){}
 
 }

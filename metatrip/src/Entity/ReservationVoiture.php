@@ -36,25 +36,34 @@ class ReservationVoiture
     private $trajet;
 
     /**
-     * @var int
+     * @var \Chauffeur
      *
-     * @ORM\Column(name="Idu", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Chauffeur")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idch", referencedColumnName="idch")
+     * })
      */
-    private $idu;
+    private $idch;
 
     /**
-     * @var int
+     * @var \Voiture
      *
-     * @ORM\Column(name="Idvoit", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Voiture")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Idvoit", referencedColumnName="Idvoit")
+     * })
      */
     private $idvoit;
 
     /**
-     * @var int|null
+     * @var \User
      *
-     * @ORM\Column(name="idch", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Idu", referencedColumnName="Idu")
+     * })
      */
-    private $idch;
+    private $idu;
 
     public function getIdrvoit(): ?int
     {
@@ -85,38 +94,38 @@ class ReservationVoiture
         return $this;
     }
 
-    public function getIdu(): ?int
+    public function getIdch(): ?Chauffeur
     {
-        return $this->idu;
+        return $this->idch;
     }
 
-    public function setIdu(int $idu): self
+    public function setIdch(?Chauffeur $idch): self
     {
-        $this->idu = $idu;
+        $this->idch = $idch;
 
         return $this;
     }
 
-    public function getIdvoit(): ?int
+    public function getIdvoit(): ?Voiture
     {
         return $this->idvoit;
     }
 
-    public function setIdvoit(int $idvoit): self
+    public function setIdvoit(?Voiture $idvoit): self
     {
         $this->idvoit = $idvoit;
 
         return $this;
     }
 
-    public function getIdch(): ?int
+    public function getIdu(): ?User
     {
-        return $this->idch;
+        return $this->idu;
     }
 
-    public function setIdch(?int $idch): self
+    public function setIdu(?User $idu): self
     {
-        $this->idch = $idch;
+        $this->idu = $idu;
 
         return $this;
     }

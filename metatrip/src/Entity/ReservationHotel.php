@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ReservationHotel
  *
- * @ORM\Table(name="reservation_hotel", indexes={@ORM\Index(name="fk_chh", columns={"idc"}), @ORM\Index(name="Idrh", columns={"Idrh"}), @ORM\Index(name="FK_u", columns={"Idu"})})
+ * @ORM\Table(name="reservation_hotel", indexes={@ORM\Index(name="kk_h", columns={"idh"}), @ORM\Index(name="Idrh", columns={"Idrh"}), @ORM\Index(name="FK_u", columns={"Idu"})})
  * @ORM\Entity
  */
 class ReservationHotel
@@ -43,20 +43,6 @@ class ReservationHotel
     private $prix;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="Idu", type="integer", nullable=false)
-     */
-    private $idu;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idc", type="integer", nullable=false)
-     */
-    private $idc;
-
-    /**
      * @var \DateTime|null
      *
      * @ORM\Column(name="Date_depart", type="date", nullable=true)
@@ -69,6 +55,26 @@ class ReservationHotel
      * @ORM\Column(name="Date_arrivee", type="date", nullable=true)
      */
     private $dateArrivee;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Idu", referencedColumnName="Idu")
+     * })
+     */
+    private $idu;
+
+    /**
+     * @var \Hotel
+     *
+     * @ORM\ManyToOne(targetEntity="Hotel")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idh", referencedColumnName="Idh")
+     * })
+     */
+    private $idh;
 
     public function getIdrh(): ?int
     {
@@ -111,30 +117,6 @@ class ReservationHotel
         return $this;
     }
 
-    public function getIdu(): ?int
-    {
-        return $this->idu;
-    }
-
-    public function setIdu(int $idu): self
-    {
-        $this->idu = $idu;
-
-        return $this;
-    }
-
-    public function getIdc(): ?int
-    {
-        return $this->idc;
-    }
-
-    public function setIdc(int $idc): self
-    {
-        $this->idc = $idc;
-
-        return $this;
-    }
-
     public function getDateDepart(): ?\DateTimeInterface
     {
         return $this->dateDepart;
@@ -155,6 +137,30 @@ class ReservationHotel
     public function setDateArrivee(?\DateTimeInterface $dateArrivee): self
     {
         $this->dateArrivee = $dateArrivee;
+
+        return $this;
+    }
+
+    public function getIdu(): ?User
+    {
+        return $this->idu;
+    }
+
+    public function setIdu(?User $idu): self
+    {
+        $this->idu = $idu;
+
+        return $this;
+    }
+
+    public function getIdh(): ?Hotel
+    {
+        return $this->idh;
+    }
+
+    public function setIdh(?Hotel $idh): self
+    {
+        $this->idh = $idh;
 
         return $this;
     }
