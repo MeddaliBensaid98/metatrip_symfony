@@ -2,22 +2,22 @@
 
 namespace App\Entity;
 
+use Serializable;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
-
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity
- *@UniqueEntity("email",message="Email est deja exist") 
+
   *@UniqueEntity("cin",message="cin est deja exist") 
     *@UniqueEntity("tel",message="cin est deja exist") 
  */
-class User implements UserInterface 
+class User implements UserInterface , \Serializable
 
 {
 
@@ -123,7 +123,7 @@ class User implements UserInterface
     {
         return $this->nom;
     }
-
+  
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
@@ -214,6 +214,15 @@ class User implements UserInterface
 
         return $this;
     }
+        /**
+     * The public representation of the user (e.g. a username, an email address, etc.)
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
     public function getRoles(){}
 
 
@@ -223,4 +232,26 @@ class User implements UserInterface
     public function eraseCredentials(){}
     public function getUsername(){}
 
+    public function serialize(){
+    return serialize([
+        $this->id,
+        $this->prenom,
+        $this->tel,
+        $this->dateNaissance,
+        $this->Nom,
+        $this->email,
+        $this->password
+     ] );
+    }
+ public function unserialize ($string){
+    list (
+        $this->id,
+        $this->prenom,
+        $this->tel,
+        $this->dateNaissance,
+        $this->Nom,
+        $this->email,
+        $this->password
+    ) = unserialize($string, ['allowed classes' => false]);
+}
 }
