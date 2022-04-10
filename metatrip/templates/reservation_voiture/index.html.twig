@@ -11,9 +11,6 @@
                 <th>Idrvoit</th>
                 <th>PrixRent</th>
                 <th>Trajet</th>
-                <th>Idu</th>
-                <th>Idvoit</th>
-                <th>Idch</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,9 +20,6 @@
                 <td>{{ reservation_voiture.idrvoit }}</td>
                 <td>{{ reservation_voiture.prixRent }}</td>
                 <td>{{ reservation_voiture.trajet }}</td>
-                <td>{{ reservation_voiture.idu }}</td>
-                <td>{{ reservation_voiture.idvoit }}</td>
-                <td>{{ reservation_voiture.idch }}</td>
                 <td>
                     <a href="{{ path('app_reservation_voiture_show', {'idrvoit': reservation_voiture.idrvoit}) }}">show</a>
                     <a href="{{ path('app_reservation_voiture_edit', {'idrvoit': reservation_voiture.idrvoit}) }}">edit</a>
@@ -33,7 +27,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

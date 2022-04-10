@@ -17,6 +17,7 @@ class EvenementType extends AbstractType
             ->add('adresse')
             ->add('dateEvent')
             ->add('prixE')
+            ->add('image')
         ;
     }
 

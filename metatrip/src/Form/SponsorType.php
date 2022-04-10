@@ -17,6 +17,7 @@ class SponsorType extends AbstractType
             ->add('email')
             ->add('dateSp')
             ->add('prixSp')
+            ->add('image')
             ->add('ide')
         ;
     }

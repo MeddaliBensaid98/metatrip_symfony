@@ -12,9 +12,9 @@
                 <th>Nomsponsor</th>
                 <th>Tel</th>
                 <th>Email</th>
+                <th>Image</th>
                 <th>DateSp</th>
                 <th>PrixSp</th>
-                <th>Ide</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -25,9 +25,9 @@
                 <td>{{ sponsor.nomsponsor }}</td>
                 <td>{{ sponsor.tel }}</td>
                 <td>{{ sponsor.email }}</td>
+                <td>{{ sponsor.image }}</td>
                 <td>{{ sponsor.dateSp ? sponsor.dateSp|date('Y-m-d') : '' }}</td>
                 <td>{{ sponsor.prixSp }}</td>
-                <td>{{ sponsor.ide }}</td>
                 <td>
                     <a href="{{ path('app_sponsor_show', {'ids': sponsor.ids}) }}">show</a>
                     <a href="{{ path('app_sponsor_edit', {'ids': sponsor.ids}) }}">edit</a>

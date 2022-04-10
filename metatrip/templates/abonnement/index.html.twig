@@ -14,7 +14,6 @@
                 <th>DateAchat</th>
                 <th>DateExpiration</th>
                 <th>Etat</th>
-                <th>RefPaiment</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -27,7 +26,6 @@
                 <td>{{ abonnement.dateAchat ? abonnement.dateAchat|date('Y-m-d') : '' }}</td>
                 <td>{{ abonnement.dateExpiration ? abonnement.dateExpiration|date('Y-m-d') : '' }}</td>
                 <td>{{ abonnement.etat }}</td>
-                <td>{{ abonnement.refPaiment }}</td>
                 <td>
                     <a href="{{ path('app_abonnement_show', {'ida': abonnement.ida}) }}">show</a>
                     <a href="{{ path('app_abonnement_edit', {'ida': abonnement.ida}) }}">edit</a>
@@ -35,7 +33,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

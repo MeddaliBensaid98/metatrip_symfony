@@ -2,28 +2,32 @@
 
 namespace App\Form;
 
-use App\Entity\ReservationVoiture;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ReservationVoitureType extends AbstractType
+class User1Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('prixRent')
-            ->add('trajet')
-            ->add('idch')
-            ->add('idvoit')
-            ->add('idu')
+            ->add('cin')
+            ->add('nom')
+            ->add('prenom')
+            ->add('tel')
+            ->add('email')
+            ->add('password')
+            ->add('image')
+            ->add('role')
+            ->add('datenaissance')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ReservationVoiture::class,
+            'data_class' => User::class,
         ]);
     }
 }

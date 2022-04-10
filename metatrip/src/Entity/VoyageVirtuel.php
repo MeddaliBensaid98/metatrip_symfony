@@ -24,14 +24,14 @@ class VoyageVirtuel
     /**
      * @var string
      *
-     * @ORM\Column(name="Video", type="string", length=50, nullable=false)
+     * @ORM\Column(name="Video", type="string", length=255, nullable=false)
      */
     private $video;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Image_v", type="string", length=50, nullable=false)
+     * @ORM\Column(name="Image_v", type="string", length=255, nullable=false)
      */
     private $imageV;
 
@@ -54,59 +54,6 @@ class VoyageVirtuel
      * })
      */
     private $idv;
-
-    public function getIdvv(): ?int
-    {
-        return $this->idvv;
-    }
-
-    public function getVideo(): ?string
-    {
-        return $this->video;
-    }
-
-    public function setVideo(string $video): self
-    {
-        $this->video = $video;
-
-        return $this;
-    }
-
-    public function getImageV(): ?string
-    {
-        return $this->imageV;
-    }
-
-    public function setImageV(string $imageV): self
-    {
-        $this->imageV = $imageV;
-
-        return $this;
-    }
-
-    public function getIda(): ?Abonnement
-    {
-        return $this->ida;
-    }
-
-    public function setIda(?Abonnement $ida): self
-    {
-        $this->ida = $ida;
-
-        return $this;
-    }
-
-    public function getIdv(): ?Voyage
-    {
-        return $this->idv;
-    }
-
-    public function setIdv(?Voyage $idv): self
-    {
-        $this->idv = $idv;
-
-        return $this;
-    }
 
 
 }

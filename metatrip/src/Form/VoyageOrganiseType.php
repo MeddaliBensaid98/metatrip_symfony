@@ -16,8 +16,8 @@ class VoyageOrganiseType extends AbstractType
             ->add('prixBillet')
             ->add('airline')
             ->add('nbNuitees')
-            ->add('etatvoyage')
             ->add('nbplaces')
+            ->add('etatvoyage')
             ->add('idv')
         ;
     }

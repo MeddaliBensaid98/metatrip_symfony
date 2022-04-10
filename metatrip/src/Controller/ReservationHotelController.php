@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ReservationHotel;
-use App\Form\ReservationHotelType;
+use App\Form\ReservationHotel1Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +35,7 @@ class ReservationHotelController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $reservationHotel = new ReservationHotel();
-        $form = $this->createForm(ReservationHotelType::class, $reservationHotel);
+        $form = $this->createForm(ReservationHotel1Type::class, $reservationHotel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,7 +66,7 @@ class ReservationHotelController extends AbstractController
      */
     public function edit(Request $request, ReservationHotel $reservationHotel, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ReservationHotelType::class, $reservationHotel);
+        $form = $this->createForm(ReservationHotel1Type::class, $reservationHotel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

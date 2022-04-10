@@ -30,11 +30,21 @@ class SecurityController extends AbstractController
     $form->handleRequest($request);
 if($form->isSubmitted() && $form->isValid()) {
    $hash= $encoder->encodePassword($user,$user->getPassword());
-   $user->setPassword($hash);
+   $em=$this->getDoctrine()->getRepository(User::class);
+   $email = $user->getEmail();
+   echo "<script > console.log('$email')</script>";
+   $VarName = $em->findOneBy(['email'=>$email]);
+   if( is_null($VarName)){
+    $user->setPassword($hash);
              
     $manager->persist($user);
     $manager->flush();
     return $this->redirectToRoute('security_login');
+   }else{
+    echo "<script > console.log('email est deja utilise')</script>";
+    echo "<script > alert('email est deja utilise')</script>";
+   }
+
 
  
 
@@ -62,31 +72,47 @@ if($form->isSubmitted() && $form->isValid()) {
             echo "<script > console.log('sssssssssss')</script>";
                 $em=$this->getDoctrine()->getRepository(User::class);
                 $email = $user->getEmail();
+                $Role=$user->getRole();
                 echo "<script > console.log('$email')</script>";
                 $VarName = $em->findOneBy(['email'=>$email]);
     
        
                 if( is_null($VarName)) {
-                               
+                    echo "<script >  console.log('fergha')</script>";
                         
-                                echo "<script> console.log('4558855')</script>";
+                  #  return $this->redirectToRoute('security_login');
                           
                     }  else{
                     $encoded = $encoder->encodePassword($user,$user->getPassword());
                     $pass=$VarName->getPassword();
-                    $bar = substr($encoded,0,7) ;
-                    $bar2 = substr($pass,0,7) ;
-                    echo "<script >  console.log('$bar')</script>";
-                    echo "<script >  console.log('$bar2')</script>";
-                    if($bar==$bar2){
-                                    
+                   $pass1= $user->getPassword();
+                 
+                    if (password_verify($encoded,$pass)) {
+                        echo "<script >  console.log('shiha')</script>";
+                         # echo "<script >localStorage.setItem('email', '$email');</script>";
+                         # echo "<script >localStorage.setItem('Role', '$Role');</script>";    
+                      #    return $this->redirectToRoute('indexAdmin');
+                    } else {
+                        echo "<script >  console.log('ghalta')</script>";
+                           #  return $this->redirectToRoute('security_login');
+                    }
+                #    echo "<script >  console.log('$encoded')</script>";
+                  #  echo "<script >  console.log('$pass')</script>";
+                 #   $bar = substr($encoded,0,7) ;
+                   # $bar2 = substr($pass,0,7) ;
+                  #  echo "<script >  console.log('$bar')</script>";
+                   # echo "<script >  console.log('$bar2')</script>";
+                   /* if($bar==$bar2){
+                        echo "<script >localStorage.setItem('email', '$email');</script>";
+                        echo "<script >localStorage.setItem('Role', '$Role');</script>";             
                         $ok=true;
                         echo "<script >  console.log('welcome')</script>";
-            
+                       # return $this->redirectToRoute('indexAdmin');
                     }else{
-                        echo "<script >  console.log('jemla');</script>";
+                       # return $this->redirectToRoute('security_login');
                     
                     } 
+                    */
                     }
                 }
             
