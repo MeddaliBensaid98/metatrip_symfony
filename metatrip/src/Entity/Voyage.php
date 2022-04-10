@@ -35,5 +35,40 @@ class Voyage
      */
     private $imagePays;
 
+    public function getIdv(): ?int
+    {
+        return $this->idv;
+    }
+
+    public function getPays(): ?string
+    {
+        return $this->pays;
+    }
+
+    public function setPays(string $pays): self
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    public function getImagePays(): ?string
+    {
+        return $this->imagePays;
+    }
+
+    public function setImagePays(string $imagePays): self
+    {
+        $this->imagePays = $imagePays;
+
+        return $this;
+    }
+
+    public function  __toString(){
+        // to show the name of the Category in the select
+        return $this->pays;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 
 }

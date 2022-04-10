@@ -28,5 +28,27 @@ class Paiement
      */
     private $datePaiement;
 
+    public function getRefPaiement(): ?int
+    {
+        return $this->refPaiement;
+    }
+
+    public function getDatePaiement(): ?\DateTimeInterface
+    {
+        return $this->datePaiement;
+    }
+
+    public function setDatePaiement(\DateTimeInterface $datePaiement): self
+    {
+        $this->datePaiement = $datePaiement;
+
+        return $this;
+    }
+    public function  __toString(){
+        // to show the name of the Category in the select
+        return $this->refPaiement;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 
 }

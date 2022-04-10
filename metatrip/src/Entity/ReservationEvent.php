@@ -48,5 +48,46 @@ class ReservationEvent
      */
     private $idu;
 
+    public function getIdrev(): ?int
+    {
+        return $this->idrev;
+    }
+
+    public function getNbPers(): ?int
+    {
+        return $this->nbPers;
+    }
+
+    public function setNbPers(int $nbPers): self
+    {
+        $this->nbPers = $nbPers;
+
+        return $this;
+    }
+
+    public function getIde(): ?Evenement
+    {
+        return $this->ide;
+    }
+
+    public function setIde(?Evenement $ide): self
+    {
+        $this->ide = $ide;
+
+        return $this;
+    }
+
+    public function getIdu(): ?User
+    {
+        return $this->idu;
+    }
+
+    public function setIdu(?User $idu): self
+    {
+        $this->idu = $idu;
+
+        return $this;
+    }
+
 
 }

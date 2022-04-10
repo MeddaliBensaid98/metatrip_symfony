@@ -63,5 +63,82 @@ class Evenement
      */
     private $image;
 
+    public function getIde(): ?int
+    {
+        return $this->ide;
+    }
+
+    public function getTypeEvent(): ?string
+    {
+        return $this->typeEvent;
+    }
+
+    public function setTypeEvent(string $typeEvent): self
+    {
+        $this->typeEvent = $typeEvent;
+
+        return $this;
+    }
+
+    public function getChanteur(): ?string
+    {
+        return $this->chanteur;
+    }
+
+    public function setChanteur(string $chanteur): self
+    {
+        $this->chanteur = $chanteur;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getDateEvent(): ?\DateTimeInterface
+    {
+        return $this->dateEvent;
+    }
+
+    public function setDateEvent(\DateTimeInterface $dateEvent): self
+    {
+        $this->dateEvent = $dateEvent;
+
+        return $this;
+    }
+
+    public function getPrixE(): ?float
+    {
+        return $this->prixE;
+    }
+
+    public function setPrixE(float $prixE): self
+    {
+        $this->prixE = $prixE;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
 
 }

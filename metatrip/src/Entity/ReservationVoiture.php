@@ -65,5 +65,70 @@ class ReservationVoiture
      */
     private $idu;
 
+    public function getIdrvoit(): ?int
+    {
+        return $this->idrvoit;
+    }
+
+    public function getPrixRent(): ?float
+    {
+        return $this->prixRent;
+    }
+
+    public function setPrixRent(float $prixRent): self
+    {
+        $this->prixRent = $prixRent;
+
+        return $this;
+    }
+
+    public function getTrajet(): ?string
+    {
+        return $this->trajet;
+    }
+
+    public function setTrajet(string $trajet): self
+    {
+        $this->trajet = $trajet;
+
+        return $this;
+    }
+
+    public function getIdch(): ?Chauffeur
+    {
+        return $this->idch;
+    }
+
+    public function setIdch(?Chauffeur $idch): self
+    {
+        $this->idch = $idch;
+
+        return $this;
+    }
+
+    public function getIdvoit(): ?Voiture
+    {
+        return $this->idvoit;
+    }
+
+    public function setIdvoit(?Voiture $idvoit): self
+    {
+        $this->idvoit = $idvoit;
+
+        return $this;
+    }
+
+    public function getIdu(): ?User
+    {
+        return $this->idu;
+    }
+
+    public function setIdu(?User $idu): self
+    {
+        $this->idu = $idu;
+
+        return $this;
+    }
+
 
 }
