@@ -28,5 +28,22 @@ class Paiement
      */
     private $datePaiement;
 
+    public function getRefPaiement(): ?int
+    {
+        return $this->refPaiement;
+    }
+
+    public function getDatePaiement(): ?\DateTimeInterface
+    {
+        return $this->datePaiement;
+    }
+
+    public function setDatePaiement(\DateTimeInterface $datePaiement): self
+    {
+        $this->datePaiement = $datePaiement;
+
+        return $this;
+    }
+
 
 }

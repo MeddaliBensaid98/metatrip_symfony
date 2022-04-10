@@ -66,5 +66,82 @@ class Chambre
      */
    public $idh;
 
+    public function getIdc(): ?int
+    {
+        return $this->idc;
+    }
+
+    public function getNumc(): ?int
+    {
+        return $this->numc;
+    }
+
+    public function setNumc(int $numc): self
+    {
+        $this->numc = $numc;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(string $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getPrixc(): ?float
+    {
+        return $this->prixc;
+    }
+
+    public function setPrixc(?float $prixc): self
+    {
+        $this->prixc = $prixc;
+
+        return $this;
+    }
+
+    public function getIdh(): ?Hotel
+    {
+        return $this->idh;
+    }
+
+    public function setIdh(?Hotel $idh): self
+    {
+        $this->idh = $idh;
+
+        return $this;
+    }
+
 
 }

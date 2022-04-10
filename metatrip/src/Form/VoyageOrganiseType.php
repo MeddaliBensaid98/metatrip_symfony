@@ -9,7 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class VoyageOrganiseType extends AbstractType
 {
-    ##ffff
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

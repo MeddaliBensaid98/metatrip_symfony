@@ -1582,6 +1582,7 @@
         },
         {
             "name": "monolog/monolog",
+<<<<<<< Updated upstream
             "version": "1.27.0",
             "source": {
                 "type": "git",
@@ -1592,6 +1593,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/Seldaek/monolog/zipball/52ebd235c1f7e0d5e1b16464b695a28335f8e44a",
                 "reference": "52ebd235c1f7e0d5e1b16464b695a28335f8e44a",
+=======
+            "version": "2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Seldaek/monolog.git",
+                "reference": "4192345e260f1d51b365536199744b987e160edc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/4192345e260f1d51b365536199744b987e160edc",
+                "reference": "4192345e260f1d51b365536199744b987e160edc",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -1652,7 +1665,11 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
+<<<<<<< Updated upstream
                 "source": "https://github.com/Seldaek/monolog/tree/1.27.0"
+=======
+                "source": "https://github.com/Seldaek/monolog/tree/2.5.0"
+>>>>>>> Stashed changes
             },
             "funding": [
                 {
@@ -1664,7 +1681,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< Updated upstream
             "time": "2022-03-13T20:29:46+00:00"
+=======
+            "time": "2022-04-08T15:43:54+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "phpdocumentor/reflection-common",

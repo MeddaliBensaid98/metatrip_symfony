@@ -66,5 +66,82 @@ class Abonnement
      */
     private $refPaiement;
 
+    public function getIda(): ?int
+    {
+        return $this->ida;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getPrixA(): ?int
+    {
+        return $this->prixA;
+    }
+
+    public function setPrixA(int $prixA): self
+    {
+        $this->prixA = $prixA;
+
+        return $this;
+    }
+
+    public function getDateAchat(): ?\DateTimeInterface
+    {
+        return $this->dateAchat;
+    }
+
+    public function setDateAchat(\DateTimeInterface $dateAchat): self
+    {
+        $this->dateAchat = $dateAchat;
+
+        return $this;
+    }
+
+    public function getDateExpiration(): ?\DateTimeInterface
+    {
+        return $this->dateExpiration;
+    }
+
+    public function setDateExpiration(\DateTimeInterface $dateExpiration): self
+    {
+        $this->dateExpiration = $dateExpiration;
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(string $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getRefPaiement(): ?Paiement
+    {
+        return $this->refPaiement;
+    }
+
+    public function setRefPaiement(?Paiement $refPaiement): self
+    {
+        $this->refPaiement = $refPaiement;
+
+        return $this;
+    }
+
 
 }
