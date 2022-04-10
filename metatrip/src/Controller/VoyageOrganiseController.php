@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\VoyageOrganise;
+use App\Repository\VoyageOrganiseRepository;
 use App\Form\VoyageOrganiseType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class VoyageOrganiseController extends AbstractController
 {
     /**
-     * @Route("/", name="app_voyage_organise_index", methods={"GET"})
+     * @Route("/list", name="app_voyage_organise_index", methods={"GET"})
      */
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -28,6 +29,27 @@ class VoyageOrganiseController extends AbstractController
             'voyage_organises' => $voyageOrganises,
         ]);
     }
+
+
+
+  /**
+     * @Route("/test", name="indexTest", methods={"GET"})
+     */
+
+    public function listStudentByDate(VoyageOrganiseRepository $repo):Response
+    {
+
+        $voyageOrganises = $repo->findListaVoyages();
+        
+      $l=sizeof($voyageOrganises);
+        echo "alert('$l');";
+      
+        return $this->render('voyage_organise/index.html.twig', [
+            'voyage_organises' => $voyageOrganises,
+        ]);
+    }
+
+
 
     /**
      * @Route("/new", name="app_voyage_organise_new", methods={"GET", "POST"})

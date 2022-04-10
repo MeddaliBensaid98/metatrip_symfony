@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+<{% extends 'base.html.twig' %}
 
 {% block title %}VoyageOrganise index{% endblock %}
 
@@ -14,6 +14,7 @@
                 <th>NbNuitees</th>
                 <th>Nbplaces</th>
                 <th>Etatvoyage</th>
+                <th>Voyage</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -26,6 +27,7 @@
                 <td>{{ voyage_organise.nbNuitees }}</td>
                 <td>{{ voyage_organise.nbplaces }}</td>
                 <td>{{ voyage_organise.etatvoyage }}</td>
+                           <td>{{ voyage_organise.idv }}</td>
                 <td>
                     <a href="{{ path('app_voyage_organise_show', {'idvo': voyage_organise.idvo}) }}">show</a>
                     <a href="{{ path('app_voyage_organise_edit', {'idvo': voyage_organise.idvo}) }}">edit</a>
@@ -41,3 +43,4 @@
 
     <a href="{{ path('app_voyage_organise_new') }}">Create new</a>
 {% endblock %}
+>

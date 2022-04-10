@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * VoyageOrganise
  *
  * @ORM\Table(name="voyage_organise", indexes={@ORM\Index(name="FK_vo", columns={"Idv"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="VoyageOrganiseRepository::class")
  */
 class VoyageOrganise
 {

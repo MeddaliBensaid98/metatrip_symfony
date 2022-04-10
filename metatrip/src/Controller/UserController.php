@@ -15,6 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
+
+
+
     /**
      * @Route("/", name="app_user_index", methods={"GET"})
      */
@@ -28,7 +31,15 @@ class UserController extends AbstractController
             'users' => $users,
         ]);
     }
+     /**
+    * @Route("/voy", name="indexVoy", methods={"GET"})
+    */
+    public function indexVoy(EntityManagerInterface $entityManager): Response
+    {
+       
 
+        return $this->render('user/listvoy.html.twig');
+    }
        /**
      * @Route("/admin", name="indexAdmin", methods={"GET"})
      */
@@ -102,4 +113,9 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+
+
 }
