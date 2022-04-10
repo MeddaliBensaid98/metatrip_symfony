@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Hotel;
-use App\Form\HotelType;
+use App\Form\Hotel1Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,14 +28,19 @@ class HotelController extends AbstractController
             'hotels' => $hotels,
         ]);
     }
+    public function indexAdmin(EntityManagerInterface $entityManager): Response
+    {
+       
 
+        return $this->render('Admin/index.html.twig');
+    }
     /**
      * @Route("/new", name="app_hotel_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $hotel = new Hotel();
-        $form = $this->createForm(HotelType::class, $hotel);
+        $form = $this->createForm(Hotel1Type::class, $hotel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,7 +71,7 @@ class HotelController extends AbstractController
      */
     public function edit(Request $request, Hotel $hotel, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(HotelType::class, $hotel);
+        $form = $this->createForm(Hotel1Type::class, $hotel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

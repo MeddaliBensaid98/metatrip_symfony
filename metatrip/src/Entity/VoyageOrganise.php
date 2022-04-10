@@ -43,13 +43,6 @@ class VoyageOrganise
     private $nbNuitees;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="nbplaces", type="integer", nullable=false)
-     */
-    private $nbplaces;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="etatVoyage", type="string", length=0, nullable=false)
@@ -65,83 +58,6 @@ class VoyageOrganise
      * })
      */
     private $idv;
-
-    public function getIdvo(): ?int
-    {
-        return $this->idvo;
-    }
-
-    public function getPrixBillet(): ?float
-    {
-        return $this->prixBillet;
-    }
-
-    public function setPrixBillet(float $prixBillet): self
-    {
-        $this->prixBillet = $prixBillet;
-
-        return $this;
-    }
-
-    public function getAirline(): ?string
-    {
-        return $this->airline;
-    }
-
-    public function setAirline(string $airline): self
-    {
-        $this->airline = $airline;
-
-        return $this;
-    }
-
-    public function getNbNuitees(): ?int
-    {
-        return $this->nbNuitees;
-    }
-
-    public function setNbNuitees(int $nbNuitees): self
-    {
-        $this->nbNuitees = $nbNuitees;
-
-        return $this;
-    }
-
-    public function getNbplaces(): ?int
-    {
-        return $this->nbplaces;
-    }
-
-    public function setNbplaces(int $nbplaces): self
-    {
-        $this->nbplaces = $nbplaces;
-
-        return $this;
-    }
-
-    public function getEtatvoyage(): ?string
-    {
-        return $this->etatvoyage;
-    }
-
-    public function setEtatvoyage(string $etatvoyage): self
-    {
-        $this->etatvoyage = $etatvoyage;
-
-        return $this;
-    }
-
-    public function getIdv(): ?Voyage
-    {
-        return $this->idv;
-    }
-
-    public function setIdv(?Voyage $idv): self
-    {
-        $this->idv = $idv;
-
-        return $this;
-    }
 
 
 }

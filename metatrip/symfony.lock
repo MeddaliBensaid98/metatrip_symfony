@@ -20,11 +20,8 @@
     "doctrine/common": {
         "version": "3.2.2"
     },
-    "doctrine/data-fixtures": {
-        "version": "1.5.2"
-    },
     "doctrine/dbal": {
-        "version": "3.3.4"
+        "version": "3.3.5"
     },
     "doctrine/deprecations": {
         "version": "v0.5.3"
@@ -43,18 +40,6 @@
             "./config/packages/test/doctrine.yaml",
             "./src/Entity/.gitignore",
             "./src/Repository/.gitignore"
-        ]
-    },
-    "doctrine/doctrine-fixtures-bundle": {
-        "version": "3.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.0",
-            "ref": "1f5514cfa15b947298df4d771e694e578d4c204d"
-        },
-        "files": [
-            "./src/DataFixtures/AppFixtures.php"
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
@@ -241,7 +226,7 @@
         "version": "v4.4.40"
     },
     "symfony/cache-contracts": {
-        "version": "v2.5.0"
+        "version": "v2.5.1"
     },
     "symfony/config": {
         "version": "v4.4.37"
@@ -281,7 +266,7 @@
         "version": "v4.4.40"
     },
     "symfony/deprecation-contracts": {
-        "version": "v2.5.0"
+        "version": "v3.0.1"
     },
     "symfony/doctrine-bridge": {
         "version": "v4.4.39"
@@ -299,7 +284,7 @@
         "version": "v4.4.37"
     },
     "symfony/event-dispatcher-contracts": {
-        "version": "v1.1.11"
+        "version": "v1.1.12"
     },
     "symfony/expression-language": {
         "version": "v4.4.40"
@@ -350,7 +335,7 @@
         "version": "v4.4.40"
     },
     "symfony/http-client-contracts": {
-        "version": "v2.5.0"
+        "version": "v2.5.1"
     },
     "symfony/http-foundation": {
         "version": "v4.4.39"
@@ -423,9 +408,6 @@
             "./phpunit.xml.dist",
             "./tests/bootstrap.php"
         ]
-    },
-    "symfony/polyfill-intl-grapheme": {
-        "version": "v1.25.0"
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.25.0"
@@ -505,13 +487,10 @@
         "version": "v4.4.40"
     },
     "symfony/service-contracts": {
-        "version": "v2.5.0"
+        "version": "v2.5.1"
     },
     "symfony/stopwatch": {
         "version": "v4.4.38"
-    },
-    "symfony/string": {
-        "version": "v6.0.3"
     },
     "symfony/translation": {
         "version": "4.4",
@@ -527,7 +506,7 @@
         ]
     },
     "symfony/translation-contracts": {
-        "version": "v2.5.0"
+        "version": "v2.5.1"
     },
     "symfony/twig-bridge": {
         "version": "v4.4.40"
@@ -594,18 +573,6 @@
     "symfony/yaml": {
         "version": "v4.4.37"
     },
-    "symfonycasts/reset-password-bundle": {
-        "version": "1.13",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "97c1627c0384534997ae1047b93be517ca16de43"
-        },
-        "files": [
-            "./config/packages/reset_password.yaml"
-        ]
-    },
     "theseer/tokenizer": {
         "version": "1.2.1"
     },
@@ -613,7 +580,7 @@
         "version": "v3.3.8"
     },
     "twig/twig": {
-        "version": "v3.3.9"
+        "version": "v3.3.10"
     },
     "webmozart/assert": {
         "version": "1.10.0"

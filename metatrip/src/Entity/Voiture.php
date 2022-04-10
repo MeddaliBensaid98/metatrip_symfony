@@ -49,58 +49,5 @@ class Voiture
      */
     private $modele;
 
-    public function getIdvoit(): ?int
-    {
-        return $this->idvoit;
-    }
-
-    public function getMatricule(): ?string
-    {
-        return $this->matricule;
-    }
-
-    public function setMatricule(string $matricule): self
-    {
-        $this->matricule = $matricule;
-
-        return $this;
-    }
-
-    public function getPuissanceFiscalle(): ?int
-    {
-        return $this->puissanceFiscalle;
-    }
-
-    public function setPuissanceFiscalle(int $puissanceFiscalle): self
-    {
-        $this->puissanceFiscalle = $puissanceFiscalle;
-
-        return $this;
-    }
-
-    public function getImageV(): ?string
-    {
-        return $this->imageV;
-    }
-
-    public function setImageV(string $imageV): self
-    {
-        $this->imageV = $imageV;
-
-        return $this;
-    }
-
-    public function getModele(): ?string
-    {
-        return $this->modele;
-    }
-
-    public function setModele(string $modele): self
-    {
-        $this->modele = $modele;
-
-        return $this;
-    }
-
 
 }
