@@ -5,21 +5,24 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/user")
  */
 class UserController extends AbstractController
 {
+  
     /**
      * @Route("/", name="app_user_index", methods={"GET"})
      */
     public function index(EntityManagerInterface $entityManager): Response
     {
+        
         $users = $entityManager
             ->getRepository(User::class)
             ->findAll();
@@ -32,11 +35,14 @@ class UserController extends AbstractController
        /**
      * @Route("/admin", name="indexAdmin", methods={"GET"})
      */
-    public function indexAdmin(EntityManagerInterface $entityManager): Response
-    {
-        
+    public function indexAdmin(EntityManagerInterface $entityManager,Session $session): Response
+    {$user=$session->get('email');
+       
+  
 
-        return $this->render('Admin/index.html.twig');
+        return $this->render('Admin/index.html.twig',[
+            'users' => $user
+        ]);
     }
     /**
      * @Route("/new", name="app_user_new", methods={"GET", "POST"})
