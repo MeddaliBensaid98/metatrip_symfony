@@ -17,7 +17,7 @@ class AbonnementType extends AbstractType
             ->add('dateAchat')
             ->add('dateExpiration')
             ->add('etat')
-            ->add('refPaiment')
+            ->add('refPaiement')
         ;
     }
 

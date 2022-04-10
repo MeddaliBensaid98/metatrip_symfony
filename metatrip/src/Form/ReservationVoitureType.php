@@ -14,9 +14,9 @@ class ReservationVoitureType extends AbstractType
         $builder
             ->add('prixRent')
             ->add('trajet')
-            ->add('idu')
-            ->add('idvoit')
             ->add('idch')
+            ->add('idvoit')
+            ->add('idu')
         ;
     }
 

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ReservationVoyage;
-use App\Form\ReservationVoyageType;
+use App\Form\ReservationVoyage1Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +35,7 @@ class ReservationVoyageController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $reservationVoyage = new ReservationVoyage();
-        $form = $this->createForm(ReservationVoyageType::class, $reservationVoyage);
+        $form = $this->createForm(ReservationVoyage1Type::class, $reservationVoyage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,7 +66,7 @@ class ReservationVoyageController extends AbstractController
      */
     public function edit(Request $request, ReservationVoyage $reservationVoyage, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ReservationVoyageType::class, $reservationVoyage);
+        $form = $this->createForm(ReservationVoyage1Type::class, $reservationVoyage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ReservationEvent;
-use App\Form\ReservationEventType;
+use App\Form\ReservationEvent1Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +35,7 @@ class ReservationEventController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $reservationEvent = new ReservationEvent();
-        $form = $this->createForm(ReservationEventType::class, $reservationEvent);
+        $form = $this->createForm(ReservationEvent1Type::class, $reservationEvent);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,7 +66,7 @@ class ReservationEventController extends AbstractController
      */
     public function edit(Request $request, ReservationEvent $reservationEvent, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ReservationEventType::class, $reservationEvent);
+        $form = $this->createForm(ReservationEvent1Type::class, $reservationEvent);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

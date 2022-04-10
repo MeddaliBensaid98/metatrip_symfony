@@ -2,29 +2,29 @@
 
 namespace App\Form;
 
-use App\Entity\VoyageOrganise;
+use App\Entity\Chauffeur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class VoyageOrganiseType extends AbstractType
+class Chauffeur1Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('prixBillet')
-            ->add('airline')
-            ->add('nbNuitees')
-            ->add('nbplaces')
-            ->add('etatvoyage')
-            ->add('idv')
+            ->add('nom')
+            ->add('prenom')
+            ->add('photo')
+            ->add('tel')
+            ->add('description')
+            ->add('etatdispo')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => VoyageOrganise::class,
+            'data_class' => Chauffeur::class,
         ]);
     }
 }

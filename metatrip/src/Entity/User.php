@@ -13,7 +13,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity
-
   *@UniqueEntity("cin",message="cin est deja exist") 
     *@UniqueEntity("tel",message="cin est deja exist") 
  */

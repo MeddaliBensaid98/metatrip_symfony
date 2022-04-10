@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Voiture;
-use App\Form\VoitureType;
+use App\Form\Voiture1Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +35,7 @@ class VoitureController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $voiture = new Voiture();
-        $form = $this->createForm(VoitureType::class, $voiture);
+        $form = $this->createForm(Voiture1Type::class, $voiture);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,7 +66,7 @@ class VoitureController extends AbstractController
      */
     public function edit(Request $request, Voiture $voiture, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(VoitureType::class, $voiture);
+        $form = $this->createForm(Voiture1Type::class, $voiture);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -78,20 +78,23 @@ if($form->isSubmitted() && $form->isValid()) {
     
        
                 if( is_null($VarName)) {
-                               
+                    echo "<script >  console.log('fergha')</script>";
                         
                   #  return $this->redirectToRoute('security_login');
                           
                     }  else{
-                   # $encoded = $encoder->encodePassword($user,$user->getPassword());
+                    $encoded = $encoder->encodePassword($user,$user->getPassword());
                     $pass=$VarName->getPassword();
-                    if (password_verify($user->getPassword(), $pass)) {
+                   $pass1= $user->getPassword();
+                 
+                    if (password_verify($encoded,$pass)) {
                         echo "<script >  console.log('shiha')</script>";
-                        echo "<script >localStorage.setItem('email', '$email');</script>";
-                        echo "<script >localStorage.setItem('Role', '$Role');</script>";    
-                        return $this->redirectToRoute('indexAdmin');
+                         # echo "<script >localStorage.setItem('email', '$email');</script>";
+                         # echo "<script >localStorage.setItem('Role', '$Role');</script>";    
+                      #    return $this->redirectToRoute('indexAdmin');
                     } else {
-                           return $this->redirectToRoute('security_login');
+                        echo "<script >  console.log('ghalta')</script>";
+                           #  return $this->redirectToRoute('security_login');
                     }
                 #    echo "<script >  console.log('$encoded')</script>";
                   #  echo "<script >  console.log('$pass')</script>";
@@ -107,7 +110,6 @@ if($form->isSubmitted() && $form->isValid()) {
                        # return $this->redirectToRoute('indexAdmin');
                     }else{
                        # return $this->redirectToRoute('security_login');
-
                     
                     } 
                     */

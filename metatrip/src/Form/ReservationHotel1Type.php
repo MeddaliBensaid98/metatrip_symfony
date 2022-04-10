@@ -2,29 +2,30 @@
 
 namespace App\Form;
 
-use App\Entity\VoyageOrganise;
+use App\Entity\ReservationHotel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class VoyageOrganiseType extends AbstractType
+class ReservationHotel1Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('prixBillet')
-            ->add('airline')
             ->add('nbNuitees')
-            ->add('nbplaces')
-            ->add('etatvoyage')
-            ->add('idv')
+            ->add('nbPersonnes')
+            ->add('prix')
+            ->add('dateDepart')
+            ->add('dateArrivee')
+            ->add('idu')
+            ->add('idh')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => VoyageOrganise::class,
+            'data_class' => ReservationHotel::class,
         ]);
     }
 }
