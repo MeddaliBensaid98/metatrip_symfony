@@ -55,5 +55,63 @@ class VoyageVirtuel
      */
     private $idv;
 
+    public function getIdvv(): ?int
+    {
+        return $this->idvv;
+    }
+
+    public function getVideo(): ?string
+    {
+        return $this->video;
+    }
+
+    public function setVideo(string $video): self
+    {
+        $this->video = $video;
+
+        return $this;
+    }
+
+    public function getImageV(): ?string
+    {
+        return $this->imageV;
+    }
+
+    public function setImageV(string $imageV): self
+    {
+        $this->imageV = $imageV;
+
+        return $this;
+    }
+
+    public function getIda(): ?Abonnement
+    {
+        return $this->ida;
+    }
+
+    public function setIda(?Abonnement $ida): self
+    {
+        $this->ida = $ida;
+
+        return $this;
+    }
+
+    public function getIdv(): ?Voyage
+    {
+        return $this->idv;
+    }
+
+    public function setIdv(?Voyage $idv): self
+    {
+        $this->idv = $idv;
+
+        return $this;
+    }
+    public function  __toString(){
+        // to show the name of the Category in the select
+        return $this->video;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 
 }

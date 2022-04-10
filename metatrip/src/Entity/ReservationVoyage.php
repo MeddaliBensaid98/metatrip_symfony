@@ -66,5 +66,82 @@ class ReservationVoyage
      */
     private $idv;
 
+    public function getIdrv(): ?int
+    {
+        return $this->idrv;
+    }
+
+    public function getDateDepart(): ?\DateTimeInterface
+    {
+        return $this->dateDepart;
+    }
+
+    public function setDateDepart(\DateTimeInterface $dateDepart): self
+    {
+        $this->dateDepart = $dateDepart;
+
+        return $this;
+    }
+
+    public function getDateArrivee(): ?\DateTimeInterface
+    {
+        return $this->dateArrivee;
+    }
+
+    public function setDateArrivee(\DateTimeInterface $dateArrivee): self
+    {
+        $this->dateArrivee = $dateArrivee;
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(string $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getIdu(): ?int
+    {
+        return $this->idu;
+    }
+
+    public function setIdu(int $idu): self
+    {
+        $this->idu = $idu;
+
+        return $this;
+    }
+
+    public function getRefPaiement(): ?int
+    {
+        return $this->refPaiement;
+    }
+
+    public function setRefPaiement(int $refPaiement): self
+    {
+        $this->refPaiement = $refPaiement;
+
+        return $this;
+    }
+
+    public function getIdv(): ?Voyage
+    {
+        return $this->idv;
+    }
+
+    public function setIdv(?Voyage $idv): self
+    {
+        $this->idv = $idv;
+
+        return $this;
+    }
+
 
 }

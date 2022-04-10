@@ -49,5 +49,58 @@ class Hotel
      */
     private $image;
 
+    public function getIdh(): ?int
+    {
+        return $this->idh;
+    }
+
+    public function getNomHotel(): ?string
+    {
+        return $this->nomHotel;
+    }
+
+    public function setNomHotel(string $nomHotel): self
+    {
+        $this->nomHotel = $nomHotel;
+
+        return $this;
+    }
+
+    public function getNbEtoiles(): ?int
+    {
+        return $this->nbEtoiles;
+    }
+
+    public function setNbEtoiles(int $nbEtoiles): self
+    {
+        $this->nbEtoiles = $nbEtoiles;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
 
 }
