@@ -12,11 +12,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Guard\AuthenticatorInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+use App\Security\LoginFormAuthenticator;
 
 class SecurityController extends AbstractController
 {
@@ -61,7 +64,8 @@ $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
     /**
      * @Route("/login", name="security_login")
      */
-    public function login(Request $request, EntityManagerInterface $manager,UserPasswordEncoderInterface  $encoder)
+    public function login(Request $request, EntityManagerInterface $manager,UserPasswordEncoderInterface  $encoder,Session  $session, GuardAuthenticatorHandler $handler,
+   )
     {         echo "<script> console.log('TEST')</script>";
         $ok=false;
         $user = new User();
@@ -88,6 +92,7 @@ $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
                        # $encoded = $encoder->encodePassword($user,$user->getPassword());
                         $pass=$VarName->getPassword();
                    $pass1= $user->getPassword();
+<<<<<<< HEAD
                    echo "<script >  console.log('$pass')</script>";
                    echo "<script >  console.log( '$hash')</script>";
                     if (password_verify($user->getPassword(),$VarName->getPassword())) {
@@ -95,6 +100,24 @@ $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
                          # echo "<script >localStorage.setItem('email', '$email');</script>";
                          # echo "<script >localStorage.setItem('Role', '$Role');</script>";    
                           return $this->redirectToRoute('indexAdmin');
+=======
+                   
+                  
+                   echo "<script >  console.log( '$hash')</script>";
+                    if (password_verify($user->getPassword(),$VarName->getPassword())) {
+                        echo "<script >  console.log('shiha')</script>";
+               
+
+                        // stores an attribute in the session for later reuse
+                        $session->set('email', $email);
+                  
+                        /*echo "<script >localStorage.setItem('email', '$email');</script>";
+                        echo "<script >localStorage.setItem('Role', '$Role');</script>";    
+                      
+                          echo "<script >localStorage.setItem('email', '$email');</script>";
+                          echo "<script >localStorage.setItem('Role', '$Role');</script>";    */
+                        return $this->redirectToRoute('indexAdmin',['session'=>$session]);
+>>>>>>> origin/main
                     } else {
                         echo "<script >  console.log('ghalta')</script>";
                             return $this->redirectToRoute('security_login');
@@ -122,5 +145,13 @@ $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
 return $this->render('security/login.html.twig', [
     'form' => $form->createView()
 ]);
+    }
+      /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout()
+    {
+ 
+        return $this->redirectToRoute('security_login');
     }
 }
