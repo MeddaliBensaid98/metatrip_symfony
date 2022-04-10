@@ -9,11 +9,8 @@
         <thead>
             <tr>
                 <th>Idvv</th>
-                <th>ImageV</th>
-                <th>Idv</th>
-                <th>Ida</th>
                 <th>Video</th>
-                <th>Nom</th>
+                <th>ImageV</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,11 +18,8 @@
         {% for voyage_virtuel in voyage_virtuels %}
             <tr>
                 <td>{{ voyage_virtuel.idvv }}</td>
-                <td>{{ voyage_virtuel.imageV }}</td>
-                <td>{{ voyage_virtuel.idv }}</td>
-                <td>{{ voyage_virtuel.ida }}</td>
                 <td>{{ voyage_virtuel.video }}</td>
-                <td>{{ voyage_virtuel.nom }}</td>
+                <td>{{ voyage_virtuel.imageV }}</td>
                 <td>
                     <a href="{{ path('app_voyage_virtuel_show', {'idvv': voyage_virtuel.idvv}) }}">show</a>
                     <a href="{{ path('app_voyage_virtuel_edit', {'idvv': voyage_virtuel.idvv}) }}">edit</a>
@@ -33,7 +27,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

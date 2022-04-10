@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Sponsor;
-use App\Form\SponsorType;
+use App\Form\Sponsor1Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +35,7 @@ class SponsorController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $sponsor = new Sponsor();
-        $form = $this->createForm(SponsorType::class, $sponsor);
+        $form = $this->createForm(Sponsor1Type::class, $sponsor);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,7 +66,7 @@ class SponsorController extends AbstractController
      */
     public function edit(Request $request, Sponsor $sponsor, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(SponsorType::class, $sponsor);
+        $form = $this->createForm(Sponsor1Type::class, $sponsor);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

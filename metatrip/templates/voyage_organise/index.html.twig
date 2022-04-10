@@ -12,9 +12,8 @@
                 <th>PrixBillet</th>
                 <th>Airline</th>
                 <th>NbNuitees</th>
-                <th>Etatvoyage</th>
                 <th>Nbplaces</th>
-                <th>Idv</th>
+                <th>Etatvoyage</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -25,9 +24,8 @@
                 <td>{{ voyage_organise.prixBillet }}</td>
                 <td>{{ voyage_organise.airline }}</td>
                 <td>{{ voyage_organise.nbNuitees }}</td>
-                <td>{{ voyage_organise.etatvoyage }}</td>
                 <td>{{ voyage_organise.nbplaces }}</td>
-                <td>{{ voyage_organise.idv }}</td>
+                <td>{{ voyage_organise.etatvoyage }}</td>
                 <td>
                     <a href="{{ path('app_voyage_organise_show', {'idvo': voyage_organise.idvo}) }}">show</a>
                     <a href="{{ path('app_voyage_organise_edit', {'idvo': voyage_organise.idvo}) }}">edit</a>
@@ -35,7 +33,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

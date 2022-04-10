@@ -13,7 +13,6 @@
                 <th>PuissanceFiscalle</th>
                 <th>ImageV</th>
                 <th>Modele</th>
-                <th>Type</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -25,7 +24,6 @@
                 <td>{{ voiture.puissanceFiscalle }}</td>
                 <td>{{ voiture.imageV }}</td>
                 <td>{{ voiture.modele }}</td>
-                <td>{{ voiture.type }}</td>
                 <td>
                     <a href="{{ path('app_voiture_show', {'idvoit': voiture.idvoit}) }}">show</a>
                     <a href="{{ path('app_voiture_edit', {'idvoit': voiture.idvoit}) }}">edit</a>
@@ -33,7 +31,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

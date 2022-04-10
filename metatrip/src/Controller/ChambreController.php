@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Chambre;
-use App\Form\ChambreType;
+use App\Form\Chambre1Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +35,7 @@ class ChambreController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $chambre = new Chambre();
-        $form = $this->createForm(ChambreType::class, $chambre);
+        $form = $this->createForm(Chambre1Type::class, $chambre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,7 +66,7 @@ class ChambreController extends AbstractController
      */
     public function edit(Request $request, Chambre $chambre, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ChambreType::class, $chambre);
+        $form = $this->createForm(Chambre1Type::class, $chambre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

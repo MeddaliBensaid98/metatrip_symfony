@@ -22,7 +22,7 @@ class UserFixtures extends Fixture
         $user = new User();
          $user->setEmail('xx@gmail.com');
         $user->setPassword(
-            $this->encoder->encodePassword($user,5555)
+            $this->encoder->encodePassword($user,0000)
         );
         $user->setCin(12345688);
         $user->setImage("tt");

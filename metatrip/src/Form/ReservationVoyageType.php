@@ -16,8 +16,8 @@ class ReservationVoyageType extends AbstractType
             ->add('dateArrivee')
             ->add('etat')
             ->add('idu')
-            ->add('idv')
             ->add('refPaiement')
+            ->add('idv')
         ;
     }
 

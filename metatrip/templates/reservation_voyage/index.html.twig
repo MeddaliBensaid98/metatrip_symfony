@@ -13,7 +13,6 @@
                 <th>DateArrivee</th>
                 <th>Etat</th>
                 <th>Idu</th>
-                <th>Idv</th>
                 <th>RefPaiement</th>
                 <th>actions</th>
             </tr>
@@ -26,7 +25,6 @@
                 <td>{{ reservation_voyage.dateArrivee ? reservation_voyage.dateArrivee|date('Y-m-d') : '' }}</td>
                 <td>{{ reservation_voyage.etat }}</td>
                 <td>{{ reservation_voyage.idu }}</td>
-                <td>{{ reservation_voyage.idv }}</td>
                 <td>{{ reservation_voyage.refPaiement }}</td>
                 <td>
                     <a href="{{ path('app_reservation_voyage_show', {'idrv': reservation_voyage.idrv}) }}">show</a>
@@ -35,7 +33,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -12,11 +12,10 @@ class VoyageVirtuelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('imageV')
-            ->add('idv')
-            ->add('ida')
             ->add('video')
-            ->add('nom')
+            ->add('imageV')
+            ->add('ida')
+            ->add('idv')
         ;
     }
 
