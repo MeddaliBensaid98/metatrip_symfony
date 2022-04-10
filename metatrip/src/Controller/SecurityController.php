@@ -29,7 +29,8 @@ class SecurityController extends AbstractController
     $form = $this->createForm(InscriptionType::class,$user);
     $form->handleRequest($request);
 if($form->isSubmitted() && $form->isValid()) {
-   $hash= $encoder->encodePassword($user,$user->getPassword());
+
+$hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
    $em=$this->getDoctrine()->getRepository(User::class);
    $email = $user->getEmail();
    echo "<script > console.log('$email')</script>";
@@ -80,22 +81,23 @@ if($form->isSubmitted() && $form->isValid()) {
                 if( is_null($VarName)) {
                     echo "<script >  console.log('fergha')</script>";
                         
-                  #  return $this->redirectToRoute('security_login');
+                  return $this->redirectToRoute('security_login');
                           
                     }  else{
-                        $encoded = $encoder->encodePassword($user,$user->getPassword());
+                        $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
+                       # $encoded = $encoder->encodePassword($user,$user->getPassword());
                         $pass=$VarName->getPassword();
                    $pass1= $user->getPassword();
-                   echo "<script >  console.log('$encoded')</script>";
-                   echo "<script >  console.log( '$pass')</script>";
-                    if (password_verify($encoded,$pass)) {
+                   echo "<script >  console.log('$pass')</script>";
+                   echo "<script >  console.log( '$hash')</script>";
+                    if (password_verify($user->getPassword(),$VarName->getPassword())) {
                         echo "<script >  console.log('shiha')</script>";
                          # echo "<script >localStorage.setItem('email', '$email');</script>";
                          # echo "<script >localStorage.setItem('Role', '$Role');</script>";    
-                      #    return $this->redirectToRoute('indexAdmin');
+                          return $this->redirectToRoute('indexAdmin');
                     } else {
                         echo "<script >  console.log('ghalta')</script>";
-                           #  return $this->redirectToRoute('security_login');
+                            return $this->redirectToRoute('security_login');
                     }
                 #    echo "<script >  console.log('$encoded')</script>";
                   #  echo "<script >  console.log('$pass')</script>";
