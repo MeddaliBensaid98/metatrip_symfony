@@ -83,10 +83,11 @@ if($form->isSubmitted() && $form->isValid()) {
                   #  return $this->redirectToRoute('security_login');
                           
                     }  else{
-                    $encoded = $encoder->encodePassword($user,$user->getPassword());
-                    $pass=$VarName->getPassword();
+                        $encoded = $encoder->encodePassword($user,$user->getPassword());
+                        $pass=$VarName->getPassword();
                    $pass1= $user->getPassword();
-                 
+                   echo "<script >  console.log('$encoded')</script>";
+                   echo "<script >  console.log( '$pass')</script>";
                     if (password_verify($encoded,$pass)) {
                         echo "<script >  console.log('shiha')</script>";
                          # echo "<script >localStorage.setItem('email', '$email');</script>";
