@@ -92,6 +92,8 @@ $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
                    echo "<script >  console.log( '$hash')</script>";
                     if (password_verify($user->getPassword(),$VarName->getPassword())) {
                         echo "<script >  console.log('shiha')</script>";
+                        $session = $this->requestStack->getSession();
+                        $session->set('email', $email);
                          # echo "<script >localStorage.setItem('email', '$email');</script>";
                          # echo "<script >localStorage.setItem('Role', '$Role');</script>";    
                           return $this->redirectToRoute('indexAdmin');

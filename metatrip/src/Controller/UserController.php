@@ -34,7 +34,7 @@ class UserController extends AbstractController
      */
     public function indexAdmin(EntityManagerInterface $entityManager): Response
     {
-       
+        
 
         return $this->render('Admin/index.html.twig');
     }
