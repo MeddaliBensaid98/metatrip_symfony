@@ -19,7 +19,10 @@
             <tr>
                 <td>{{ voyage.idv }}</td>
                 <td>{{ voyage.pays }}</td>
-                <td>{{ voyage.imagePays }}</td>
+                
+                <td>
+                      <img src="{{asset('assets/img/'~voyage.imagePays)}}"
+                </td>
                 <td>
                     <a href="{{ path('app_voyage_show', {'idv': voyage.idv}) }}">show</a>
                     <a href="{{ path('app_voyage_edit', {'idv': voyage.idv}) }}">edit</a>

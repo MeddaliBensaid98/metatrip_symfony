@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Voyage;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class VoyageType extends AbstractType
@@ -13,7 +14,7 @@ class VoyageType extends AbstractType
     {
         $builder
             ->add('pays')
-            ->add('imagePays')
+            ->add('imageFile',VichImageType::class)
         ;
     }
 
