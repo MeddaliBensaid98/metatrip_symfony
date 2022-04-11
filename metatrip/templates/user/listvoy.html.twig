@@ -1,156 +1,77 @@
 
   {% extends 'base.html.twig' %}
 
-  {% block stylesheet %}
-<link rel="stylesheet" href="//cdn.materialdesignicons.com/3.7.95/css/materialdesignicons.min.css">
-
-
-
-          <link href="{{asset('assets/css/listvoy.css')}}" rel="stylesheet">
-
-
 
  
-{% endblock %}
 
   
   {% block body %}
+
+        <br>
+      
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <p class="text-muted text-center mb-4 f-17">Praesent venenatis metus at tortor pulvinar varius ipsum dolor amet consectetuer adipiscing Aenean commodo ligula.</p>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-lg-3 col-md-6">
-            <div class="team-box text-center bg-white mt-4">
-                <div class="team-img">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-fluid d-block rounded">
-                    <div class="team-name">
-                        <h5 class="text-white f-18 font-weight-light mb-0">Darryl Abell</h5>
-                    </div>
-                </div>
-                <div class="team-content text-center p-3">
-                    <div class="">
-                        <p class="f-17 mb-0"><a href="#" class="text-dark">Graphic Designer</a></p>
-                        <p class="text-muted f-14 mb-0">Phasellus ullamcorper ipsum nunc nunc nonummy metus.</p>
-                        <div class="team-social-icon p-2">
-                            <ul class="blog-details-icons list-inline mb-0">
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-facebook"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-twitter"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-whatsapp"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-instagram"></i></a></li>
-                            </ul>
+    <div class="row clearfix">
+
+      {% for vv in voyageOrganises %}
+        <div class="col-lg-3 col-md-4 col-sm-12">
+
+            <div class="card product_item">
+
+                <div class="body">
+                    <div class="cp_img" >
+                        <img src="{{asset('assets/img/'~vv.imagePays)}}"  alt="Product" class="img-fluid">
+                        <div class="hover">
+                      
+            {% if vv.etatvoyage=='DISPO' %}
+             
+          <button type="button" class="btn btn-primary btn-xs btn3d"> Réserver</button> 
+            {% else %}
+              
+                <button type="button" disabled class="btn btn-primary btn-xs btn3d"> Réserver</button> {% endif %}
+                
                         </div>
+                    </div>
+                    <div class="product_details">
+                  
+                      
+                       <h5> <i class="fa fa-plane"></i> Compagnie : 
+                        
+                         {{vv.airline}}</h5>
+                        <h5><i class="fas fa-map-marker-alt pr-1"></i>    {{vv.pays}} | <b>{{vv.prixBillet}} TND </b></h5>
+                             
+                      
+                        <ul class="product_price list-unstyled">
+                            <li class="old_price"> <i class="far fa-clock pr-1"></i> {{vv.nbNuitees}} nuitées | </li>
+                         
+
+
+                              {% if vv.etatvoyage=='DISPO' %}
+                        <span class="badge bg-success rounded-pill"> <b>{{vv.etatvoyage}}</b></span>
+                        {% endif %}
+                            {% if vv.etatvoyage=='INDISPO' %}
+                        <span class="badge bg-danger rounded-pill"> <b>{{vv.etatvoyage}}</b></span>
+                        {% endif %}
+
+                           
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-3 col-md-6">
-            <div class="team-box text-center bg-white mt-4">
-                <div class="team-img">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" class="img-fluid d-block rounded">
-                    <div class="team-name">
-                        <h5 class="text-white f-18 font-weight-light mb-0">Roger Utz</h5>
-                    </div>
-                </div>
-                <div class="team-content text-center p-3">
-                    <div class="">
-                        <p class="f-17 mb-0"><a href="#" class="text-dark">Web Designer</a></p>
-                        <p class="text-muted f-14 mb-0">Etiam ultricies nisi augue Curabitur ullamcorper ultricies.</p>
-                        <div class="team-social-icon p-2">
-                            <ul class="blog-details-icons list-inline mb-0">
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-facebook"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-twitter"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-whatsapp"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+         
 
-        <div class="col-lg-3 col-md-6">
-            <div class="team-box text-center bg-white mt-4">
-                <div class="team-img">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="" class="img-fluid d-block rounded">
-                    <div class="team-name">
-                        <h5 class="text-white f-18 font-weight-light mb-0">Sylvia Mace</h5>
-                    </div>
-                </div>
-                <div class="team-content text-center p-3">
-                    <div class="">
-                        <p class="f-17 mb-0"><a href="#" class="text-dark">UI/UX Designer</a></p>
-                        <p class="text-muted f-14 mb-0">Nunc nec neque a leo dolor tempus non hendrerit nisi.</p>
-                        <div class="team-social-icon p-2">
-                            <ul class="blog-details-icons list-inline mb-0">
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-facebook"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-twitter"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-whatsapp"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
-    <div class="row">
-        <div class="col-lg-3 col-md-6">
-            <div class="team-box text-center bg-white mt-4">
-                <div class="team-img">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" class="img-fluid d-block rounded">
-                    <div class="team-name">
-                        <h5 class="text-white f-18 font-weight-light mb-0">Juan Bluford</h5>
-                    </div>
-                </div>
-                <div class="team-content text-center p-3">
-                    <div class="">
-                        <p class="f-17 mb-0"><a href="#" class="text-dark">Web Designer</a></p>
-                        <p class="text-muted f-14 mb-0">Nunc nec neque a leo dolor tempus non hendrerit nisi.</p>
-                        <div class="team-social-icon p-2">
-                            <ul class="blog-details-icons list-inline mb-0">
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-facebook"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-twitter"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-whatsapp"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-lg-3 col-md-6">
-            <div class="team-box text-center bg-white mt-4">
-                <div class="team-img">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar8.png" alt="" class="img-fluid d-block rounded">
-                    <div class="team-name">
-                        <h5 class="text-white f-18 font-weight-light mb-0">Robin Douglas</h5>
-                    </div>
-                </div>
-                <div class="team-content text-center p-3">
-                    <div class="">
-                        <p class="f-17 mb-0"><a href="#" class="text-dark">Web Developer</a></p>
-                        <p class="text-muted f-14 mb-0">Maecenas tellus eget condimentum sem quam semper.</p>
-                        <div class="team-social-icon p-2">
-                            <ul class="blog-details-icons list-inline mb-0">
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-facebook"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-twitter"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-whatsapp"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+  {% endfor %}
+
     </div>
 </div>
+
+
 
 
 {% endblock %}

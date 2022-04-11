@@ -1,4 +1,4 @@
-<{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}VoyageOrganise index{% endblock %}
 
@@ -31,7 +31,7 @@
                 <td>
                     <a href="{{ path('app_voyage_organise_show', {'idvo': voyage_organise.idvo}) }}">show</a>
                     <a href="{{ path('app_voyage_organise_edit', {'idvo': voyage_organise.idvo}) }}">edit</a>
-                </td>
+                </td>w
             </tr>
         {% else %}
             <tr>
@@ -43,4 +43,3 @@
 
     <a href="{{ path('app_voyage_organise_new') }}">Create new</a>
 {% endblock %}
->

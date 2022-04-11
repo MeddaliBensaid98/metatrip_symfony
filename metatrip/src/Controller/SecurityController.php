@@ -66,45 +66,43 @@ $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
      */
     public function login(Request $request, EntityManagerInterface $manager,UserPasswordEncoderInterface  $encoder,Session  $session, GuardAuthenticatorHandler $handler,
    )
-    {         echo "<script> console.log('TEST')</script>";
+    {
+        echo "<script> console.log('TEST')</script>";
         $ok=false;
         $user = new User();
-        $form = $this->createForm(LoginType::class,$user);
+        $form = $this->createForm(LoginType::class, $user);
         $form->handleRequest($request);
 
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             echo "<script > console.log('sssssssssss')</script>";
-                $em=$this->getDoctrine()->getRepository(User::class);
-                $email = $user->getEmail();
-                $Role=$user->getRole();
-                echo "<script > console.log('$email')</script>";
-                $VarName = $em->findOneBy(['email'=>$email]);
+            $em=$this->getDoctrine()->getRepository(User::class);
+            $email = $user->getEmail();
+            $Role=$user->getRole();
+            echo "<script > console.log('$email')</script>";
+            $VarName = $em->findOneBy(['email'=>$email]);
     
        
-                if( is_null($VarName)) {
-                    echo "<script >  console.log('fergha')</script>";
+            if (is_null($VarName)) {
+                echo "<script >  console.log('fergha')</script>";
                         
-                  return $this->redirectToRoute('security_login');
-                          
-                    }  else{
-                        $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
-                       # $encoded = $encoder->encodePassword($user,$user->getPassword());
-                        $pass=$VarName->getPassword();
-                   $pass1= $user->getPassword();
-<<<<<<< HEAD
-                   echo "<script >  console.log('$pass')</script>";
-                   echo "<script >  console.log( '$hash')</script>";
-                    if (password_verify($user->getPassword(),$VarName->getPassword())) {
-                        echo "<script >  console.log('shiha')</script>";
-                         # echo "<script >localStorage.setItem('email', '$email');</script>";
-                         # echo "<script >localStorage.setItem('Role', '$Role');</script>";    
-                          return $this->redirectToRoute('indexAdmin');
-=======
+                return $this->redirectToRoute('security_login');
+            } else {
+                $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
+                # $encoded = $encoder->encodePassword($user,$user->getPassword());
+                $pass=$VarName->getPassword();
+                $pass1= $user->getPassword();
+                echo "<script >  console.log('$pass')</script>";
+                echo "<script >  console.log( '$hash')</script>";
+                if (password_verify($user->getPassword(), $VarName->getPassword())) {
+                    echo "<script >  console.log('shiha')</script>";
+                    # echo "<script >localStorage.setItem('email', '$email');</script>";
+                    # echo "<script >localStorage.setItem('Role', '$Role');</script>";
+                    return $this->redirectToRoute('indexAdmin');
                    
                   
-                   echo "<script >  console.log( '$hash')</script>";
-                    if (password_verify($user->getPassword(),$VarName->getPassword())) {
+                    echo "<script >  console.log( '$hash')</script>";
+                    if (password_verify($user->getPassword(), $VarName->getPassword())) {
                         echo "<script >  console.log('shiha')</script>";
                
 
@@ -112,17 +110,16 @@ $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
                         $session->set('email', $email);
                   
                         /*echo "<script >localStorage.setItem('email', '$email');</script>";
-                        echo "<script >localStorage.setItem('Role', '$Role');</script>";    
-                      
+                        echo "<script >localStorage.setItem('Role', '$Role');</script>";
+
                           echo "<script >localStorage.setItem('email', '$email');</script>";
                           echo "<script >localStorage.setItem('Role', '$Role');</script>";    */
-                        return $this->redirectToRoute('indexAdmin',['session'=>$session]);
->>>>>>> origin/main
+                        return $this->redirectToRoute('indexAdmin', ['session'=>$session]);
                     } else {
                         echo "<script >  console.log('ghalta')</script>";
-                            return $this->redirectToRoute('security_login');
+                        return $this->redirectToRoute('security_login');
                     }
-                #    echo "<script >  console.log('$encoded')</script>";
+                    #    echo "<script >  console.log('$encoded')</script>";
                   #  echo "<script >  console.log('$pass')</script>";
                  #   $bar = substr($encoded,0,7) ;
                    # $bar2 = substr($pass,0,7) ;
@@ -130,22 +127,27 @@ $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
                    # echo "<script >  console.log('$bar2')</script>";
                    /* if($bar==$bar2){
                         echo "<script >localStorage.setItem('email', '$email');</script>";
-                        echo "<script >localStorage.setItem('Role', '$Role');</script>";             
+                        echo "<script >localStorage.setItem('Role', '$Role');</script>";
                         $ok=true;
                         echo "<script >  console.log('welcome')</script>";
                        # return $this->redirectToRoute('indexAdmin');
                     }else{
                        # return $this->redirectToRoute('security_login');
-                    
-                    } 
-                    */
+
                     }
+                    */
                 }
+            }
             
-return $this->render('security/login.html.twig', [
+            return $this->render('security/login.html.twig', [
     'form' => $form->createView()
 ]);
+        }
     }
+
+
+
+    
       /**
      * @Route("/logout", name="logout")
      */

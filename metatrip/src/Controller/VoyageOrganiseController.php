@@ -41,11 +41,11 @@ class VoyageOrganiseController extends AbstractController
 
         $voyageOrganises = $repo->findListaVoyages();
         
-      $l=sizeof($voyageOrganises);
-        echo "alert('$l');";
+      //$l=sizeof($voyageOrganises);
+        //echo "alert('$l');";
       
-        return $this->render('voyage_organise/index.html.twig', [
-            'voyage_organises' => $voyageOrganises,
+        return $this->render('user/listvoy.html.twig', [
+            'voyageOrganises' => $voyageOrganises,
         ]);
     }
 

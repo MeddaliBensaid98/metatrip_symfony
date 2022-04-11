@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * VoyageOrganise
  *
  * @ORM\Table(name="voyage_organise", indexes={@ORM\Index(name="FK_vo", columns={"Idv"})})
- * @ORM\Entity(repositoryClass="VoyageOrganiseRepository::class")
+ * @ORM\Entity(repositoryClass="App\Repository\VoyageOrganiseRepository")
  */
 class VoyageOrganise
 {
@@ -107,11 +107,7 @@ class VoyageOrganise
         return $this;
     }
 
-    public function getNbplaces(): ?int
-    {
-        return $this->nbplaces;
-    }
-
+ 
     public function setNbplaces(int $nbplaces): self
     {
         $this->nbplaces = $nbplaces;
@@ -144,4 +140,11 @@ class VoyageOrganise
     }
 
 
+	/**
+	 * 
+	 * @return int
+	 */
+	function getNbplaces() {
+		return $this->nbplaces;
+	}
 }

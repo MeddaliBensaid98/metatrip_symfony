@@ -15,15 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  * @Route("/user")
  */
 class UserController extends AbstractController
-{
-<<<<<<< HEAD
-
-
-
-=======
-  
->>>>>>> origin/main
-    /**
+{    /**
      * @Route("/", name="app_user_index", methods={"GET"})
      */
     public function index(EntityManagerInterface $entityManager): Response
