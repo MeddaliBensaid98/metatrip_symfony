@@ -25,7 +25,12 @@
                       
             {% if vv.etatvoyage=='DISPO' %}
              
-          <button type="button" class="btn btn-primary btn-xs btn3d"> Réserver</button> 
+          <button type="button" class="btn btn-primary btn-xs btn3d"> 
+           <a style="text-decoration:none;color:white"href="{{ path('indexRes') }}">Réserver</a></button> 
+            <br> <br>
+                      <span class="badge bg-secondary">{{vv.nbplaces}} place(s) restante(s)</span>
+
+
             {% else %}
               
                 <button type="button" disabled class="btn btn-primary btn-xs btn3d"> Réserver</button> {% endif %}
@@ -38,12 +43,12 @@
                        <h5> <i class="fa fa-plane"></i> Compagnie : 
                         
                          {{vv.airline}}</h5>
-                        <h5><i class="fas fa-map-marker-alt pr-1"></i>    {{vv.pays}} | <b>{{vv.prixBillet}} TND </b></h5>
+                        <h5><i class="fas fa-map-marker-alt pr-1"></i>    {{vv.pays}} | <b style="color:blue">{{vv.prixBillet}} TND </b></h5>
                              
                       
                         <ul class="product_price list-unstyled">
                             <li class="old_price"> <i class="far fa-clock pr-1"></i> {{vv.nbNuitees}} nuitées | </li>
-                         
+                         a
 
 
                               {% if vv.etatvoyage=='DISPO' %}
@@ -52,7 +57,7 @@
                             {% if vv.etatvoyage=='INDISPO' %}
                         <span class="badge bg-danger rounded-pill"> <b>{{vv.etatvoyage}}</b></span>
                         {% endif %}
-
+                        
                            
                         </ul>
                     </div>

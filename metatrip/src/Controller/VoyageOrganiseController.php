@@ -1,10 +1,20 @@
 <?php
 
 namespace App\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\GenericEvent;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Entity\ReservationVoyage;
 use App\Entity\VoyageOrganise;
 use App\Repository\VoyageOrganiseRepository;
 use App\Form\VoyageOrganiseType;
+use App\Form\RsrvType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +46,7 @@ class VoyageOrganiseController extends AbstractController
      * @Route("/test", name="indexTest", methods={"GET"})
      */
 
-    public function listStudentByDate(VoyageOrganiseRepository $repo):Response
+    public function listVoys(VoyageOrganiseRepository $repo):Response
     {
 
         $voyageOrganises = $repo->findListaVoyages();
@@ -46,6 +56,31 @@ class VoyageOrganiseController extends AbstractController
       
         return $this->render('user/listvoy.html.twig', [
             'voyageOrganises' => $voyageOrganises,
+        ]);
+    }
+ /**
+     * @Route("/rr", name="indexRes", methods={"GET"})
+     */
+
+    public function testresr(Request $request, EntityManagerInterface $entityManager): Response
+    {
+
+        $rv = new ReservationVoyage();
+        $form = $this->createForm(RsrvType::class, $rv);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($rv);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('indexRes', [], Response::HTTP_SEE_OTHER);
+        }
+
+  
+      
+        return $this->render('reservation_voyage/reservUser.html.twig', [
+            'rv' => $rv,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -115,4 +150,5 @@ class VoyageOrganiseController extends AbstractController
 
         return $this->redirectToRoute('app_voyage_organise_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }
