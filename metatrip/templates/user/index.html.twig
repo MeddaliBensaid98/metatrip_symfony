@@ -489,6 +489,8 @@
 {% endblock %}
 
  <main id="main" class="main">
+ 
+    <a href="{{ path('app_user_new') }}"  class="btn btn-info">Ajouter</a>
     <table class="table">
         <thead>
             <tr>
@@ -498,11 +500,11 @@
                 <th>Prenom</th>
                 <th>Tel</th>
                 <th>Email</th>
-                <th>Password</th>
+          
                 <th>Image</th>
                 <th>Role</th>
                 <th>Datenaissance</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -514,13 +516,16 @@
                 <td>{{ user.prenom }}</td>
                 <td>{{ user.tel }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.image }}</td>
+            
+                <td>
+                <img src="{{asset('assets/img/'~user.image)}}"
+               </td>
                 <td>{{ user.role }}</td>
                 <td>{{ user.datenaissance ? user.datenaissance|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_user_show', {'idu': user.idu}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'idu': user.idu}) }}">edit</a>
+                    <a href="{{ path('app_user_show', {'idu': user.idu}) }}"  class="btn btn-danger" >Afficher</a>
+     <a href="{{ path('app_user_edit', {'idu': user.idu}) }}" class="btn btn-warning" >Modifier</a>
+
                 </td>
             </tr>
         {% else %}
@@ -531,6 +536,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
 </main>
 {% endblock %}

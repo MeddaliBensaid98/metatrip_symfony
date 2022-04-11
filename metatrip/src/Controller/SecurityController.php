@@ -33,12 +33,13 @@ class SecurityController extends AbstractController
     $form->handleRequest($request);
 if($form->isSubmitted() && $form->isValid()) {
 
-$hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
+
    $em=$this->getDoctrine()->getRepository(User::class);
    $email = $user->getEmail();
    echo "<script > console.log('$email')</script>";
    $VarName = $em->findOneBy(['email'=>$email]);
    if( is_null($VarName)){
+    $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
     $user->setPassword($hash);
              
     $manager->persist($user);
@@ -75,12 +76,14 @@ $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
 
         if($form->isSubmitted() && $form->isValid()) {
             echo "<script > console.log('sssssssssss')</script>";
-                $em=$this->getDoctrine()->getRepository(User::class);
-                $email = $user->getEmail();
+            
+            $email = $user->getEmail();
+           
+    
+            $em=$this->getDoctrine()->getRepository(User::class);
+            $VarName = $em->findOneBy(['email'=>$email]);
                 $Role=$user->getRole();
                 echo "<script > console.log('$email')</script>";
-                $VarName = $em->findOneBy(['email'=>$email]);
-    
        
                 if( is_null($VarName)) {
                     echo "<script >  console.log('fergha')</script>";

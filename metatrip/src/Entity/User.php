@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Serializable;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Entity\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -13,6 +15,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity
+ * @Vich\Uploadable
   *@UniqueEntity("cin",message="cin est deja exist") 
     *@UniqueEntity("tel",message="cin est deja exist") 
  */
@@ -52,6 +55,8 @@ class User implements UserInterface , \Serializable
      */
     private $prenom;
 
+    
+    
     /**
      * @var string
      *
@@ -87,6 +92,11 @@ class User implements UserInterface , \Serializable
      */
     private $image;
 
+      /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="Image")
+     * @var File
+     */
+    private $imageFile;
     /**
      * @var int|null
      *
@@ -177,17 +187,31 @@ class User implements UserInterface , \Serializable
 
         return $this;
     }
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
-
-    public function setImage(string $image): self
+    public function setImageFile( $image = null)
     {
-        $this->image = $image;
+        $this->imageFile = $image;
 
-        return $this;
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
     }
 
     public function getRole(): ?int
@@ -253,4 +277,5 @@ class User implements UserInterface , \Serializable
         $this->password
     ) = unserialize($string, ['allowed classes' => false]);
 }
+
 }

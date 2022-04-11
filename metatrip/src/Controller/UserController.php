@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\User1Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,6 +55,9 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+              $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
+                       # $encoded = $encoder->encodePassword($user,$user->getPassword());
+                       $user->setPassword($hash);
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -81,13 +85,18 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(User1Type::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $email = $user->getEmail();
+            echo "<script > console.log('$email')</script>";
+            $em=$this->getDoctrine()->getRepository(User::class);
+          $VarName = $em->findOneBy(['email'=>$email]);
+           $user->setPassword($VarName->getPassword());
+          $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+           return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user/edit.html.twig', [
