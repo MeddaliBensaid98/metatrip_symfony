@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * VoyageVirtuel
  *
- * @ORM\Table(name="voyage_virtuel", indexes={@ORM\Index(name="FK_vv", columns={"Idv"}), @ORM\Index(name="FK_abb", columns={"Ida"})})
+ * @ORM\Table(name="voyage_virtuel", indexes={@ORM\Index(name="FK_abb", columns={"Ida"}), @ORM\Index(name="FK_vv", columns={"Idv"})})
  * @ORM\Entity
  */
 class VoyageVirtuel
@@ -36,16 +36,6 @@ class VoyageVirtuel
     private $imageV;
 
     /**
-     * @var \Voyage
-     *
-     * @ORM\ManyToOne(targetEntity="Voyage")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Idv", referencedColumnName="Idv")
-     * })
-     */
-    private $idv;
-
-    /**
      * @var \Abonnement
      *
      * @ORM\ManyToOne(targetEntity="Abonnement")
@@ -54,6 +44,16 @@ class VoyageVirtuel
      * })
      */
     private $ida;
+
+    /**
+     * @var \Voyage
+     *
+     * @ORM\ManyToOne(targetEntity="Voyage")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Idv", referencedColumnName="Idv")
+     * })
+     */
+    private $idv;
 
     public function getIdvv(): ?int
     {
@@ -84,18 +84,6 @@ class VoyageVirtuel
         return $this;
     }
 
-    public function getIdv(): ?Voyage
-    {
-        return $this->idv;
-    }
-
-    public function setIdv(?Voyage $idv): self
-    {
-        $this->idv = $idv;
-
-        return $this;
-    }
-
     public function getIda(): ?Abonnement
     {
         return $this->ida;
@@ -108,5 +96,22 @@ class VoyageVirtuel
         return $this;
     }
 
+    public function getIdv(): ?Voyage
+    {
+        return $this->idv;
+    }
+
+    public function setIdv(?Voyage $idv): self
+    {
+        $this->idv = $idv;
+
+        return $this;
+    }
+    public function  __toString(){
+        // to show the name of the Category in the select
+        return $this->video;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 
 }

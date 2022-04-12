@@ -1,4 +1,62 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<link rel="stylesheet" href="{{asset('assets/css/bootstrap.css')}}">
+<div class="container">
+
+    {{ form_start(form, {'attr' : {'novalidate':'novalidate'}})}}
+
+    <div class="form-group">
+
+        {{ form_label (form.nomsponsor,"Le Nom de sponsor:") }}
+        {{ form_widget(form.nomsponsor,{'attr' : {'class':'form-control'}}) }}
+        {{ form_errors(form.nomsponsor) }}
+    </div>
+
+    <div class="form-group">
+
+        {{ form_label (form.tel,"Le tel de sponsor:") }}
+        {{ form_widget(form.tel,{'attr' : {'class':'form-control'}}) }}
+        {{ form_errors(form.tel) }}
+    </div>
+
+    <div class="form-group">
+
+        {{ form_label (form.email,"Lemail de sponsor:") }}
+        {{ form_widget(form.email,{'attr' : {'class':'form-control'}}) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+
+    <div class="form-group">
+
+        {{ form_label (form.imageFile,"image sponsor:") }}
+        {{ form_widget(form.imageFile,{'attr' : {'class':'form-control'}}) }}
+        {{ form_errors(form.imageFile) }}
+    </div>
+
+    <div class="form-group">
+
+        {{ form_label (form.dateSp,"date sponsor:") }}
+        {{ form_widget(form.dateSp,{'attr' : {'class':'form-control'}}) }}
+        {{ form_errors(form.dateSp) }}
+    </div>
+
+    <div class="form-group">
+
+        {{ form_label (form.prixSp,"prix sponsor:") }}
+        {{ form_widget(form.prixSp,{'attr' : {'class':'form-control'}}) }}
+        {{ form_errors(form.prixSp) }}
+    </div>
+
+    <div class="form-group">
+
+        {{ form_label (form.ide," Chanteur ") }}
+        {{ form_widget(form.ide,{'attr' : {'class':'form-control'}}) }}
+        {{ form_errors(form.ide) }}
+    </div>
+
+
+
+    <button class="btn btn-success" >{{ button_label|default('Save') }}</button>
+
+
 {{ form_end(form) }}

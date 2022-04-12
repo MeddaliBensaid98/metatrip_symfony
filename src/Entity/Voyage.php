@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
-
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * Voyage
  *
  * @ORM\Table(name="voyage")
  * @ORM\Entity
+ *  @UniqueEntity("pays",message="pays est deja exist") 
+ *  @Vich\Uploadable
  */
 class Voyage
 {
@@ -28,13 +30,18 @@ class Voyage
      */
     private $pays;
 
+    
     /**
      * @var string
      *
      * @ORM\Column(name="Image_pays", type="string", length=50, nullable=false)
      */
     private $imagePays;
-
+      /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="Image_pays")
+     * @var File
+     */
+    private $imageFile;
     public function getIdv(): ?int
     {
         return $this->idv;
@@ -64,5 +71,28 @@ class Voyage
         return $this;
     }
 
+    public function  __toString(){
+        // to show the name of the Category in the select
+        return $this->pays;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
+    public function setImageFile( $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
 
 }

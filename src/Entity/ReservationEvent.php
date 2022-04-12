@@ -2,7 +2,14 @@
 
 namespace App\Entity;
 
+use Serializable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+use Vich\UploaderBundle\Entity\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ReservationEvent
@@ -24,6 +31,7 @@ class ReservationEvent
     /**
      * @var int
      *
+     *  @Assert\Positive
      * @ORM\Column(name="Nb_pers", type="integer", nullable=false)
      */
     private $nbPers;

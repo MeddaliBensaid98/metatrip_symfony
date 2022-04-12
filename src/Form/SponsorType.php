@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class SponsorType extends AbstractType
 {
@@ -17,7 +18,7 @@ class SponsorType extends AbstractType
             ->add('nomsponsor')
             ->add('tel')
             ->add('email')
-            ->add('image')
+            ->add('imageFile',VichImageType::class)
             ->add('dateSp')
             ->add('prixSp')
             ->add('ide', EntityType::Class,array(

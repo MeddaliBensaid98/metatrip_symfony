@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ReservationHotel
  *
- * @ORM\Table(name="reservation_hotel", indexes={@ORM\Index(name="FK_u", columns={"Idu"}), @ORM\Index(name="kk_h", columns={"idh"}), @ORM\Index(name="Idrh", columns={"Idrh"})})
+ * @ORM\Table(name="reservation_hotel", indexes={@ORM\Index(name="kk_h", columns={"idh"}), @ORM\Index(name="Idrh", columns={"Idrh"}), @ORM\Index(name="FK_u", columns={"Idu"})})
  * @ORM\Entity
  */
 class ReservationHotel
@@ -57,16 +57,6 @@ class ReservationHotel
     private $dateArrivee;
 
     /**
-     * @var \Hotel
-     *
-     * @ORM\ManyToOne(targetEntity="Hotel")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idh", referencedColumnName="Idh")
-     * })
-     */
-    private $idh;
-
-    /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -75,6 +65,16 @@ class ReservationHotel
      * })
      */
     private $idu;
+
+    /**
+     * @var \Hotel
+     *
+     * @ORM\ManyToOne(targetEntity="Hotel")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idh", referencedColumnName="Idh")
+     * })
+     */
+    private $idh;
 
     public function getIdrh(): ?int
     {
@@ -141,18 +141,6 @@ class ReservationHotel
         return $this;
     }
 
-    public function getIdh(): ?Hotel
-    {
-        return $this->idh;
-    }
-
-    public function setIdh(?Hotel $idh): self
-    {
-        $this->idh = $idh;
-
-        return $this;
-    }
-
     public function getIdu(): ?User
     {
         return $this->idu;
@@ -161,6 +149,18 @@ class ReservationHotel
     public function setIdu(?User $idu): self
     {
         $this->idu = $idu;
+
+        return $this;
+    }
+
+    public function getIdh(): ?Hotel
+    {
+        return $this->idh;
+    }
+
+    public function setIdh(?Hotel $idh): self
+    {
+        $this->idh = $idh;
 
         return $this;
     }

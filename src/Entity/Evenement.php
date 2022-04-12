@@ -2,11 +2,19 @@
 
 namespace App\Entity;
 
+use Serializable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+use Vich\UploaderBundle\Entity\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Evenement
  *
+ * @Vich\Uploadable
  * @ORM\Table(name="evenement")
  * @ORM\Entity
  */
@@ -14,6 +22,7 @@ class Evenement
 {
     /**
      * @var int
+     *
      *
      * @ORM\Column(name="Ide", type="integer", nullable=false)
      * @ORM\Id
@@ -24,6 +33,7 @@ class Evenement
     /**
      * @var string
      *
+     * @Assert\NotBlank
      * @ORM\Column(name="Type_event", type="string", length=20, nullable=false)
      */
     private $typeEvent;
@@ -31,6 +41,7 @@ class Evenement
     /**
      * @var string
      *
+     * @Assert\NotBlank
      * @ORM\Column(name="Chanteur", type="string", length=20, nullable=false)
      */
     private $chanteur;
@@ -38,6 +49,7 @@ class Evenement
     /**
      * @var string
      *
+     * @Assert\NotBlank
      * @ORM\Column(name="Adresse", type="string", length=20, nullable=false)
      */
     private $adresse;
@@ -45,6 +57,7 @@ class Evenement
     /**
      * @var \DateTime
      *
+     * @Assert\NotBlank
      * @ORM\Column(name="Date_event", type="date", nullable=false)
      */
     private $dateEvent;
@@ -52,6 +65,8 @@ class Evenement
     /**
      * @var float
      *
+     * @Assert\NotBlank
+     *  @Assert\Positive
      * @ORM\Column(name="prix_e", type="float", precision=10, scale=0, nullable=false)
      */
     private $prixE;
@@ -59,9 +74,55 @@ class Evenement
     /**
      * @var string
      *
+     * @Assert\NotBlank
+     *
+     * @Assert\Image(
+     *     minWidth = 250,
+     *     maxWidth = 250,
+     *     minHeight = 250,
+     *     maxHeight = 250
+     * )
+     *
      * @ORM\Column(name="image", type="string", length=255, nullable=false)
      */
     private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="Image")
+     * @var string
+     *
+     * @Assert\Image(
+     *     minWidth = 250,
+     *     maxWidth = 250,
+     *     minHeight = 250,
+     *     maxHeight = 250
+     * )
+     * @var File
+     */
+    private $imageFile;
+
+
+    public function setImageFile( $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->setUpdatedAt = new \DateTime('now');
+        }
+
+    }
+
+
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
 
     public function getIde(): ?int
     {

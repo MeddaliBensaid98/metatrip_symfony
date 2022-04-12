@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Abonnement
  *
- * @ORM\Table(name="abonnement", indexes={@ORM\Index(name="FK_pai", columns={"Ref_paiement"}), @ORM\Index(name="Ida", columns={"Ida"})})
+ * @ORM\Table(name="abonnement", indexes={@ORM\Index(name="Ida", columns={"Ida"}), @ORM\Index(name="FK_pai", columns={"Ref_paiement"})})
  * @ORM\Entity
  */
 class Abonnement
@@ -142,6 +142,11 @@ class Abonnement
 
         return $this;
     }
-
+    public function  __toString(){
+        // to show the name of the Category in the select
+        return $this->type ;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 
 }
