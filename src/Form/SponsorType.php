@@ -19,6 +19,7 @@ class SponsorType extends AbstractType
             ->add('tel')
             ->add('email')
             ->add('imageFile',VichImageType::class)
+
             ->add('dateSp')
             ->add('prixSp')
             ->add('ide', EntityType::Class,array(

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
 {% block title %}Adding Sponsor{% endblock %}
 
@@ -492,11 +492,11 @@
 
 
 <main id="main" class="main">
-    <h1>Create new Sponsor</h1>
+
 
     {{ include('sponsor/_form.html.twig') }}
 
-    <a href="{{ path('app_sponsor_index') }}">back to list</a>
+    <a href="{{ path('app_sponsor_index') }}" class="btn btn-primary" >back to list</a>
 
 </main>
 {% endblock %}

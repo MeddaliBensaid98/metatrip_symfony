@@ -2,3 +2,4 @@ THIS IS ZARGA BRANCH
 Commit 1 :  ADDED FINAL DATABASE 
 Commit 2 :  ADDED CRUD(FORM WITHOUT TEMPLATE)*
 Commit 3 :  Integration Template (BACK) +  Input Control + upload image
+Commit 4 :   LAST FIX Template(BACK) + ALL CRUD WORK 

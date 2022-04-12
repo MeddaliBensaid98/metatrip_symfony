@@ -76,52 +76,10 @@ class Evenement
      *
      * @Assert\NotBlank
      *
-     * @Assert\Image(
-     *     minWidth = 250,
-     *     maxWidth = 250,
-     *     minHeight = 250,
-     *     maxHeight = 250
-     * )
-     *
      * @ORM\Column(name="image", type="string", length=255, nullable=false)
      */
     private $image;
 
-    /**
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="Image")
-     * @var string
-     *
-     * @Assert\Image(
-     *     minWidth = 250,
-     *     maxWidth = 250,
-     *     minHeight = 250,
-     *     maxHeight = 250
-     * )
-     * @var File
-     */
-    private $imageFile;
-
-
-    public function setImageFile( $image = null)
-    {
-        $this->imageFile = $image;
-
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->setUpdatedAt = new \DateTime('now');
-        }
-
-    }
-
-
-
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
 
 
     public function getIde(): ?int
