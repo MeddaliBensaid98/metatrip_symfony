@@ -20,9 +20,6 @@
     "doctrine/common": {
         "version": "3.2.2"
     },
-    "doctrine/data-fixtures": {
-        "version": "1.5.2"
-    },
     "doctrine/dbal": {
         "version": "3.3.4"
     },
@@ -43,18 +40,6 @@
             "./config/packages/test/doctrine.yaml",
             "./src/Entity/.gitignore",
             "./src/Repository/.gitignore"
-        ]
-    },
-    "doctrine/doctrine-fixtures-bundle": {
-        "version": "3.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.0",
-            "ref": "1f5514cfa15b947298df4d771e694e578d4c204d"
-        },
-        "files": [
-            "./src/DataFixtures/AppFixtures.php"
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
@@ -83,7 +68,7 @@
         "version": "1.2.3"
     },
     "doctrine/migrations": {
-        "version": "3.5.0"
+        "version": "3.4.1"
     },
     "doctrine/orm": {
         "version": "2.11.2"
@@ -370,7 +355,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.3",
-            "ref": "97a61eabb351d7f6cb7702039bcfe07fe9d7e03c"
+            "ref": "bbfc7e27257d3a3f12a6fb0a42540a42d9623a37"
         },
         "files": [
             "./config/packages/mailer.yaml"
@@ -423,9 +408,6 @@
             "./phpunit.xml.dist",
             "./tests/bootstrap.php"
         ]
-    },
-    "symfony/polyfill-intl-grapheme": {
-        "version": "v1.25.0"
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.25.0"
@@ -510,9 +492,6 @@
     "symfony/stopwatch": {
         "version": "v4.4.38"
     },
-    "symfony/string": {
-        "version": "v6.0.3"
-    },
     "symfony/translation": {
         "version": "4.4",
         "recipe": {
@@ -593,18 +572,6 @@
     },
     "symfony/yaml": {
         "version": "v4.4.37"
-    },
-    "symfonycasts/reset-password-bundle": {
-        "version": "1.13",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "97c1627c0384534997ae1047b93be517ca16de43"
-        },
-        "files": [
-            "./config/packages/reset_password.yaml"
-        ]
     },
     "theseer/tokenizer": {
         "version": "1.2.1"
