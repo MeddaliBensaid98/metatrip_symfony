@@ -23,4 +23,14 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findByIdu(int $idu){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery('SELECT u FROM APP\Entity\User u WHERE u.idu =:idu')
+            ->setParameter('idu',$idu);
+      
+        
+        return $query->getOneOrNullResult();
+    }
 }

@@ -12,7 +12,10 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Entity\ReservationVoyage;
 use App\Entity\VoyageOrganise;
+use App\Entity\Voyage;
+use App\Entity\User;
 use App\Repository\VoyageOrganiseRepository;
+use App\Repository\UserRepository;
 use App\Form\VoyageOrganiseType;
 use App\Form\RsrvType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,6 +29,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class VoyageOrganiseController extends AbstractController
 {
+
     /**
      * @Route("/list", name="app_voyage_organise_index", methods={"GET"})
      */
@@ -59,27 +63,34 @@ class VoyageOrganiseController extends AbstractController
         ]);
     }
  /**
-     * @Route("/rr", name="indexRes", methods={"GET"})
+     * @Route("/rr/{idv}/{idu}", name="indexRes", methods={"GET"})
      */
-
-    public function testresr(Request $request, EntityManagerInterface $entityManager): Response
+     public function testresr(UserRepository $repu,User $user,VoyageOrganise $voyageorg,Request $request): Response
     {
+              $idu=813;
+            //$voyage = $repo->findByIdv($voyageorg->getIdv()->getIdv(),$voyageorg->getIdvo());
 
+           
         $rv = new ReservationVoyage();
         $form = $this->createForm(RsrvType::class, $rv);
+      
+         //$ch=sizeof($voyage);
+//echo $ch;
+    
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($rv);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('indexRes', [], Response::HTTP_SEE_OTHER);
-        }
-
-  
+       
+   $user = $repu->findByIdu($idu);
+        
+        $form->get('idv')->setData($voyageorg->getIdv());
+      
+        $form->get('idu')->setData($user);
       
         return $this->render('reservation_voyage/reservUser.html.twig', [
             'rv' => $rv,
+            'voyageorg'=>$voyageorg,
+            'user'=>$user,
+             
+           
             'form' => $form->createView(),
         ]);
     }

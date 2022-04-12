@@ -1,43 +1,59 @@
+ {% extends 'base.html.twig' %}
+
+
+{% block stylesheet %}
 <link rel="stylesheet" href="{{asset('assets/css/forms.css')}}">
-<div class="container" style="text-align:center">
+
+{% endblock %}
+
+{% block body %}
+<div class="container" style="text-align:center;width:50%">
 
 
-
+  
  
-<h1>Reserver un voyage </h1>
+<h1>Réserver un voyage </h1>
  <div class="form-group">
- 
-  {{ form_label (form.dateDepart,"Date de départ:") }}
+ <div class="container" style="text-align:left">
+   <h5> {{ form_label (form.dateDepart,"Date de départ:") }}</h5>
 {{ form_widget(form.dateDepart,{'attr' : {'class':'form-control'}}) }}
 {{ form_errors(form.dateDepart) }}
+</div>
 
 </div>
 
     
 <br>
  <div class="form-group">
- 
-  {{ form_label (form.dateArrivee,"Date d'arrivée:") }}
+  <div class="container" style="text-align:left">
+  <h5>{{ form_label (form.dateArrivee,"Date d'arrivée:") }}</h5>
 {{ form_widget(form.dateArrivee,{'attr' : {'class':'form-control'}}) }}
 {{ form_errors(form.dateArrivee) }}
-
 </div>
+</div>
+
 <br>
+
+
  <div class="form-group">
- 
-  {{ form_label (form.idu,"Utilisateur:") }}
+   <div class="container" style="text-align:left">
+<h5>
+  {{ form_label (form.idu,"Utilisateur:") }}</h5>
 {{ form_widget(form.idu,{'attr' : {'class':'form-control'}}) }}
 {{ form_errors(form.idu) }}
-
+</div>
 </div>
 <br>
+
  <div class="form-group">
- 
-  {{ form_label (form.idv,"Voyage:") }}
+  <div class="container" style="text-align:left">
+<h5>
+  {{ form_label (form.idv,"Voyage:") }}</h5>
 {{ form_widget(form.idv,{'attr' : {'class':'form-control'}}) }}
 {{ form_errors(form.idv) }}
-
+ </div>
 </div>
 
 <br>
-    <button class="btn btn-success" >{{ button_label|default('Save') }}</button>
+    <button class="btn btn-primary btn-xs btn3d" >Save</button>
+{% endblock %}

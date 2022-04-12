@@ -25,5 +25,13 @@ class VoyageOrganiseRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-
+    public function findByIdv(int $idv,int $idvo){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery('SELECT vo FROM APP\Entity\VoyageOrganise vo,APP\Entity\Voyage v WHERE vo.idv=v.idv AND vo.idvo =:idvo AND vo.idv =:idv')
+            ->setParameter('idvo',$idvo)
+            ->setParameter('idv',$idv);
+        
+        return $query->getResult();
+    }
 }

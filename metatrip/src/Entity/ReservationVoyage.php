@@ -112,7 +112,7 @@ class ReservationVoyage
         return $this->idu;
     }
 
-    public function setIdu(User $idu): self
+    public function setIdu(?User $idu): self
     {
         $this->idu = $idu;
 

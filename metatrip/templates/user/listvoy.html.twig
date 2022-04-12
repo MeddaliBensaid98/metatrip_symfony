@@ -12,7 +12,6 @@
 <div class="container">
 
     <div class="row clearfix">
-
       {% for vv in voyageOrganises %}
         <div class="col-lg-3 col-md-4 col-sm-12">
 
@@ -26,7 +25,7 @@
             {% if vv.etatvoyage=='DISPO' %}
              
          
-           <a style="text-decoration:none;color:white" href="{{ path('indexRes', {'idv': vv.idv,'idu':26} ) }}"> <button type="button" class="btn btn-primary btn-xs btn3d"> Réserver</button> </a>
+           <a style="text-decoration:none;color:white" href="{{ path('indexRes', {'idv': vv.idv,'idu':813} ) }}"> <button type="button" class="btn btn-primary btn-xs btn3d"> Réserver</button> </a>
              
 
 
@@ -57,7 +56,7 @@
                         <span class="badge bg-danger rounded-pill"> <b>{{vv.etatvoyage}}</b></span>           <span class="badge bg-secondary">{{vv.nbplaces}} place(s) restante(s)</span>
 
                         {% endif %}
-                        
+                        {{vv.idv}}
                            
                         </ul>
                     </div>
