@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -19,16 +20,28 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('cin')
-        ->add('nom')
-        ->add('prenom')
-        ->add('tel')
-        ->add('email')
-        ->add('password',  PasswordType::class, [ 'required'=> false, 'data_class' => null,
-        // Register new key "empty_data" with an empty string
-        'empty_data' => ''] )
-        ->add('imageFile',VichImageType::class)
-        ->add('role', ChoiceType::class,
+        ->add('cin',  TextType::class,[
+            'required' => true
+        ])
+        ->add('nom',  TextType::class,[
+            'required' => true
+        ])
+        ->add('prenom',  TextType::class,[
+            'required' => true
+        ])
+        ->add('tel',  TextType::class,[
+            'required' => true
+        ])
+        ->add('email',EmailType::class,[
+            'required' => true
+        ])
+        ->add('password', PasswordType::class, [
+            'required' => true
+        ])
+        ->add('imageFile',VichImageType::class,[
+            'required' => true
+        ])
+         ->add('role', ChoiceType::class,
         array(
             'choices' => array(
                 'user'    =>0,
@@ -39,10 +52,10 @@ class UserType extends AbstractType
         )))
         ->add('datenaissance',DateType::class, [
             // renders it as a single text box
-            'widget' => 'single_text',
+            'required' => true,
+            'widget' => 'single_text'
         ])
-    ;
-    }
+            ;}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

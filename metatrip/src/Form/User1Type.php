@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class User1Type extends AbstractType
@@ -15,15 +17,25 @@ class User1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
           $builder
-            ->add('cin',array( 'attr'=>[
-                'required'=>false
-                  ]))
-            ->add('nom')
-            ->add('prenom')
-            ->add('tel')
-            ->add('email')
+            ->add('cin',  TextType::class,[
+                'required' => true,
+            ])
+            ->add('nom',  TextType::class,[
+                'required' => true,
+            ])
+            ->add('prenom',  TextType::class,[
+                'required' => true,
+            ])
+            ->add('tel',  TextType::class,[
+                'required' => true,
+            ])
+            ->add('email',EmailType::class,[
+                'required' => true,
+            ])
         
-            ->add('imageFile',VichImageType::class)
+            ->add('imageFile',VichImageType::class,[
+                'required' => true,
+            ])
             ->add('role', ChoiceType::class,
             array(
                 'choices' => array(
@@ -35,6 +47,7 @@ class User1Type extends AbstractType
             )))
             ->add('datenaissance',DateType::class, [
                 // renders it as a single text box
+                'required' => true,
                 'widget' => 'single_text',
             ])
         ;

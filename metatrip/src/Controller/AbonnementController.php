@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Abonnement;
-use App\Form\Abonnement1Type;
+use App\Form\AbonnementType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +35,7 @@ class AbonnementController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $abonnement = new Abonnement();
-        $form = $this->createForm(Abonnement1Type::class, $abonnement);
+        $form = $this->createForm(AbonnementType::class, $abonnement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,7 +66,7 @@ class AbonnementController extends AbstractController
      */
     public function edit(Request $request, Abonnement $abonnement, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Abonnement1Type::class, $abonnement);
+        $form = $this->createForm(AbonnementType::class, $abonnement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

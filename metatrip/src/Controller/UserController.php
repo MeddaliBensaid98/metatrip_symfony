@@ -38,8 +38,6 @@ class UserController extends AbstractController
      */
     public function indexAdmin(EntityManagerInterface $entityManager,Session $session): Response
     {$user=$session->get('email');
-       
-  
 
         return $this->render('Admin/index.html.twig',[
             'users' => $user
@@ -55,13 +53,19 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-              $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
+            if(($user->getCin()==null) ||($user->getNom()==null)||($user->getPrenom()==null)||($user->getDatenaissance()==null)|| ($user->getImageFile()==null)){
+                echo "<script > alert('Form error')</script>";
+            }
+            else{
+                $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
                        # $encoded = $encoder->encodePassword($user,$user->getPassword());
                        $user->setPassword($hash);
             $entityManager->persist($user);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            }
+              
         }
 
         return $this->render('user/new.html.twig', [

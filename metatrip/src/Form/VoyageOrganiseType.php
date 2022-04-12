@@ -20,7 +20,7 @@ class VoyageOrganiseType extends AbstractType
             array(
                 'choices' => array(
                     'INDISPO'    =>'INDISPO',
-                    'DISPO' => 'DISPO',
+                    'DISPO' => 'DISPO'
                   
             )))
             ->add('idv')
