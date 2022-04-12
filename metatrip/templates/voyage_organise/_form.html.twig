@@ -1,4 +1,49 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+
+
+<link rel="stylesheet" href="{{asset('assets/css/bootstrap.css')}}">
+<div class="container">
+
+
+{{ form_start(form, {'attr' : {'novalidate':'novalidate'}})}}
+
+ <div class="form-group">
+ 
+
+  {{ form_label (form.airline,"Airline:") }}
+{{ form_widget(form.airline,{'attr' : {'class':'form-control'}}) }}
+{{ form_errors(form.airline) }}
+</div>
+ <div class="form-group">
+ 
+
+  {{ form_label (form.prixBillet,"PrixBillet:") }}
+{{ form_widget(form.prixBillet,{'attr' : {'class':'form-control'}}) }}
+{{ form_errors(form.prixBillet) }}
+</div>
+
+ <div class="form-group">
+ 
+  {{ form_label (form.etatvoyage,"etatvoyage:") }}
+{{ form_widget(form.etatvoyage,{'attr' : {'class':'form-control'}}) }}
+{{ form_errors(form.etatvoyage) }}
+</div>
+ <div class="form-group">
+ 
+  {{ form_label (form.idv,"Voyage:") }}
+{{ form_widget(form.idv,{'attr' : {'class':'form-control'}}) }}
+{{ form_errors(form.idv) }}
+</div>
+ 
+     <div class="form-group">
+ 
+  {{ form_label (form.nbplaces,"nbplaces:") }}
+{{ form_widget(form.nbplaces,{'attr' : {'class':'form-control'}}) }}
+{{ form_errors(form.nbplaces) }}
+</div>
+
+
+
+    <button class="btn btn-success" >{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+

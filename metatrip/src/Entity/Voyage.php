@@ -4,6 +4,7 @@ namespace App\Entity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Voyage
  *
@@ -25,7 +26,7 @@ class Voyage
 
     /**
      * @var string
-     *
+       * @Assert\NotBlank
      * @ORM\Column(name="Pays", type="string", length=20, nullable=false)
      */
     private $pays;
@@ -33,11 +34,12 @@ class Voyage
     
     /**
      * @var string
-     *
+      * @Assert\NotBlank
      * @ORM\Column(name="Image_pays", type="string", length=50, nullable=false)
      */
     private $imagePays;
       /**
+      * @Assert\NotBlank
      * @Vich\UploadableField(mapping="product_images", fileNameProperty="Image_pays")
      * @var File
      */

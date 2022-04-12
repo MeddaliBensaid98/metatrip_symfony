@@ -26,25 +26,27 @@ class VoyageOrganise
      * @var float
     *   @Assert\Positive  
      * @ORM\Column(name="Prix_billet", type="float", precision=10, scale=0, nullable=false)
+      * @Assert\NotBlank
      */
     private $prixBillet;
 
     /**
      * @var string
-     *
+       * @Assert\NotBlank
      * @ORM\Column(name="Airline", type="string", length=20, nullable=false)
      */
     private $airline;
 
     /**
      * @var int
-         *   @Assert\Positive  
+        * @Assert\IsNull
      * @ORM\Column(name="Nb_nuitees", type="integer", nullable=false)
      */
     private $nbNuitees;
 
     /**
      * @var int
+          * @Assert\NotBlank
     *   @Assert\Positive  
      * @ORM\Column(name="nbplaces", type="integer", nullable=false)
      */
@@ -52,6 +54,7 @@ class VoyageOrganise
 
     /**
      * @var string
+       * @Assert\NotBlank
         *   @Assert\Positive  
      * @ORM\Column(name="etatVoyage", type="string", length=0, nullable=false)
      */
@@ -59,7 +62,7 @@ class VoyageOrganise
 
     /**
      * @var \Voyage
-     *
+       * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="Voyage")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Idv", referencedColumnName="Idv")

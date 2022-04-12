@@ -15,7 +15,9 @@ class User1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
           $builder
-            ->add('cin')
+            ->add('cin',array( 'attr'=>[
+                'required'=>false
+                  ]))
             ->add('nom')
             ->add('prenom')
             ->add('tel')

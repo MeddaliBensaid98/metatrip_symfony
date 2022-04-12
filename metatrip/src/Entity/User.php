@@ -43,14 +43,14 @@ class User implements UserInterface , \Serializable
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="Nom", type="string", length=20, nullable=false)
      */
     private $nom;
 
     /**
      * @var string
-     *
+        * @Assert\NotBlank
      * @ORM\Column(name="Prenom", type="string", length=20, nullable=false)
      */
     private $prenom;
@@ -59,7 +59,7 @@ class User implements UserInterface , \Serializable
     
     /**
      * @var string
-     *
+        * @Assert\NotBlank
      * @ORM\Column(name="Tel", type="string", length=20, nullable=false)
      * @Assert\Length(min="8", minMessage="Votre tel doit faire minimum 8 caractères")
      * @Assert\Positive  
@@ -68,7 +68,7 @@ class User implements UserInterface , \Serializable
 
     /**
      * @var string
-     *
+        * @Assert\NotBlank
      * @ORM\Column(name="Email", type="string", length=38, nullable=false)
     *  @Assert\Email( message = "The email '{{ value }}' is not a valid email.")
      */
@@ -77,7 +77,7 @@ class User implements UserInterface , \Serializable
     /**
      * 
      * @var string
-     *
+        * @Assert\NotBlank
      * @ORM\Column(name="Password", type="string", length=50, nullable=false)
        *      @Assert\Length(min="4", minMessage="Votre password doit faire minimum 4 caractères")
      *  @Assert\PositiveOrZero 
@@ -88,11 +88,12 @@ class User implements UserInterface , \Serializable
      * @var string
      *
      * @ORM\Column(name="Image", type="string", length=40, nullable=false)
-   
+      * @Assert\NotBlank
      */
     private $image;
 
       /**
+         * @Assert\NotBlank
      * @Vich\UploadableField(mapping="product_images", fileNameProperty="Image")
      * @var File
      */
@@ -106,7 +107,7 @@ class User implements UserInterface , \Serializable
 
     /**
      * @var \DateTime|null
-     *
+        * @Assert\NotBlank
      * @ORM\Column(name="dateNaissance", type="date", nullable=true)
      */
     private $datenaissance;

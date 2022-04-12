@@ -15,7 +15,6 @@ class VoyageOrganiseType extends AbstractType
         $builder
             ->add('prixBillet')
             ->add('airline')
-            ->add('nbNuitees')
             ->add('nbplaces')
             ->add('etatvoyage', ChoiceType::class,
             array(
