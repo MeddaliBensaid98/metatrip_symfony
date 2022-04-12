@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ReservationHotel
  *
- * @ORM\Table(name="reservation_hotel", indexes={@ORM\Index(name="kk_h", columns={"idh"}), @ORM\Index(name="Idrh", columns={"Idrh"}), @ORM\Index(name="FK_u", columns={"Idu"})})
+ * @ORM\Table(name="reservation_hotel", indexes={@ORM\Index(name="Idrh", columns={"Idrh"}), @ORM\Index(name="FK_u", columns={"Idu"}), @ORM\Index(name="kk_h", columns={"idh"})})
  * @ORM\Entity
  */
 class ReservationHotel
@@ -45,16 +45,16 @@ class ReservationHotel
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="Date_depart", type="date", nullable=true)
+     * @ORM\Column(name="Date_depart", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $dateDepart;
+    private $dateDepart = 'NULL';
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="Date_arrivee", type="date", nullable=true)
+     * @ORM\Column(name="Date_arrivee", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $dateArrivee;
+    private $dateArrivee = 'NULL';
 
     /**
      * @var \User
@@ -76,93 +76,132 @@ class ReservationHotel
      */
     private $idh;
 
-    public function getIdrh(): ?int
+    /**
+     * @return int
+     */
+    public function getIdrh(): int
     {
         return $this->idrh;
     }
 
-    public function getNbNuitees(): ?int
+    /**
+     * @param int $idrh
+     */
+    public function setIdrh(int $idrh): void
+    {
+        $this->idrh = $idrh;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNbNuitees(): int
     {
         return $this->nbNuitees;
     }
 
-    public function setNbNuitees(int $nbNuitees): self
+    /**
+     * @param int $nbNuitees
+     */
+    public function setNbNuitees(int $nbNuitees): void
     {
         $this->nbNuitees = $nbNuitees;
-
-        return $this;
     }
 
-    public function getNbPersonnes(): ?int
+    /**
+     * @return int
+     */
+    public function getNbPersonnes(): int
     {
         return $this->nbPersonnes;
     }
 
-    public function setNbPersonnes(int $nbPersonnes): self
+    /**
+     * @param int $nbPersonnes
+     */
+    public function setNbPersonnes(int $nbPersonnes): void
     {
         $this->nbPersonnes = $nbPersonnes;
-
-        return $this;
     }
 
-    public function getPrix(): ?float
+    /**
+     * @return float
+     */
+    public function getPrix(): float
     {
         return $this->prix;
     }
 
-    public function setPrix(float $prix): self
+    /**
+     * @param float $prix
+     */
+    public function setPrix(float $prix): void
     {
         $this->prix = $prix;
-
-        return $this;
     }
 
-    public function getDateDepart(): ?\DateTimeInterface
+    /**
+     * @return \DateTime|null
+     */
+    public function getDateDepart()
     {
         return $this->dateDepart;
     }
 
-    public function setDateDepart(?\DateTimeInterface $dateDepart): self
+    /**
+     * @param \DateTime|null $dateDepart
+     */
+    public function setDateDepart($dateDepart): void
     {
         $this->dateDepart = $dateDepart;
-
-        return $this;
     }
 
-    public function getDateArrivee(): ?\DateTimeInterface
+    /**
+     * @return \DateTime|null
+     */
+    public function getDateArrivee()
     {
         return $this->dateArrivee;
     }
 
-    public function setDateArrivee(?\DateTimeInterface $dateArrivee): self
+    /**
+     * @param \DateTime|null $dateArrivee
+     */
+    public function setDateArrivee($dateArrivee): void
     {
         $this->dateArrivee = $dateArrivee;
-
-        return $this;
     }
 
-    public function getIdu(): ?User
+    /**
+     * @return \User
+     */
+    public function getIdu(): \User
     {
         return $this->idu;
     }
 
-    public function setIdu(?User $idu): self
+    /**
+     * @param \User $idu
+     */
+    public function setIdu(\User $idu): void
     {
         $this->idu = $idu;
-
-        return $this;
     }
 
-    public function getIdh(): ?Hotel
+    /**
+     * @return \Hotel
+     */
+    public function getIdh(): \Hotel
     {
         return $this->idh;
     }
 
-    public function setIdh(?Hotel $idh): self
+    /**
+     * @param \Hotel $idh
+     */
+    public function setIdh(\Hotel $idh): void
     {
         $this->idh = $idh;
-
-        return $this;
     }
 
 

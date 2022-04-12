@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ReservationVoiture
  *
- * @ORM\Table(name="reservation_voiture", indexes={@ORM\Index(name="FK_resv", columns={"Idvoit"}), @ORM\Index(name="FK_CHAUFF", columns={"idch"}), @ORM\Index(name="Idrvoit", columns={"Idrvoit"}), @ORM\Index(name="FK_resu", columns={"Idu"})})
+ * @ORM\Table(name="reservation_voiture", indexes={@ORM\Index(name="FK_CHAUFF", columns={"idch"}), @ORM\Index(name="Idrvoit", columns={"Idrvoit"}), @ORM\Index(name="FK_resu", columns={"Idu"}), @ORM\Index(name="FK_resv", columns={"Idvoit"})})
  * @ORM\Entity
  */
 class ReservationVoiture
@@ -65,69 +65,100 @@ class ReservationVoiture
      */
     private $idu;
 
-    public function getIdrvoit(): ?int
+    /**
+     * @return int
+     */
+    public function getIdrvoit(): int
     {
         return $this->idrvoit;
     }
 
+    /**
+     * @param int $idrvoit
+     */
+    public function setIdrvoit(int $idrvoit): void
+    {
+        $this->idrvoit = $idrvoit;
+    }
+
+    /**
+     * @return float
+     */
     public function getPrixRent(): ?float
     {
         return $this->prixRent;
     }
 
-    public function setPrixRent(float $prixRent): self
+    /**
+     * @param float $prixRent
+     */
+    public function setPrixRent(float $prixRent): void
     {
         $this->prixRent = $prixRent;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getTrajet(): ?string
     {
         return $this->trajet;
     }
 
-    public function setTrajet(string $trajet): self
+    /**
+     * @param string $trajet
+     */
+    public function setTrajet(string $trajet): void
     {
         $this->trajet = $trajet;
-
-        return $this;
     }
 
-    public function getIdch(): ?Chauffeur
+    /**
+     * @return \Chauffeur
+     */
+    public function getIdch(): \Chauffeur
     {
         return $this->idch;
     }
 
-    public function setIdch(?Chauffeur $idch): self
+    /**
+     * @param \Chauffeur $idch
+     */
+    public function setIdch(\Chauffeur $idch): void
     {
         $this->idch = $idch;
-
-        return $this;
     }
 
-    public function getIdvoit(): ?Voiture
+    /**
+     * @return \Voiture
+     */
+    public function getIdvoit(): \Voiture
     {
         return $this->idvoit;
     }
 
-    public function setIdvoit(?Voiture $idvoit): self
+    /**
+     * @param \Voiture $idvoit
+     */
+    public function setIdvoit(\Voiture $idvoit): void
     {
         $this->idvoit = $idvoit;
-
-        return $this;
     }
 
-    public function getIdu(): ?User
+    /**
+     * @return \User
+     */
+    public function getIdu(): \User
     {
         return $this->idu;
     }
 
-    public function setIdu(?User $idu): self
+    /**
+     * @param \User $idu
+     */
+    public function setIdu(\User $idu): void
     {
         $this->idu = $idu;
-
-        return $this;
     }
 
 

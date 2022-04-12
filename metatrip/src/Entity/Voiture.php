@@ -38,7 +38,7 @@ class Voiture
     /**
      * @var string
      *
-     * @ORM\Column(name="Image_v", type="string", length=255, nullable=false)
+     * @ORM\Column(name="Image_v", type="string", length=50, nullable=false)
      */
     private $imageV;
 
@@ -49,57 +49,84 @@ class Voiture
      */
     private $modele;
 
-    public function getIdvoit(): ?int
+    /**
+     * @return int
+     */
+    public function getIdvoit(): int
     {
         return $this->idvoit;
     }
 
-    public function getMatricule(): ?string
+    /**
+     * @param int $idvoit
+     */
+    public function setIdvoit(int $idvoit): void
+    {
+        $this->idvoit = $idvoit;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMatricule(): string
     {
         return $this->matricule;
     }
 
-    public function setMatricule(string $matricule): self
+    /**
+     * @param string $matricule
+     */
+    public function setMatricule(string $matricule): void
     {
         $this->matricule = $matricule;
-
-        return $this;
     }
 
-    public function getPuissanceFiscalle(): ?int
+    /**
+     * @return int
+     */
+    public function getPuissanceFiscalle(): int
     {
         return $this->puissanceFiscalle;
     }
 
-    public function setPuissanceFiscalle(int $puissanceFiscalle): self
+    /**
+     * @param int $puissanceFiscalle
+     */
+    public function setPuissanceFiscalle(int $puissanceFiscalle): void
     {
         $this->puissanceFiscalle = $puissanceFiscalle;
-
-        return $this;
     }
 
-    public function getImageV(): ?string
+    /**
+     * @return string
+     */
+    public function getImageV(): string
     {
         return $this->imageV;
     }
 
-    public function setImageV(string $imageV): self
+    /**
+     * @param string $imageV
+     */
+    public function setImageV(string $imageV): void
     {
         $this->imageV = $imageV;
-
-        return $this;
     }
 
-    public function getModele(): ?string
+    /**
+     * @return string
+     */
+    public function getModele(): string
     {
         return $this->modele;
     }
 
-    public function setModele(string $modele): self
+    /**
+     * @param string $modele
+     */
+    public function setModele(string $modele): void
     {
         $this->modele = $modele;
-
-        return $this;
     }
 
 

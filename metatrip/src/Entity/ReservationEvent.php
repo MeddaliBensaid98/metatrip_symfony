@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ReservationEvent
  *
- * @ORM\Table(name="reservation_event", indexes={@ORM\Index(name="Fk_usr", columns={"Idu"}), @ORM\Index(name="Idrev", columns={"Idrev"}), @ORM\Index(name="Fk_eve", columns={"Ide"})})
+ * @ORM\Table(name="reservation_event", indexes={@ORM\Index(name="Idrev", columns={"Idrev"}), @ORM\Index(name="Fk_eve", columns={"Ide"}), @ORM\Index(name="Fk_usr", columns={"Idu"})})
  * @ORM\Entity
  */
 class ReservationEvent
@@ -48,45 +48,68 @@ class ReservationEvent
      */
     private $idu;
 
-    public function getIdrev(): ?int
+    /**
+     * @return int
+     */
+    public function getIdrev(): int
     {
         return $this->idrev;
     }
 
-    public function getNbPers(): ?int
+    /**
+     * @param int $idrev
+     */
+    public function setIdrev(int $idrev): void
+    {
+        $this->idrev = $idrev;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNbPers(): int
     {
         return $this->nbPers;
     }
 
-    public function setNbPers(int $nbPers): self
+    /**
+     * @param int $nbPers
+     */
+    public function setNbPers(int $nbPers): void
     {
         $this->nbPers = $nbPers;
-
-        return $this;
     }
 
-    public function getIde(): ?Evenement
+    /**
+     * @return \Evenement
+     */
+    public function getIde(): \Evenement
     {
         return $this->ide;
     }
 
-    public function setIde(?Evenement $ide): self
+    /**
+     * @param \Evenement $ide
+     */
+    public function setIde(\Evenement $ide): void
     {
         $this->ide = $ide;
-
-        return $this;
     }
 
-    public function getIdu(): ?User
+    /**
+     * @return \User
+     */
+    public function getIdu(): \User
     {
         return $this->idu;
     }
 
-    public function setIdu(?User $idu): self
+    /**
+     * @param \User $idu
+     */
+    public function setIdu(\User $idu): void
     {
         $this->idu = $idu;
-
-        return $this;
     }
 
 

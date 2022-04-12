@@ -52,9 +52,9 @@ class Chambre
     /**
      * @var float|null
      *
-     * @ORM\Column(name="prixc", type="float", precision=10, scale=0, nullable=true)
+     * @ORM\Column(name="prixc", type="float", precision=10, scale=0, nullable=true, options={"default"="NULL"})
      */
-    private $prixc;
+    private $prixc = NULL;
 
     /**
      * @var \Hotel
@@ -66,82 +66,122 @@ class Chambre
      */
     private $idh;
 
-    public function getIdc(): ?int
+    /**
+     * @return int
+     */
+    public function getIdc(): int
     {
         return $this->idc;
     }
 
-    public function getNumc(): ?int
+    /**
+     * @param int $idc
+     */
+    public function setIdc(int $idc): void
+    {
+        $this->idc = $idc;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumc(): int
     {
         return $this->numc;
     }
 
-    public function setNumc(int $numc): self
+    /**
+     * @param int $numc
+     */
+    public function setNumc(int $numc): void
     {
         $this->numc = $numc;
-
-        return $this;
     }
 
-    public function getImage(): ?string
+    /**
+     * @return string
+     */
+    public function getImage(): string
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    /**
+     * @param string $image
+     */
+    public function setImage(string $image): void
     {
         $this->image = $image;
-
-        return $this;
     }
 
-    public function getType(): ?string
+    /**
+     * @return string
+     */
+    public function getType(): string
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void
     {
         $this->type = $type;
-
-        return $this;
     }
 
-    public function getEtat(): ?string
+    /**
+     * @return string
+     */
+    public function getEtat(): string
     {
         return $this->etat;
     }
 
-    public function setEtat(string $etat): self
+    /**
+     * @param string $etat
+     */
+    public function setEtat(string $etat): void
     {
         $this->etat = $etat;
-
-        return $this;
     }
 
+    /**
+     * @return float|null
+     */
     public function getPrixc(): ?float
     {
         return $this->prixc;
     }
 
-    public function setPrixc(?float $prixc): self
+    /**
+     * @param float|null $prixc
+     */
+    public function setPrixc(?float $prixc): void
     {
         $this->prixc = $prixc;
-
-        return $this;
     }
 
-    public function getIdh(): ?Hotel
+    /**
+     * @return \Hotel
+     */
+    public function getIdh(): \Hotel
     {
         return $this->idh;
     }
 
-    public function setIdh(?Hotel $idh): self
+    /**
+     * @param \Hotel $idh
+     */
+    public function setIdh(\Hotel $idh): void
     {
         $this->idh = $idh;
-
-        return $this;
     }
-
+    public function  __toString(){
+        // to show the name of the Category in the select
+        return $this->type;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 
 }

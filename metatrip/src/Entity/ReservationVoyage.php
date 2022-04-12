@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ReservationVoyage
  *
- * @ORM\Table(name="reservation_voyage", indexes={@ORM\Index(name="FKPAY", columns={"Ref_paiement"}), @ORM\Index(name="FK_resvoy", columns={"Idv"}), @ORM\Index(name="FK_reusr", columns={"Idu"}), @ORM\Index(name="Idrv", columns={"Idrv"})})
+ * @ORM\Table(name="reservation_voyage", indexes={@ORM\Index(name="FK_resvoy", columns={"Idv"}), @ORM\Index(name="FK_reusr", columns={"Idu"}), @ORM\Index(name="Idrv", columns={"Idrv"}), @ORM\Index(name="FKPAY", columns={"Ref_paiement"})})
  * @ORM\Entity
  */
 class ReservationVoyage
@@ -66,81 +66,116 @@ class ReservationVoyage
      */
     private $idv;
 
-    public function getIdrv(): ?int
+    /**
+     * @return int
+     */
+    public function getIdrv(): int
     {
         return $this->idrv;
     }
 
-    public function getDateDepart(): ?\DateTimeInterface
+    /**
+     * @param int $idrv
+     */
+    public function setIdrv(int $idrv): void
+    {
+        $this->idrv = $idrv;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateDepart(): \DateTime
     {
         return $this->dateDepart;
     }
 
-    public function setDateDepart(\DateTimeInterface $dateDepart): self
+    /**
+     * @param \DateTime $dateDepart
+     */
+    public function setDateDepart(\DateTime $dateDepart): void
     {
         $this->dateDepart = $dateDepart;
-
-        return $this;
     }
 
-    public function getDateArrivee(): ?\DateTimeInterface
+    /**
+     * @return \DateTime
+     */
+    public function getDateArrivee(): \DateTime
     {
         return $this->dateArrivee;
     }
 
-    public function setDateArrivee(\DateTimeInterface $dateArrivee): self
+    /**
+     * @param \DateTime $dateArrivee
+     */
+    public function setDateArrivee(\DateTime $dateArrivee): void
     {
         $this->dateArrivee = $dateArrivee;
-
-        return $this;
     }
 
-    public function getEtat(): ?string
+    /**
+     * @return string
+     */
+    public function getEtat(): string
     {
         return $this->etat;
     }
 
-    public function setEtat(string $etat): self
+    /**
+     * @param string $etat
+     */
+    public function setEtat(string $etat): void
     {
         $this->etat = $etat;
-
-        return $this;
     }
 
-    public function getIdu(): ?int
+    /**
+     * @return int
+     */
+    public function getIdu(): int
     {
         return $this->idu;
     }
 
-    public function setIdu(int $idu): self
+    /**
+     * @param int $idu
+     */
+    public function setIdu(int $idu): void
     {
         $this->idu = $idu;
-
-        return $this;
     }
 
-    public function getRefPaiement(): ?int
+    /**
+     * @return int
+     */
+    public function getRefPaiement()
     {
         return $this->refPaiement;
     }
 
-    public function setRefPaiement(int $refPaiement): self
+    /**
+     * @param int $refPaiement
+     */
+    public function setRefPaiement($refPaiement): void
     {
         $this->refPaiement = $refPaiement;
-
-        return $this;
     }
 
-    public function getIdv(): ?Voyage
+    /**
+     * @return \Voyage
+     */
+    public function getIdv(): \Voyage
     {
         return $this->idv;
     }
 
-    public function setIdv(?Voyage $idv): self
+    /**
+     * @param \Voyage $idv
+     */
+    public function setIdv(\Voyage $idv): void
     {
         $this->idv = $idv;
-
-        return $this;
     }
 
 

@@ -16,6 +16,7 @@ class ChambreType extends AbstractType
             ->add('image')
             ->add('type')
             ->add('etat')
+            ->add('prixc')
             ->add('idh')
         ;
     }

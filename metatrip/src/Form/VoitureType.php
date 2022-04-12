@@ -16,7 +16,6 @@ class VoitureType extends AbstractType
             ->add('puissanceFiscalle')
             ->add('imageV')
             ->add('modele')
-            ->add('type')
         ;
     }
 

@@ -15,10 +15,10 @@ class ReservationHotelType extends AbstractType
             ->add('nbNuitees')
             ->add('nbPersonnes')
             ->add('prix')
-            ->add('idc')
             ->add('dateDepart')
             ->add('dateArrivee')
             ->add('idu')
+            ->add('idh')
         ;
     }
 

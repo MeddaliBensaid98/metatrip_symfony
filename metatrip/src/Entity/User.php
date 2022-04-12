@@ -2,24 +2,16 @@
 
 namespace App\Entity;
 
-use Serializable;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity
-  *@UniqueEntity("cin",message="cin est deja exist") 
-    *@UniqueEntity("tel",message="cin est deja exist") 
  */
-class User implements UserInterface , \Serializable
-
+class User
 {
-
     /**
      * @var int
      *
@@ -33,8 +25,6 @@ class User implements UserInterface , \Serializable
      * @var string
      *
      * @ORM\Column(name="Cin", type="string", length=20, nullable=false)
-     *   @Assert\Positive  
-     *  @Assert\Length(min="8", minMessage="Votre cin doit faire minimum 8 caractères")
      */
     private $cin;
 
@@ -56,8 +46,6 @@ class User implements UserInterface , \Serializable
      * @var string
      *
      * @ORM\Column(name="Tel", type="string", length=20, nullable=false)
-     * @Assert\Length(min="8", minMessage="Votre tel doit faire minimum 8 caractères")
-     * @Assert\Positive  
      */
     private $tel;
 
@@ -65,17 +53,13 @@ class User implements UserInterface , \Serializable
      * @var string
      *
      * @ORM\Column(name="Email", type="string", length=38, nullable=false)
-    *  @Assert\Email( message = "The email '{{ value }}' is not a valid email.")
      */
     private $email;
 
     /**
-     * 
      * @var string
      *
      * @ORM\Column(name="Password", type="string", length=50, nullable=false)
-       *      @Assert\Length(min="4", minMessage="Votre password doit faire minimum 4 caractères")
-     *  @Assert\PositiveOrZero 
      */
     private $password;
 
@@ -83,7 +67,6 @@ class User implements UserInterface , \Serializable
      * @var string
      *
      * @ORM\Column(name="Image", type="string", length=40, nullable=false)
-   
      */
     private $image;
 
@@ -97,160 +80,169 @@ class User implements UserInterface , \Serializable
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="dateNaissance", type="date", nullable=true)
+     * @ORM\Column(name="dateNaissance", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $datenaissance;
+    private $datenaissance = 'NULL';
 
-    public function getIdu(): ?int
+    /**
+     * @return int
+     */
+    public function getIdu(): int
     {
         return $this->idu;
     }
 
-    public function getCin(): ?string
+    /**
+     * @param int $idu
+     */
+    public function setIdu(int $idu): void
+    {
+        $this->idu = $idu;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCin(): string
     {
         return $this->cin;
     }
 
-    public function setCin(string $cin): self
+    /**
+     * @param string $cin
+     */
+    public function setCin(string $cin): void
     {
         $this->cin = $cin;
-
-        return $this;
     }
 
-    public function getNom(): ?string
+    /**
+     * @return string
+     */
+    public function getNom(): string
     {
         return $this->nom;
     }
-  
-    public function setNom(string $nom): self
+
+    /**
+     * @param string $nom
+     */
+    public function setNom(string $nom): void
     {
         $this->nom = $nom;
-
-        return $this;
     }
 
-    public function getPrenom(): ?string
+    /**
+     * @return string
+     */
+    public function getPrenom(): string
     {
         return $this->prenom;
     }
 
-    public function setPrenom(string $prenom): self
+    /**
+     * @param string $prenom
+     */
+    public function setPrenom(string $prenom): void
     {
         $this->prenom = $prenom;
-
-        return $this;
     }
 
-    public function getTel(): ?string
+    /**
+     * @return string
+     */
+    public function getTel(): string
     {
         return $this->tel;
     }
 
-    public function setTel(string $tel): self
+    /**
+     * @param string $tel
+     */
+    public function setTel(string $tel): void
     {
         $this->tel = $tel;
-
-        return $this;
     }
 
-    public function getEmail(): ?string
+    /**
+     * @return string
+     */
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
     {
         $this->email = $email;
-
-        return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * @return string
+     */
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
     {
         $this->password = $password;
-
-        return $this;
     }
 
-    public function getImage(): ?string
+    /**
+     * @return string
+     */
+    public function getImage(): string
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    /**
+     * @param string $image
+     */
+    public function setImage(string $image): void
     {
         $this->image = $image;
-
-        return $this;
     }
 
-    public function getRole(): ?int
+    /**
+     * @return int|null
+     */
+    public function getRole()
     {
         return $this->role;
     }
 
-    public function setRole(?int $role): self
+    /**
+     * @param int|null $role
+     */
+    public function setRole($role): void
     {
         $this->role = $role;
-
-        return $this;
     }
 
-    public function getDatenaissance(): ?\DateTimeInterface
+    /**
+     * @return \DateTime|null
+     */
+    public function getDatenaissance()
     {
         return $this->datenaissance;
     }
 
-    public function setDatenaissance(?\DateTimeInterface $datenaissance): self
+    /**
+     * @param \DateTime|null $datenaissance
+     */
+    public function setDatenaissance($datenaissance): void
     {
         $this->datenaissance = $datenaissance;
-
-        return $this;
     }
-        /**
-     * The public representation of the user (e.g. a username, an email address, etc.)
-     *
-     * @see UserInterface
-     */
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
-    }
-    public function getRoles(){}
 
 
-  
-
-    public function getSalt(){}
-    public function eraseCredentials(){}
-    public function getUsername(){}
-
-    public function serialize(){
-    return serialize([
-        $this->id,
-        $this->prenom,
-        $this->tel,
-        $this->dateNaissance,
-        $this->Nom,
-        $this->email,
-        $this->password
-     ] );
-    }
- public function unserialize ($string){
-    list (
-        $this->id,
-        $this->prenom,
-        $this->tel,
-        $this->dateNaissance,
-        $this->Nom,
-        $this->email,
-        $this->password
-    ) = unserialize($string, ['allowed classes' => false]);
-}
 }

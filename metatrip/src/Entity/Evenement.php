@@ -57,87 +57,99 @@ class Evenement
     private $prixE;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=255, nullable=false)
+     * @return int
      */
-    private $image;
-
-    public function getIde(): ?int
+    public function getIde(): int
     {
         return $this->ide;
     }
 
-    public function getTypeEvent(): ?string
+    /**
+     * @param int $ide
+     */
+    public function setIde(int $ide): void
+    {
+        $this->ide = $ide;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeEvent(): string
     {
         return $this->typeEvent;
     }
 
-    public function setTypeEvent(string $typeEvent): self
+    /**
+     * @param string $typeEvent
+     */
+    public function setTypeEvent(string $typeEvent): void
     {
         $this->typeEvent = $typeEvent;
-
-        return $this;
     }
 
-    public function getChanteur(): ?string
+    /**
+     * @return string
+     */
+    public function getChanteur(): string
     {
         return $this->chanteur;
     }
 
-    public function setChanteur(string $chanteur): self
+    /**
+     * @param string $chanteur
+     */
+    public function setChanteur(string $chanteur): void
     {
         $this->chanteur = $chanteur;
-
-        return $this;
     }
 
-    public function getAdresse(): ?string
+    /**
+     * @return string
+     */
+    public function getAdresse(): string
     {
         return $this->adresse;
     }
 
-    public function setAdresse(string $adresse): self
+    /**
+     * @param string $adresse
+     */
+    public function setAdresse(string $adresse): void
     {
         $this->adresse = $adresse;
-
-        return $this;
     }
 
-    public function getDateEvent(): ?\DateTimeInterface
+    /**
+     * @return \DateTime
+     */
+    public function getDateEvent(): \DateTime
     {
         return $this->dateEvent;
     }
 
-    public function setDateEvent(\DateTimeInterface $dateEvent): self
+    /**
+     * @param \DateTime $dateEvent
+     */
+    public function setDateEvent(\DateTime $dateEvent): void
     {
         $this->dateEvent = $dateEvent;
-
-        return $this;
     }
 
-    public function getPrixE(): ?float
+    /**
+     * @return float
+     */
+    public function getPrixE(): float
     {
         return $this->prixE;
     }
 
-    public function setPrixE(float $prixE): self
+    /**
+     * @param float $prixE
+     */
+    public function setPrixE(float $prixE): void
     {
         $this->prixE = $prixE;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
     }
 
 
