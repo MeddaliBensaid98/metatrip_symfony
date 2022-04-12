@@ -25,10 +25,9 @@
                       
             {% if vv.etatvoyage=='DISPO' %}
              
-          <button type="button" class="btn btn-primary btn-xs btn3d"> 
-           <a style="text-decoration:none;color:white"href="{{ path('indexRes') }}">Réserver</a></button> 
-            <br> <br>
-                      <span class="badge bg-secondary">{{vv.nbplaces}} place(s) restante(s)</span>
+         
+           <a style="text-decoration:none;color:white" href="{{ path('indexRes', {'idv': vv.idv,'idu':26} ) }}"> <button type="button" class="btn btn-primary btn-xs btn3d"> Réserver</button> </a>
+             
 
 
             {% else %}
@@ -47,15 +46,16 @@
                              
                       
                         <ul class="product_price list-unstyled">
-                            <li class="old_price"> <i class="far fa-clock pr-1"></i> {{vv.nbNuitees}} nuitées | </li>
-                         a
+                          
 
 
                               {% if vv.etatvoyage=='DISPO' %}
-                        <span class="badge bg-success rounded-pill"> <b>{{vv.etatvoyage}}</b></span>
+                        <span class="badge bg-success rounded-pill"> <b>{{vv.etatvoyage}} </b></span>  <span class="badge bg-secondary">{{vv.nbplaces}} place(s) restante(s)</span>
+
                         {% endif %}
                             {% if vv.etatvoyage=='INDISPO' %}
-                        <span class="badge bg-danger rounded-pill"> <b>{{vv.etatvoyage}}</b></span>
+                        <span class="badge bg-danger rounded-pill"> <b>{{vv.etatvoyage}}</b></span>           <span class="badge bg-secondary">{{vv.nbplaces}} place(s) restante(s)</span>
+
                         {% endif %}
                         
                            

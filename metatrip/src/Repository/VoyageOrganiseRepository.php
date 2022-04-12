@@ -20,7 +20,7 @@ class VoyageOrganiseRepository extends ServiceEntityRepository
     public function findListaVoyages(){
         $entityManager=$this->getEntityManager();
         $query=$entityManager
-            ->createQuery("SELECT vo.idvo,vo.prixBillet,vo.nbplaces,vo.nbNuitees,vo.airline,vo.etatvoyage ,v.imagePays,v.pays FROM APP\Entity\VoyageOrganise vo,APP\Entity\Voyage v WHERE vo.idv=v.idv")
+            ->createQuery("SELECT v.idv,vo.idvo,vo.prixBillet,vo.nbplaces,vo.nbNuitees,vo.airline,vo.etatvoyage ,v.imagePays,v.pays FROM APP\Entity\VoyageOrganise vo,APP\Entity\Voyage v WHERE vo.idv=v.idv")
           ;
         return $query->getResult();
     }

@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Entity\Voyage;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * VoyageOrganise
  *
@@ -23,7 +24,7 @@ class VoyageOrganise
 
     /**
      * @var float
-     *
+    *   @Assert\Positive  
      * @ORM\Column(name="Prix_billet", type="float", precision=10, scale=0, nullable=false)
      */
     private $prixBillet;
@@ -37,21 +38,21 @@ class VoyageOrganise
 
     /**
      * @var int
-     *
+         *   @Assert\Positive  
      * @ORM\Column(name="Nb_nuitees", type="integer", nullable=false)
      */
     private $nbNuitees;
 
     /**
      * @var int
-     *
+    *   @Assert\Positive  
      * @ORM\Column(name="nbplaces", type="integer", nullable=false)
      */
     private $nbplaces;
 
     /**
      * @var string
-     *
+        *   @Assert\Positive  
      * @ORM\Column(name="etatVoyage", type="string", length=0, nullable=false)
      */
     private $etatvoyage;
@@ -107,7 +108,11 @@ class VoyageOrganise
         return $this;
     }
 
- 
+    public function getNbplaces(): ?int
+    {
+        return $this->nbplaces;
+    }
+
     public function setNbplaces(int $nbplaces): self
     {
         $this->nbplaces = $nbplaces;
@@ -127,7 +132,7 @@ class VoyageOrganise
         return $this;
     }
 
-    public function getIdv(): ?Voyage
+    public function getIdv()
     {
         return $this->idv;
     }
@@ -140,11 +145,4 @@ class VoyageOrganise
     }
 
 
-	/**
-	 * 
-	 * @return int
-	 */
-	function getNbplaces() {
-		return $this->nbplaces;
-	}
 }

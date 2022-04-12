@@ -6,6 +6,7 @@ use App\Entity\VoyageOrganise;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class VoyageOrganiseType extends AbstractType
 {
@@ -14,9 +15,15 @@ class VoyageOrganiseType extends AbstractType
         $builder
             ->add('prixBillet')
             ->add('airline')
-            ->add('nbNuitees')
+
             ->add('nbplaces')
-            ->add('etatvoyage')
+            ->add('etatvoyage', ChoiceType::class,
+            array(
+                'choices' => array(
+                    'INDISPO'    =>'INDISPO',
+                    'DISPO' => 'DISPO',
+                  
+            )))
             ->add('idv')
         ;
     }
