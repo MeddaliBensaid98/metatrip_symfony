@@ -64,21 +64,23 @@ class VoyageOrganiseController extends AbstractController
         ]);
     }
  /**
-     * @Route("/rr/{idv}/{idu}", name="indexRes", methods={"GET","POST"})
+     * @Route("/rr/{idvo}/{idu}", name="indexRes", methods={"GET","POST"})
      */
      public function testresr(EntityManagerInterface $entityManager,
-     UserRepository $repu,VoyageOrganiseRepository $rep,User $user,VoyageOrganise $voyage,
+     UserRepository $repu,VoyageOrganiseRepository $repo,User $user,VoyageOrganise $voyage_test,
      VoyageOrganise $voyageorg,Request $request): Response
     {
               $idu=813;
-            //$voyage = $repo->findByIdv($voyageorg->getIdv()->getIdv(),$voyageorg->getIdvo());
-
-           
+            $voyageorg = $repo->findByIdvoo($voyageorg->getIdv()->getIdv(),$voyageorg->getIdvo());
+     $ch=$voyageorg->getIdvo();
+echo $ch;
+          
         $rv = new ReservationVoyage();
         $form = $this->createForm(RsrvType::class, $rv);
         //$form->add("Reserver", SubmitType::class);
-         //$ch=sizeof($voyage);
-//echo $ch;
+    
+
+
 $form->get('idv')->setData($voyageorg->getIdv());
         
 $form->get('idu')->setData($user);
@@ -86,7 +88,6 @@ $form->get('idu')->setData($user);
        
    $user = $repu->findByIdu($idu);
         
-      
   
 
 
@@ -115,7 +116,7 @@ $form->get('idu')->setData($user);
                 $entityManager->flush();
 
                 //$voyage = $rep->findByNbPlaces($voyageorg->getIdvo(),$rv->getIdv()->getIdv());
-                $voyageorg->setNbplaces($voyageorg->getNbplaces()-1);
+                $voyage_test->setNbplaces($voyage_test->getNbplaces()-1);
                 $entityManager->flush();
             }
         }
