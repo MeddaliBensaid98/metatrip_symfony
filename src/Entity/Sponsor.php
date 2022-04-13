@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Sponsor
  *
- * @Vich\Uploadable
  * @UniqueEntity("nomsponsor",message="nom sponsor est deja exist")
  * @ORM\Table(name="sponsor", indexes={@ORM\Index(name="sponsor_ibfk_1", columns={"ide"})})
  * @ORM\Entity
@@ -40,7 +39,7 @@ class Sponsor
     /**
      * @var string
      * @Assert\NotBlank
-     * @Assert\Length(min="8", minMessage="Votre cin doit faire minimum 8 caractères")
+     * @Assert\Length(min="8", minMessage="Votre num telephone doit faire minimum 8 caractères")
      * @ORM\Column(name="tel", type="string", length=20, nullable=false)
      */
     private $tel;
@@ -59,30 +58,11 @@ class Sponsor
 
     /**
      * @var string
-     * @Assert\Image(
-     *     minWidth = 250,
-     *     maxWidth = 250,
-     *     minHeight = 250,
-     *     maxHeight = 250
-     * )
-     *
      * @ORM\Column(name="image", type="string", length=255, nullable=false)
      */
     private $image;
 
-    /**
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="Image")
-     * @var string
-     *
-     * @Assert\Image(
-     *     minWidth = 250,
-     *     maxWidth = 250,
-     *     minHeight = 250,
-     *     maxHeight = 250
-     * )
-     * @var File
-     */
-    private $imageFile;
+
 
     /**
      * @var \DateTime
@@ -158,29 +138,7 @@ class Sponsor
     }
 
 
-    public function setImageFile( $image = null)
-    {
-        $this->imageFile = $image;
-
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->setUpdatedAt = new \DateTime('now');
-        }
-
-    }
-
-
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
-
-
-    public function setImage( ?string $image ): self {
+    public function setImage( string $image ) {
         $this->image = $image;
 
         return $this;

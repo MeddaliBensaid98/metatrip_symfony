@@ -8,7 +8,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class SponsorType extends AbstractType
 {
@@ -18,22 +17,16 @@ class SponsorType extends AbstractType
             ->add('nomsponsor')
             ->add('tel')
             ->add('email')
-            ->add('imageFile',VichImageType::class)
-
+            ->add('image')
             ->add('dateSp')
             ->add('prixSp')
-            ->add('ide', EntityType::Class,array(
-                    'class' => Evenement::class,
-                    'choice_label'=>'chanteur',
-                    'label' =>'Selection des chanteurs',
-                    'multiple' => false,
-                    'required' => true
-                )
-
-
-
-            )
-
+            ->add('ide' , EntityType::Class,array(
+                'class' => Evenement::class,
+                'choice_label'=>'chanteur',
+                'label' =>'Selection des chanteurs',
+                'multiple' => false,
+                'required' => true
+            ) )
         ;
     }
 

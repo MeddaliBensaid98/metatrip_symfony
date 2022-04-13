@@ -1,0 +1,44 @@
+{% extends 'base.front.html.twig' %}
+
+
+{% block title %}Sponsor {% endblock %}
+
+{% block body %}
+
+    <main id="main" class="main">
+
+
+        <h1>Sponsors</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nom sponsor</th>
+                <th>Tel</th>
+                <th>Email</th>
+                <th>Image</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for sponsor in sponsors %}
+                <tr>
+                    <td>{{ sponsor.nomsponsor }}</td>
+                    <td>{{ sponsor.tel }}</td>
+                    <td>{{ sponsor.email }}</td>
+                    <td>{{ sponsor.image }}</td>
+
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+
+
+    </main>
+{% endblock %}

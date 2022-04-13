@@ -93,4 +93,6 @@ class EvenementController extends AbstractController
 
         return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }

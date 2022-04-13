@@ -3,7 +3,11 @@
 {% block title %}ReservationEvent{% endblock %}
 
 {% block body %}
-    <h1>ReservationEvent</h1>
+
+<main id="main" class="main">
+
+
+    <h1>Affichage Reservation</h1>
 
     <table class="table">
         <tbody>
@@ -15,12 +19,27 @@
                 <th>NbPers</th>
                 <td>{{ reservation_event.nbPers }}</td>
             </tr>
+
+            <tr>
+                <th>Chanteur</th>
+                <td>{{ reservation_event.ide.chanteur }}</td>
+            </tr>
+
+            <tr>
+                <th>CIN</th>
+                <td>{{ reservation_event.idu.cin }}</td>
+            </tr>
+
+
         </tbody>
     </table>
 
-    <a href="{{ path('app_reservation_event_index') }}">back to list</a>
+    <a href="{{ path('app_reservation_event_index') }}"  class="btn btn-success"  >back to list</a>
 
-    <a href="{{ path('app_reservation_event_edit', {'idrev': reservation_event.idrev}) }}">edit</a>
+    <a href="{{ path('app_reservation_event_edit', {'idrev': reservation_event.idrev}) }}"  class="btn btn-danger"  >edit</a>
 
     {{ include('reservation_event/_delete_form.html.twig') }}
+
+
+</main>
 {% endblock %}

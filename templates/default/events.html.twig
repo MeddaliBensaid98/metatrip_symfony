@@ -1,0 +1,43 @@
+{% extends 'base.front.html.twig' %}
+
+{% block title %}Evenements{% endblock %}
+
+{% block body %}
+
+    <main id="main" class="main">
+
+        <h1>Evenements </h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>TypeEvent</th>
+                <th>Chanteur</th>
+                <th>Adresse</th>
+                <th>DateEvent</th>
+                <th>PrixE</th>
+                <th>Image</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for evenement in evenements %}
+                <tr>
+                    <td>{{ evenement.typeEvent }}</td>
+                    <td>{{ evenement.chanteur }}</td>
+                    <td>{{ evenement.adresse }}</td>
+                    <td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d') : '' }}</td>
+                    <td>{{ evenement.prixE }}</td>
+                    <td>{{ evenement.image }}</td>
+
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+    </main>
+{% endblock %}

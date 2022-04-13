@@ -3,11 +3,15 @@
 {% block title %}Edit ReservationEvent{% endblock %}
 
 {% block body %}
-    <h1>Edit ReservationEvent</h1>
 
+
+<main id="main" class="main">
+    <h1>Edit ReservationEvent</h1>
     {{ include('reservation_event/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_reservation_event_index') }}">back to list</a>
+    <a href="{{ path('app_reservation_event_index') }}" class="btn btn-success" >back to list</a>
 
     {{ include('reservation_event/_delete_form.html.twig') }}
+
+</main>
 {% endblock %}

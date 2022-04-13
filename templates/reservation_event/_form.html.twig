@@ -1,4 +1,34 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+
+<link rel="stylesheet" href="{{asset('assets/css/bootstrap.css')}}">
+<div class="container">
+
+    {{ form_start(form, {'attr' : {'novalidate':'novalidate'}})}}
+
+    <div class="form-group">
+
+        {{ form_label (form.nbPers,"Le nombre des personnes ") }}
+        {{ form_widget(form.nbPers,{'attr' : {'class':'form-control'}}) }}
+        {{ form_errors(form.nbPers) }}
+    </div>
+
+    <div class="form-group">
+
+        {{ form_label (form.idu,"Le cin de user") }}
+        {{ form_widget(form.idu,{'attr' : {'class':'form-control'}}) }}
+        {{ form_errors(form.idu) }}
+    </div>
+
+    <div class="form-group">
+
+        {{ form_label (form.ide,"L'evenemnt ") }}
+        {{ form_widget(form.ide,{'attr' : {'class':'form-control'}}) }}
+        {{ form_errors(form.ide) }}
+    </div>
+
+
+
+
+    <button class="btn btn-success" >{{ button_label|default('Save') }}</button>
+
+
+    {{ form_end(form) }}

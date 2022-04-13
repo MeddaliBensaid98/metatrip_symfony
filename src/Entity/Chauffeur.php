@@ -63,81 +63,116 @@ class Chauffeur
      */
     private $etatdispo;
 
-    public function getIdch(): ?int
+    /**
+     * @return int
+     */
+    public function getIdch(): int
     {
         return $this->idch;
     }
 
+    /**
+     * @param int $idch
+     */
+    public function setIdch(int $idch): void
+    {
+        $this->idch = $idch;
+    }
+
+    /**
+     * @return string
+     */
     public function getNom(): ?string
     {
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    /**
+     * @param string $nom
+     */
+    public function setNom(string $nom): void
     {
         $this->nom = $nom;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getPrenom(): ?string
     {
         return $this->prenom;
     }
 
-    public function setPrenom(string $prenom): self
+    /**
+     * @param string $prenom
+     */
+    public function setPrenom(string $prenom): void
     {
         $this->prenom = $prenom;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getPhoto(): ?string
     {
         return $this->photo;
     }
 
-    public function setPhoto(string $photo): self
+    /**
+     * @param string $photo
+     */
+    public function setPhoto(string $photo): void
     {
         $this->photo = $photo;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getTel(): ?string
     {
         return $this->tel;
     }
 
-    public function setTel(string $tel): self
+    /**
+     * @param string $tel
+     */
+    public function setTel(string $tel): void
     {
         $this->tel = $tel;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getEtatdispo(): ?string
     {
         return $this->etatdispo;
     }
 
-    public function setEtatdispo(string $etatdispo): self
+    /**
+     * @param string $etatdispo
+     */
+    public function setEtatdispo(string $etatdispo): void
     {
         $this->etatdispo = $etatdispo;
-
-        return $this;
     }
 
 

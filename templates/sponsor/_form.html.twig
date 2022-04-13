@@ -28,9 +28,9 @@
 
     <div class="form-group">
 
-        {{ form_label (form.imageFile,"image sponsor:") }}
-        {{ form_widget(form.imageFile,{'attr' : {'class':'form-control'}}) }}
-        {{ form_errors(form.imageFile) }}
+        {{ form_label (form.image,"image sponsor:") }}
+        {{ form_widget(form.image,{'attr' : {'class':'form-control'}}) }}
+        {{ form_errors(form.image) }}
     </div>
 
     <div class="form-group">
@@ -59,4 +59,4 @@
     <button class="btn btn-success" >{{ button_label|default('Save') }}</button>
 
 
-{{ form_end(form) }}
+    {{ form_end(form) }}

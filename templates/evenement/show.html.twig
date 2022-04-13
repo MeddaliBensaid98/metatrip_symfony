@@ -3,7 +3,10 @@
 {% block title %}Evenement{% endblock %}
 
 {% block body %}
+
+<main id="main" class="main">
     <h1>Evenement</h1>
+
 
     <table class="table">
         <tbody>
@@ -38,9 +41,12 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_evenement_index') }}">back to list</a>
 
-    <a href="{{ path('app_evenement_edit', {'ide': evenement.ide}) }}">edit</a>
+    <a href="{{ path('app_evenement_index') }}"  class="btn btn-success" >Back To list </a>
+
+    <a href="{{ path('app_evenement_edit', {'ide': evenement.ide}) }}"  class="btn btn-danger" >Modifier</a>
 
     {{ include('evenement/_delete_form.html.twig') }}
+
+</main>
 {% endblock %}

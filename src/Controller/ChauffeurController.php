@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Chauffeur;
-use App\Form\Chauffeur1Type;
+use App\Form\ChauffeurType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +35,7 @@ class ChauffeurController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $chauffeur = new Chauffeur();
-        $form = $this->createForm(Chauffeur1Type::class, $chauffeur);
+        $form = $this->createForm(ChauffeurType::class, $chauffeur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,7 +66,7 @@ class ChauffeurController extends AbstractController
      */
     public function edit(Request $request, Chauffeur $chauffeur, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Chauffeur1Type::class, $chauffeur);
+        $form = $this->createForm(ChauffeurType::class, $chauffeur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

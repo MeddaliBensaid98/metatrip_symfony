@@ -3,7 +3,13 @@
 {% block title %}ReservationEvent index{% endblock %}
 
 {% block body %}
-    <h1>ReservationEvent index</h1>
+
+
+<main id="main" class="main">
+
+ <h1>Gestion ReservationEvent</h1>
+
+    <a href="{{ path('app_reservation_event_new') }}"  class="btn btn-info">Ajouter</a>
 
     <table class="table">
         <thead>
@@ -19,8 +25,8 @@
                 <td>{{ reservation_event.idrev }}</td>
                 <td>{{ reservation_event.nbPers }}</td>
                 <td>
-                    <a href="{{ path('app_reservation_event_show', {'idrev': reservation_event.idrev}) }}">show</a>
-                    <a href="{{ path('app_reservation_event_edit', {'idrev': reservation_event.idrev}) }}">edit</a>
+                    <a href="{{ path('app_reservation_event_show', {'idrev': reservation_event.idrev}) }}"   class="btn btn-danger" >Afficher</a>
+                    <a href="{{ path('app_reservation_event_edit', {'idrev': reservation_event.idrev}) }}"   class="btn btn-danger"  >Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_reservation_event_new') }}">Create new</a>
+</main>
 {% endblock %}

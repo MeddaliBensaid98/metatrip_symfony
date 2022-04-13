@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Voyage;
-use App\Form\Voyage1Type;
+use App\Form\VoyageType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +35,7 @@ class VoyageController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $voyage = new Voyage();
-        $form = $this->createForm(Voyage1Type::class, $voyage);
+        $form = $this->createForm(VoyageType::class, $voyage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,7 +66,7 @@ class VoyageController extends AbstractController
      */
     public function edit(Request $request, Voyage $voyage, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Voyage1Type::class, $voyage);
+        $form = $this->createForm(VoyageType::class, $voyage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

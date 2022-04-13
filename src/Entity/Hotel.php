@@ -49,58 +49,91 @@ class Hotel
      */
     private $image;
 
-    public function getIdh(): ?int
+    /**
+     * @return int
+     */
+    public function getIdh(): int
     {
         return $this->idh;
     }
 
+    /**
+     * @param int $idh
+     */
+    public function setIdh(int $idh): void
+    {
+        $this->idh = $idh;
+    }
+
+    /**
+     * @return string
+     */
     public function getNomHotel(): ?string
     {
         return $this->nomHotel;
     }
 
-    public function setNomHotel(string $nomHotel): self
+    /**
+     * @param string $nomHotel
+     */
+    public function setNomHotel(string $nomHotel): void
     {
         $this->nomHotel = $nomHotel;
-
-        return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getNbEtoiles(): ?int
     {
         return $this->nbEtoiles;
     }
 
-    public function setNbEtoiles(int $nbEtoiles): self
+    /**
+     * @param int $nbEtoiles
+     */
+    public function setNbEtoiles(int $nbEtoiles): void
     {
         $this->nbEtoiles = $nbEtoiles;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getAdresse(): ?string
     {
         return $this->adresse;
     }
 
-    public function setAdresse(string $adresse): self
+    /**
+     * @param string $adresse
+     */
+    public function setAdresse(string $adresse): void
     {
         $this->adresse = $adresse;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getImage(): ?string
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    /**
+     * @param string $image
+     */
+    public function setImage(string $image): void
     {
         $this->image = $image;
-
-        return $this;
     }
 
+    public function  __toString(){
+        // to show the name of the Category in the select
+        return $this->nomHotel;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 
 }

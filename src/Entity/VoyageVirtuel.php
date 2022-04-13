@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * VoyageVirtuel
@@ -18,6 +19,7 @@ class VoyageVirtuel
      * @ORM\Column(name="Idvv", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+
      */
     private $idvv;
 
@@ -25,6 +27,13 @@ class VoyageVirtuel
      * @var string
      *
      * @ORM\Column(name="Video", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Video path is required")
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 50,
+     *      minMessage = "Id video must be at least {{ limit }} characters long",
+     *      maxMessage = "Id video cannot be longer than {{ limit }} characters"
+     * )
      */
     private $video;
 
@@ -32,6 +41,7 @@ class VoyageVirtuel
      * @var string
      *
      * @ORM\Column(name="Image_v", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Image path is required")
      */
     private $imageV;
 

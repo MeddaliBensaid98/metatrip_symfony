@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Abonnement
@@ -23,22 +24,24 @@ class Abonnement
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank
      * @ORM\Column(name="Type", type="string", length=20, nullable=false)
+
      */
     private $type;
 
     /**
      * @var int
-     *
+     *@Assert\NotBlank
      * @ORM\Column(name="Prix_a", type="integer", nullable=false)
      */
     private $prixA;
 
     /**
      * @var \DateTime
-     *
+     *@Assert\NotBlank
      * @ORM\Column(name="Date_achat", type="date", nullable=false)
+     * @Assert\GreaterThan("today", message="Veuillez choisir une date plus recente")
      */
     private $dateAchat;
 
@@ -46,19 +49,20 @@ class Abonnement
      * @var \DateTime
      *
      * @ORM\Column(name="Date_expiration", type="date", nullable=false)
+     * @Assert\Expression("this.getDateAchat() < this.getDateExpiration()", message="Veuillez vérifier la date")
      */
     private $dateExpiration;
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank
      * @ORM\Column(name="Etat", type="string", length=20, nullable=false)
      */
     private $etat;
 
     /**
      * @var \Paiement
-     *
+     *@Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="Paiement")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Ref_paiement", referencedColumnName="Ref_paiement")
