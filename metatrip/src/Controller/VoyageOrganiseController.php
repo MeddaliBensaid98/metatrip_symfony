@@ -72,8 +72,8 @@ class VoyageOrganiseController extends AbstractController
     {
               $idu=813;
             $voyageorg = $repo->findByIdvoo($voyageorg->getIdv()->getIdv(),$voyageorg->getIdvo());
-     $ch=$voyageorg->getIdvo();
-echo $ch;
+     //$ch=$voyageorg->getIdvo();
+//echo $ch;
           
         $rv = new ReservationVoyage();
         $form = $this->createForm(RsrvType::class, $rv);
