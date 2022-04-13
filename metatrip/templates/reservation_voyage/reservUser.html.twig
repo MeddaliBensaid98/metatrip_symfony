@@ -9,7 +9,7 @@
 {% block body %}
 <div class="container" style="text-align:center;width:50%">
 
-
+{{ form_start(form) }}
   
  
 <h1>Réserver un voyage </h1>
@@ -55,5 +55,6 @@
 </div>
 
 <br>
-    <button class="btn btn-primary btn-xs btn3d" >Save</button>
+    <button class="btn btn-primary btn-xs btn3d" type="submit" >{{ button_label|default('Reserver') }}</button>
+    {{ form_end(form) }}
 {% endblock %}

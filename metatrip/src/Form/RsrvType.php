@@ -19,12 +19,10 @@ class RsrvType extends AbstractType
             ->add('dateDepart',DateType::class, [
                 // renders it as a single text box
                 'widget' => 'single_text',
-                'required'=>'true'
             ])
             ->add('dateArrivee',DateType::class, [
                 // renders it as a single text box
                 'widget' => 'single_text',
-                'required'=>'true'
             ])
             ->add('idu',EntityType::class,[
                 'class'=>User::class,
@@ -38,6 +36,7 @@ class RsrvType extends AbstractType
                 'disabled'=>'true',
                 'multiple'=>false
             ]) 
+            
             
         ;
     }

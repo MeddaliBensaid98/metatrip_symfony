@@ -34,4 +34,20 @@ class VoyageOrganiseRepository extends ServiceEntityRepository
         
         return $query->getResult();
     }
+
+
+
+    public function findByNbPlaces(int $idvo,int $idv){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT APP\Entity\VoyageOrganise vo
+
+            FROM  APP\Entity\VoyageOrganise vo, APP\Entity\Voyage v, APP\Entity\ReservationVoyage rv
+            WHERE rv.idv=vo.idv AND vo.idv=v.idv AND vo.idvo =:idvo AND vo.idv =:idv")
+          
+            ->setParameter('idvo',$idvo)
+            ->setParameter('idv',$idv);
+        
+            return $query->getOneOrNullResult();
+    }
 }
