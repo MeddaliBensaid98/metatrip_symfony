@@ -1,3 +1,0 @@
-#indexVoyage:
-#    path: /
-#    controller: App\Controller\UserController::indexVoyage
