@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Entity\Voyage;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * VoyageOrganise
  *
  * @ORM\Table(name="voyage_organise", indexes={@ORM\Index(name="FK_vo", columns={"Idv"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\VoyageOrganiseRepository")
  */
 class VoyageOrganise
 {
@@ -23,42 +24,45 @@ class VoyageOrganise
 
     /**
      * @var float
-     *
+    *   @Assert\Positive  
      * @ORM\Column(name="Prix_billet", type="float", precision=10, scale=0, nullable=false)
+      * @Assert\NotBlank
      */
     private $prixBillet;
 
     /**
      * @var string
-     *
+       * @Assert\NotBlank
      * @ORM\Column(name="Airline", type="string", length=20, nullable=false)
      */
     private $airline;
 
     /**
      * @var int
-     *
+        * @Assert\IsNull
      * @ORM\Column(name="Nb_nuitees", type="integer", nullable=false)
      */
     private $nbNuitees;
 
     /**
      * @var int
-     *
+          * @Assert\NotBlank
+    *   @Assert\Positive  
      * @ORM\Column(name="nbplaces", type="integer", nullable=false)
      */
     private $nbplaces;
 
     /**
      * @var string
-     *
+       * @Assert\NotBlank
+        *   @Assert\Positive  
      * @ORM\Column(name="etatVoyage", type="string", length=0, nullable=false)
      */
     private $etatvoyage;
 
     /**
      * @var \Voyage
-     *
+       * @Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="Voyage")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Idv", referencedColumnName="Idv")
@@ -66,6 +70,7 @@ class VoyageOrganise
      */
     private $idv;
 
+  
     public function getIdvo(): ?int
     {
         return $this->idvo;
@@ -131,7 +136,7 @@ class VoyageOrganise
         return $this;
     }
 
-    public function getIdv(): ?Voyage
+    public function getIdv()
     {
         return $this->idv;
     }

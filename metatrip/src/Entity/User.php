@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Serializable;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Entity\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -13,6 +15,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity
+ * @Vich\Uploadable
   *@UniqueEntity("cin",message="cin est deja exist") 
     *@UniqueEntity("tel",message="cin est deja exist") 
  */
@@ -33,28 +36,27 @@ class User implements UserInterface , \Serializable
      * @var string
      *
      * @ORM\Column(name="Cin", type="string", length=20, nullable=false)
-     *   @Assert\Positive  
+     *   @Assert\Positive 
      *  @Assert\Length(min="8", minMessage="Votre cin doit faire minimum 8 caractères")
      */
     private $cin;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="Nom", type="string", length=20, nullable=false)
      */
     private $nom;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="Prenom", type="string", length=20, nullable=false)
      */
     private $prenom;
 
+    
+    
     /**
      * @var string
-     *
      * @ORM\Column(name="Tel", type="string", length=20, nullable=false)
      * @Assert\Length(min="8", minMessage="Votre tel doit faire minimum 8 caractères")
      * @Assert\Positive  
@@ -63,19 +65,17 @@ class User implements UserInterface , \Serializable
 
     /**
      * @var string
-     *
      * @ORM\Column(name="Email", type="string", length=38, nullable=false)
-    *  @Assert\Email( message = "The email '{{ value }}' is not a valid email.")
+        * @Assert\NotBlank
      */
     private $email;
 
     /**
      * 
      * @var string
-     *
      * @ORM\Column(name="Password", type="string", length=50, nullable=false)
        *      @Assert\Length(min="4", minMessage="Votre password doit faire minimum 4 caractères")
-     *  @Assert\PositiveOrZero 
+          * @Assert\NotBlank
      */
     private $password;
 
@@ -87,6 +87,11 @@ class User implements UserInterface , \Serializable
      */
     private $image;
 
+      /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="Image")
+     * @var File
+     */
+    private $imageFile;
     /**
      * @var int|null
      *
@@ -96,7 +101,6 @@ class User implements UserInterface , \Serializable
 
     /**
      * @var \DateTime|null
-     *
      * @ORM\Column(name="dateNaissance", type="date", nullable=true)
      */
     private $datenaissance;
@@ -177,17 +181,31 @@ class User implements UserInterface , \Serializable
 
         return $this;
     }
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
-
-    public function setImage(string $image): self
+    public function setImageFile( $image = null)
     {
-        $this->image = $image;
+        $this->imageFile = $image;
 
-        return $this;
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
     }
 
     public function getRole(): ?int
@@ -253,4 +271,5 @@ class User implements UserInterface , \Serializable
         $this->password
     ) = unserialize($string, ['allowed classes' => false]);
 }
+
 }

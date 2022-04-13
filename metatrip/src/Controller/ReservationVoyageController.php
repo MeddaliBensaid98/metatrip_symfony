@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/reservation/voyage")
+ * @Route("/reservation_voyage")
  */
 class ReservationVoyageController extends AbstractController
 {
@@ -63,16 +63,30 @@ class ReservationVoyageController extends AbstractController
 
     /**
      * @Route("/{idrv}/edit", name="app_reservation_voyage_edit", methods={"GET", "POST"})
-     */
-    public function edit(Request $request, ReservationVoyage $reservationVoyage, EntityManagerInterface $entityManager): Response
+     */   public function edit(Request $request, ReservationVoyage $reservationVoyage, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ReservationVoyage1Type::class, $reservationVoyage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $dateArivee=$reservationVoyage->getDateArrivee()->format("Y-m-d");
+            $dateDebut=$reservationVoyage->getDateDepart()->format("Y-m-d");
+            $timestamp1 = strtotime($dateArivee); 
+            $timestamp2 = strtotime($dateDebut); 
+            
+          if($timestamp2 <$timestamp1){
+
+          
+          
+   $entityManager->flush();
 
             return $this->redirectToRoute('app_reservation_voyage_index', [], Response::HTTP_SEE_OTHER);
+        }else {
+            echo ("<script > alert('Date de depar>date d'arrivée')</script>");
+        }
+         
+
+
         }
 
         return $this->render('reservation_voyage/edit.html.twig', [
