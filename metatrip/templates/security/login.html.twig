@@ -1,10 +1,38 @@
-{% extends 'base.html.twig' %}
-{% block body %}
- <main id="main" class="main">
-<h1>login sur le site</h1>
-{{ form_start(form) }}
+    <link rel="stylesheet" href="{{ asset('css/login.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/test.scss')}}">
+   <body>
+       <!--header-->
+
+    <!--end header-->
+    <div class="container">
+
+                     <div class="form-signin-heading" >
+
+{{ form_start(form, {'attr' : {'novalidate':'novalidate','class':'form-signin'}})}}
+<h1 class="form-signin-heading">Connexion</h1>
 {{ form_widget(form)}}
-<button type="submit" class="btn btn-success">Confirmer</button>
+<br>
+<br>
+<button type="submit" class="btn btn-success">Comfirmer</button>
+<br>
+<br>
+<a href="{{ path('security_registration') }}"class="material-bubble">créer votre compte</a>
+
 {{ form_end(form)}}
-</main>
-{% endblock %}
+</div>
+   </div>
+   </div>
+     
+    <br>
+                    <!--
+                    <label class="checkbox">
+                        <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe" i18n> Remember me
+                    </label>
+                    <br>
+                    -->
+                    <br>
+                    <br>
+            
+                    <br>
+                   
+                     </div>

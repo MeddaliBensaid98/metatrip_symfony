@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Form\User1Type;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\VoyageOrganiseRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -121,4 +122,23 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
+    
+
+
+    /**
+     * @Route("/user/voyage", name="voyagelist", methods={"GET"})
+     */
+    public function voyagelist(EntityManagerInterface $entityManager,VoyageOrganiseRepository $repo): Response
+    {
+        $voyageOrganises = $repo->findListaVoyages();
+        
+        //$l=sizeof($voyageOrganises);
+          //echo "alert('$l');";
+        
+          return $this->render('user/listvoy.html.twig', [
+              'voyageOrganises' => $voyageOrganises,
+          ]);
+    }
+
+
 }

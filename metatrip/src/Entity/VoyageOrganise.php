@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * VoyageOrganise
  *
  * @ORM\Table(name="voyage_organise", indexes={@ORM\Index(name="FK_vo", columns={"Idv"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\VoyageOrganiseRepository")
  */
 class VoyageOrganise
 {
@@ -70,6 +70,7 @@ class VoyageOrganise
      */
     private $idv;
 
+  
     public function getIdvo(): ?int
     {
         return $this->idvo;
