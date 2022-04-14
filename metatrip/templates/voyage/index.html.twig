@@ -1,0 +1,43 @@
+ {% extends "base.html.twig" %} 
+  {% block body%}
+
+ 
+    <table class="table">
+  
+        <thead>
+        <tr>
+        <td>     <a href="{{ path('app_voyage_new') }}">Create new</a></td>
+        </tr>
+            <tr>
+                <th>Idv</th>
+                <th>Pays</th>
+                <th>ImagePays</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for voyage in voyages %}
+            <tr>
+                <td>{{ voyage.idv }}</td>
+                <td>{{ voyage.pays }}</td>
+                
+                <td>
+                      <img src="{{asset('assets/img/'~voyage.imagePays)}}"
+                </td>
+                <td>
+                    <a href="{{ path('app_voyage_show', {'idv': voyage.idv}) }}" class="btn btn-primary">show</a>
+                    <a href="{{ path('app_voyage_edit', {'idv': voyage.idv}) }}" class="btn btn-warning">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+ 
+
+
+{% endblock %}
