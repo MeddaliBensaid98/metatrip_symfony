@@ -2,6 +2,25 @@
 
 namespace App\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\GenericEvent;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Entity\ReservationVoyage;
+
+use App\Entity\Voyage;
+use App\Entity\User;
+use App\Repository\VoyageOrganiseRepository;
+use App\Repository\UserRepository;
+
+use App\Form\RsrvType;
+
 use App\Entity\VoyageOrganise;
 use App\Form\VoyageOrganiseType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,7 +30,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/voyage/organise")
+ * @Route("/voyage_organise")
  */
 class VoyageOrganiseController extends AbstractController
 {
@@ -93,4 +112,96 @@ class VoyageOrganiseController extends AbstractController
 
         return $this->redirectToRoute('app_voyage_organise_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+  /**
+     * @Route("/test", name="indexTest", methods={"GET"})
+     */
+
+    public function listVoys(VoyageOrganiseRepository $repo):Response
+    {
+
+        $voyageOrganises = $repo->findListaVoyages();
+        
+      //$l=sizeof($voyageOrganises);
+        //echo "alert('$l');";
+      
+        return $this->render('user/listvoy.html.twig', [
+            'voyageOrganises' => $voyageOrganises,
+        ]);
+    }
+    
+ /**
+     * @Route("/rr/{idv}/{idu}", name="indexRes", methods={"GET","POST"})
+     */
+     public function testresr(EntityManagerInterface $entityManager,
+     UserRepository $repu,VoyageOrganiseRepository $rep,User $user,VoyageOrganise $voyage,
+     VoyageOrganise $voyageorg,Request $request): Response
+    {
+              $idu=813;
+            //$voyage = $repo->findByIdv($voyageorg->getIdv()->getIdv(),$voyageorg->getIdvo());
+
+           
+        $rv = new ReservationVoyage();
+        $form = $this->createForm(RsrvType::class, $rv);
+        //$form->add("Reserver", SubmitType::class);
+         //$ch=sizeof($voyage);
+//echo $ch;
+$form->get('idv')->setData($voyageorg->getIdv());
+        
+$form->get('idu')->setData($user);
+        $form->handleRequest($request);
+       
+   $user = $repu->findByIdu($idu);
+        
+      
+  
+
+
+           
+        if ($form->isSubmitted() && $form->isValid()) {
+
+         
+            $dateDebut=$rv->getDateDepart()->format("Y-m-d");
+            $timestamp1 = strtotime($dateDebut);
+
+            $dateArrivee=$rv->getDateArrivee()->format("Y-m-d");
+            $timestamp2 = strtotime($dateArrivee);
+
+            if ($timestamp2 <$timestamp1) {
+                echo "<script > alert('date depart akber mel date arrivee ')</script>";
+            }
+           
+            if ($timestamp2 >$timestamp1) {
+                echo "<script > alert(' date arrive akber m date depart')</script>";
+                $rv->setEtat('NON PAYE');
+                $rv->setIdu($user);
+                $rv->setIdv($voyageorg->getIdv());
+
+
+                $entityManager->persist($rv);
+                $entityManager->flush();
+
+                //$voyage = $rep->findByNbPlaces($voyageorg->getIdvo(),$rv->getIdv()->getIdv());
+                $voyageorg->setNbplaces($voyageorg->getNbplaces()-1);
+                $entityManager->flush();
+            }
+        }
+           
+           // return $this->redirectToRoute('indexRes', [], Response::HTTP_SEE_OTHER);
+
+                 
+              
+
+        return $this->render('reservation_voyage/reservUser.html.twig', [
+            'rv' => $rv,
+            'voyageorg'=>$voyageorg,
+            'user'=>$user,
+             
+           
+            'form' => $form->createView(),
+        ]);
+    }
+
 }

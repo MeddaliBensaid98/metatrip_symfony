@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Voyage;
+use App\Entity\User;
 
 /**
  * ReservationVoyage
  *
- * @ORM\Table(name="reservation_voyage", indexes={@ORM\Index(name="FKPAY", columns={"Ref_paiement"}), @ORM\Index(name="FK_resvoy", columns={"Idv"}), @ORM\Index(name="FK_reusr", columns={"Idu"}), @ORM\Index(name="Idrv", columns={"Idrv"})})
+ * @ORM\Table(name="reservation_voyage", indexes={@ORM\Index(name="FKPAY", columns={"Ref_paiement"}), @ORM\Index(name="FK_resvoy", columns={"Idv"}), @ORM\Index(name="FK_userrr	", columns={"Idu"}), @ORM\Index(name="Idrv", columns={"Idrv"})})
  * @ORM\Entity
  */
 class ReservationVoyage
@@ -42,10 +44,13 @@ class ReservationVoyage
      */
     private $etat;
 
-    /**
-     * @var int
+     /**
+     * @var \User
      *
-     * @ORM\Column(name="Idu", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Idu", referencedColumnName="Idu")
+     * })
      */
     private $idu;
 
@@ -56,7 +61,7 @@ class ReservationVoyage
      */
     private $refPaiement = '0';
 
-    /**
+     /**
      * @var \Voyage
      *
      * @ORM\ManyToOne(targetEntity="Voyage")
@@ -65,7 +70,6 @@ class ReservationVoyage
      * })
      */
     private $idv;
-
     public function getIdrv(): ?int
     {
         return $this->idrv;
@@ -107,12 +111,12 @@ class ReservationVoyage
         return $this;
     }
 
-    public function getIdu(): ?int
+    public function getIdu(): ?User
     {
         return $this->idu;
     }
 
-    public function setIdu(int $idu): self
+    public function setIdu(?User $idu): self
     {
         $this->idu = $idu;
 

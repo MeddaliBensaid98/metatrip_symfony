@@ -1,9 +1,5 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}VoyageOrganise index{% endblock %}
-
-{% block body %}
-    <h1>VoyageOrganise index</h1>
+ {% extends "base.html.twig" %} 
+  {% block body%}
 
     <table class="table">
         <thead>
@@ -11,7 +7,7 @@
                 <th>Idvo</th>
                 <th>PrixBillet</th>
                 <th>Airline</th>
-                <th>NbNuitees</th>
+         
                 <th>Nbplaces</th>
                 <th>Etatvoyage</th>
                 <th>actions</th>
@@ -23,12 +19,12 @@
                 <td>{{ voyage_organise.idvo }}</td>
                 <td>{{ voyage_organise.prixBillet }}</td>
                 <td>{{ voyage_organise.airline }}</td>
-                <td>{{ voyage_organise.nbNuitees }}</td>
+           
                 <td>{{ voyage_organise.nbplaces }}</td>
                 <td>{{ voyage_organise.etatvoyage }}</td>
                 <td>
-                    <a href="{{ path('app_voyage_organise_show', {'idvo': voyage_organise.idvo}) }}">show</a>
-                    <a href="{{ path('app_voyage_organise_edit', {'idvo': voyage_organise.idvo}) }}">edit</a>
+                    <a href="{{ path('app_voyage_organise_show', {'idvo': voyage_organise.idvo}) }}"  class="btn btn-primary">Consulter</a>
+                    <a href="{{ path('app_voyage_organise_edit', {'idvo': voyage_organise.idvo}) }}" class="btn btn-warning">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -39,5 +35,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_voyage_organise_new') }}">Create new</a>
+    <a href="{{ path('app_voyage_organise_new') }}" class="btn btn-success">Ajouter</a>
+
+
 {% endblock %}
