@@ -37,11 +37,9 @@ class VoyageOrganiseController extends AbstractController
     /**
      * @Route("/", name="app_voyage_organise_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager,VoyageOrganiseRepository $repo): Response
     {
-        $voyageOrganises = $entityManager
-            ->getRepository(VoyageOrganise::class)
-            ->findAll();
+        $voyageOrganises = $repo->findListaVoyages();
 
         return $this->render('voyage_organise/index.html.twig', [
             'voyage_organises' => $voyageOrganises,
@@ -58,6 +56,8 @@ class VoyageOrganiseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $voyageOrganise->setNbNuitees(0);
+
             $entityManager->persist($voyageOrganise);
             $entityManager->flush();
 
@@ -87,8 +87,11 @@ class VoyageOrganiseController extends AbstractController
     {
         $form = $this->createForm(VoyageOrganiseType::class, $voyageOrganise);
         $form->handleRequest($request);
-
+        $voyageOrganise->setNbNuitees(0);
+ 
         if ($form->isSubmitted() && $form->isValid()) {
+        
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_voyage_organise_index', [], Response::HTTP_SEE_OTHER);

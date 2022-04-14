@@ -3,11 +3,11 @@
 {% block title %}Edit Voyage{% endblock %}
 
 {% block body %}
-    <h1>Edit Voyage</h1>
+ <br><br>
+    {{ include('voyage/_edit_form.html.twig', {'button_label': 'Update'}) }}
+<br>
+    
+        <button class="btn btn-warning" ><a href="{{ path('app_voyage_index') }}" style="text-decoration:none;color:white"> Retour</a></button>
 
-    {{ include('voyage/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_voyage_index') }}">back to list</a>
-
-    {{ include('voyage/_delete_form.html.twig') }}
+<br>
 {% endblock %}

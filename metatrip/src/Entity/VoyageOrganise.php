@@ -55,7 +55,6 @@ class VoyageOrganise
     /**
      * @var string
        * @Assert\NotBlank
-        *   @Assert\Positive  
      * @ORM\Column(name="etatVoyage", type="string", length=0, nullable=false)
      */
     private $etatvoyage;

@@ -34,15 +34,18 @@ class Voyage
     
     /**
      * @var string
-     * @ORM\Column(name="Image_pays", type="string", length=1000, nullable=false)
+     *
+     * @ORM\Column(name="Image_Pays", type="string", length=40, nullable=false)
+   
      */
     private $imagePays;
+
       /**
-      * @Assert\NotBlank
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="Image_pays")
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="Image_Pays")
      * @var File
      */
     private $imageFile;
+
     public function getIdv(): ?int
     {
         return $this->idv;
@@ -60,12 +63,12 @@ class Voyage
         return $this;
     }
 
-    public function getImagePays(): ?string
+    public function getImagePays()
     {
         return $this->imagePays;
     }
 
-    public function setImagePays(string $imagePays): self
+    public function setImagePays($imagePays)
     {
         $this->imagePays = $imagePays;
 
@@ -78,17 +81,14 @@ class Voyage
         // to show the id of the Category in the select
         // return $this->id;
     }
-    public function setImageFile( $image = null)
+    public function setImageFile( $image )
     {
         $this->imageFile = $image;
 
         // VERY IMPORTANT:
         // It is required that at least one field changes if you are using Doctrine,
         // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->updatedAt = new \DateTime('now');
-        }
+      
     }
 
     public function getImageFile()

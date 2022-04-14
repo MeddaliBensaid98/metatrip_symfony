@@ -1,17 +1,13 @@
 {% extends 'base.html.twig' %}
-
+ 
 {% block title %}New Voyage{% endblock %}
 
 {% block body %}
-    <h1>Create new Voyage</h1>
+ <br><br>
+    {{ include('voyage/_form.html.twig', {'button_label': 'Add'}) }}
+<br>
+    
+  <a href="{{ path('app_voyage_index') }}" style="text-decoration:none;color:white">      <button class="btn btn-warning" > Retour</button></a>
 
-    {{ include('voyage/_form.html.twig') }}
-
-    <a href="{{ path('app_voyage_index') }}">back to list</a>
+<br>
 {% endblock %}
-
-
-
-
-
-
