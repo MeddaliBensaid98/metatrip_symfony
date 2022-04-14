@@ -116,10 +116,10 @@ class VoyageOrganiseController extends AbstractController
 
 
   /**
-     * @Route("/test", name="indexTest", methods={"GET"})
+     * @Route("/test/t", name="indexTest", methods={"GET"})
      */
 
-    public function listVoys(VoyageOrganiseRepository $repo):Response
+    public function listVoys(VoyageOrganiseRepository $repo)
     {
 
         $voyageOrganises = $repo->findListaVoyages();
@@ -130,7 +130,23 @@ class VoyageOrganiseController extends AbstractController
         return $this->render('user/listvoy.html.twig', [
             'voyageOrganises' => $voyageOrganises,
         ]);
+
+
+        
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
     
  /**
      * @Route("/rr/{idv}/{idu}", name="indexRes", methods={"GET","POST"})

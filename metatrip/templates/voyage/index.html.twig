@@ -1,42 +1,52 @@
  {% extends "base.html.twig" %} 
   {% block body%}
 
- 
-    <table class="table">
-  
-        <thead>
-        <tr>
-        <td>     <a href="{{ path('app_voyage_new') }}">Create new</a></td>
-        </tr>
-            <tr>
-                <th>Idv</th>
-                <th>Pays</th>
-                <th>ImagePays</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for voyage in voyages %}
-            <tr>
-                <td>{{ voyage.idv }}</td>
-                <td>{{ voyage.pays }}</td>
-                
-                <td>
-                      <img src="{{asset('assets/img/'~voyage.imagePays)}}"
-                </td>
-                <td>
-                    <a href="{{ path('app_voyage_show', {'idv': voyage.idv}) }}" class="btn btn-primary">show</a>
-                    <a href="{{ path('app_voyage_edit', {'idv': voyage.idv}) }}" class="btn btn-warning">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+ <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
+    
+<div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-sm-8 col-lg-6">
+            <!-- Section Heading-->
+            <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+            <br>
+              <h3>Liste de nos voyages  </h3>
+              <div class="line"></div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+     
+       {% for voyage in voyages %}
+          <!-- Single Advisor-->
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+              <!-- Team Thumb-->
+              <div class="advisor_thumb"> 
+              <img src="{{asset('assets/img/'~voyage.imagePays)}}" style="height:20em;width:20em">
+                <!-- Social Info-->
+                <div class="social-info">
+                <a href="{{ path('app_voyage_edit', {'idv': voyage.idv}) }}"><i class="fa fa-edit"></i></a>
+                <a href="{{ path('app_voyage_delete', {'idv': voyage.idv}) }}"><i class="fa fa-trash"></i></a>
+                   {{ include('voyage/_delete_form.html.twig') }}
+
+                </div>
+              </div>
+              <!-- Team Details-->
+              <div class="single_advisor_details_info">
+                <h6>ID Voyage: {{ voyage.idv }}</h6>
+                <p class="designation">Pays: {{ voyage.pays }}</p>
+              </div>
+            </div>
+          </div>
+ 
+          {% endfor  %}
+        </div>
+
+
+      </div>
  
 
 

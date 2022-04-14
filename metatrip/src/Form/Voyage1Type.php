@@ -14,7 +14,12 @@ class Voyage1Type extends AbstractType
     {
         $builder
         ->add('pays')
-        ->add('imageFile',VichImageType::class)
+        ->add('imageFile',VichImageType::class, [
+            'required' => false,
+            'data_class' => null,
+            // Register new key "empty_data" with an empty string
+            'empty_data' => ''])
+        
         ;
     }
 

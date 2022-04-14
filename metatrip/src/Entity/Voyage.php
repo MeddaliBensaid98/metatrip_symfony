@@ -34,7 +34,7 @@ class Voyage
     
     /**
      * @var string
-     * @ORM\Column(name="Image_pays", type="string", length=50, nullable=false)
+     * @ORM\Column(name="Image_pays", type="string", length=1000, nullable=false)
      */
     private $imagePays;
       /**
