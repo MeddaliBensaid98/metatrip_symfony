@@ -8,6 +8,7 @@ use Vich\UploaderBundle\Entity\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 /**
@@ -17,9 +18,9 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  * @ORM\Entity
  * @Vich\Uploadable
   *@UniqueEntity("cin",message="cin est deja exist") 
-    *@UniqueEntity("tel",message="cin est deja exist") 
+    *@UniqueEntity("tel",message="tel est deja exist") 
  */
-class User implements UserInterface , \Serializable
+class User implements UserInterface 
 
 {
 
@@ -202,6 +203,11 @@ class User implements UserInterface , \Serializable
             $this->updatedAt = new \DateTime('now');
         }
     }
+    public function getUsername():?string
+    {
+         return $this->email;
+    }
+
 
     public function getImageFile()
     {
@@ -240,36 +246,39 @@ class User implements UserInterface , \Serializable
     {
         return (string) $this->email;
     }
-    public function getRoles(){}
-
-
+    public function getRoles()
+    {
+        return['ROLE_USER'];
+    }
   
 
     public function getSalt(){}
     public function eraseCredentials(){}
-    public function getUsername(){}
 
-    public function serialize(){
-    return serialize([
-        $this->id,
-        $this->prenom,
-        $this->tel,
-        $this->dateNaissance,
-        $this->Nom,
-        $this->email,
-        $this->password
-     ] );
-    }
- public function unserialize ($string){
+    
+public function serialize ()
+{
+    return serialize(array(
+       
+     
+        $this->email             ,
+        $this->password,
+        // $this->status, <- this was missing and needed added
+    ));
+}
+
+public function unserialize ($serialized)
+{
     list (
-        $this->id,
-        $this->prenom,
-        $this->tel,
-        $this->dateNaissance,
-        $this->Nom,
         $this->email,
         $this->password
-    ) = unserialize($string, ['allowed classes' => false]);
+        //, $this->status <-- this was missing and needed added
+
+    ) = unserialize($serialized, array ("allowed_classes" => false));
+}
+public function __toString()
+{
+    return (string) $this->getIdu();
 }
 
 }

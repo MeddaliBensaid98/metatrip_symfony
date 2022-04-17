@@ -7,9 +7,12 @@ use App\Entity\User;
 
 use App\Form\LoginType;
 use App\Form\InscriptionType;
+use Symfony\Component\Mime\Email;
 use Doctrine\Persistence\ObjectManager;
+use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Console\Output\NullOutput;
@@ -19,14 +22,14 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Security\LoginFormAuthenticator;
+
 
 class SecurityController extends AbstractController
 {
    /**
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request, EntityManagerInterface $manager,UserPasswordEncoderInterface  $encoder)
+    public function registration(Request $request, EntityManagerInterface $manager,UserPasswordEncoderInterface  $encoder,\Swift_Mailer $mailer)  
      {
     $user = new User();
     $form = $this->createForm(InscriptionType::class,$user);
@@ -39,11 +42,21 @@ if($form->isSubmitted() && $form->isValid()) {
    echo "<script > console.log('$email')</script>";
    $VarName = $em->findOneBy(['email'=>$email]);
    if( is_null($VarName)){
+       $password=$user->getPassword();
     $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
-    $user->setPassword($hash);
-             
-    $manager->persist($user);
-    $manager->flush();
+             $user->setPassword($hash);
+                      
+             $manager->persist($user);
+             $manager->flush();
+
+    $message = (new \Swift_Message('Hello Email'))
+        ->setFrom('solidev.3a18@gmail.com')
+        ->setTo($email)
+        ->setBody(' <center><img src="https://pbs.twimg.com/profile_images/1118720684950085632/Qc9LxLu0_400x400.png" alt="Girl in a jacket" height=50%;width=50%></center><center><h2>bienvenue sur notre site  Metatrip</h2> <br><h4>une fois metatrip!toujour metatrip </h4></center></br></center><center><h3>voici les coordonnéesde votre compte:</h3></center><br><center>Email:'.$email.'</center><br><center>Password:'.$password.'</center></br>','text/html')
+    ;
+    $mailer->send($message);
+    $this->addFlash('message', 'Le message a bien été envoyé');
+          
     return $this->redirectToRoute('security_login');
    }else{
     echo "<script > console.log('email est deja utilise')</script>";
