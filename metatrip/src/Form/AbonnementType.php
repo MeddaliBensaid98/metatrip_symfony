@@ -6,6 +6,7 @@ use App\Entity\Abonnement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AbonnementType extends AbstractType
 {
@@ -18,6 +19,8 @@ class AbonnementType extends AbstractType
             ->add('dateExpiration')
             ->add('etat')
             ->add('refPaiement')
+            ->add('next',SubmitType::class)
+            ->add('Edit',SubmitType::class)
         ;
     }
 

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Chambre
@@ -23,36 +24,39 @@ class Chambre
 
     /**
      * @var int
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="numc", type="integer", nullable=false)
+     * @Assert\Positive 
      */
     private $numc;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="image", type="string", length=1000, nullable=false)
      */
     private $image;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="type", type="string", length=20, nullable=false)
      */
     private $type;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="etat", type="string", length=40, nullable=false)
      */
     private $etat;
 
     /**
      * @var float|null
+     *  @Assert\NotBlank
      *
      * @ORM\Column(name="prixc", type="float", precision=10, scale=0, nullable=true, options={"default"="NULL"})
+     * @Assert\Positive 
      */
     private $prixc = NULL;
 
@@ -69,7 +73,7 @@ class Chambre
     /**
      * @return int
      */
-    public function getIdc(): int
+    public function getIdc(): ?int
     {
         return $this->idc;
     }
@@ -85,7 +89,7 @@ class Chambre
     /**
      * @return int
      */
-    public function getNumc(): int
+    public function getNumc(): ?int
     {
         return $this->numc;
     }
@@ -101,7 +105,7 @@ class Chambre
     /**
      * @return string
      */
-    public function getImage(): string
+    public function getImage(): ?string
     {
         return $this->image;
     }
@@ -117,7 +121,7 @@ class Chambre
     /**
      * @return string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -133,7 +137,7 @@ class Chambre
     /**
      * @return string
      */
-    public function getEtat(): string
+    public function getEtat(): ?string
     {
         return $this->etat;
     }
@@ -165,7 +169,7 @@ class Chambre
     /**
      * @return \Hotel
      */
-    public function getIdh(): \Hotel
+    public function getIdh(): ?Hotel
     {
         return $this->idh;
     }
@@ -179,7 +183,7 @@ class Chambre
     }
     public function  __toString(){
         // to show the name of the Category in the select
-        return $this->type;
+        return $this->hotel;
         // to show the id of the Category in the select
         // return $this->id;
     }

@@ -24,7 +24,6 @@ class Abonnement
 
     /**
      * @var string
-     *@Assert\NotBlank
      * @ORM\Column(name="Type", type="string", length=20, nullable=false)
 
      */
@@ -41,7 +40,7 @@ class Abonnement
      * @var \DateTime
      *@Assert\NotBlank
      * @ORM\Column(name="Date_achat", type="date", nullable=false)
-     * @Assert\GreaterThan("today", message="Veuillez choisir une date plus recente")
+     * @Assert\GreaterThan("today", message="Veuillez choisir une date plus recente que cette date")
      */
     private $dateAchat;
 
@@ -49,7 +48,7 @@ class Abonnement
      * @var \DateTime
      *
      * @ORM\Column(name="Date_expiration", type="date", nullable=false)
-     * @Assert\Expression("this.getDateAchat() < this.getDateExpiration()", message="Veuillez vérifier la date")
+     * @Assert\Expression("this.getDateAchat() < this.getDateExpiration()", message="Veuillez vérifier la date d'expiration")
      */
     private $dateExpiration;
 

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Hotel
@@ -23,20 +24,22 @@ class Hotel
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank
      * @ORM\Column(name="Nom_hotel", type="string", length=20, nullable=false)
      */
     private $nomHotel;
 
     /**
      * @var int
-     *
+     *@Assert\NotBlank
      * @ORM\Column(name="Nb_etoiles", type="integer", nullable=false)
+     * @Assert\Positive 
      */
     private $nbEtoiles;
 
     /**
      * @var string
+     * @Assert\NotBlank
      *
      * @ORM\Column(name="Adresse", type="string", length=50, nullable=false)
      */
@@ -44,7 +47,7 @@ class Hotel
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="image", type="string", length=200, nullable=false)
      */
     private $image;

@@ -39,6 +39,12 @@ class VoitureController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $image = $form->get('imageV')->getData();
+            $imageName = md5(uniqid()).'.'.$image->guessExtension();
+            $image->move($this->getParameter('brochures_directory'), $imageName);
+            $voiture->setimageV($imageName);
+
             $entityManager->persist($voiture);
             $entityManager->flush();
 

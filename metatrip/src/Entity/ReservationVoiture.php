@@ -116,7 +116,7 @@ class ReservationVoiture
     /**
      * @return \Chauffeur
      */
-    public function getIdch(): \Chauffeur
+    public function getIdch(): ?\Chauffeur
     {
         return $this->idch;
     }
@@ -132,7 +132,7 @@ class ReservationVoiture
     /**
      * @return \Voiture
      */
-    public function getIdvoit(): \Voiture
+    public function getIdvoit(): ?\Voiture
     {
         return $this->idvoit;
     }
@@ -148,7 +148,7 @@ class ReservationVoiture
     /**
      * @return \User
      */
-    public function getIdu(): \User
+    public function getIdu(): ?\User
     {
         return $this->idu;
     }
@@ -160,6 +160,11 @@ class ReservationVoiture
     {
         $this->idu = $idu;
     }
-
+    public function  __toString(){
+        // to show the name of the Category in the select
+        return $this->trajet;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 
 }

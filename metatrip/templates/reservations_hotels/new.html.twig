@@ -1,0 +1,135 @@
+{% extends 'base.front.html.twig' %}
+
+{% block title %}New ReservationHotel{% endblock %}
+
+{% block body %}
+    <!-- ======================= Start Add Hotel ===================== -->
+    <section class="dashboard gray-bg padd-0 mrg-top-50">
+        <div class="container-fluid">
+            <div class="row">
+
+
+                <div class="col-lg-10 col-md-10 col-sm-9 col-lg-push-2 col-md-push-2 col-sm-push-3">
+                    <div class="row mrg-0 mrg-top-20">
+                        <div class="tr-single-box">
+                            <div class="tr-single-header">
+                                <h3 class="dashboard-title">Add Hotels</h3>
+                            </div>
+                            <div class="tr-single-body">
+                                {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+                                <form id="msform">
+                                    <!-- progressbar -->
+                                    <ul id="progressbar">
+                                        <li class="active">Add Information</li>
+                                        <li>Confirmation</li>
+                                    </ul>
+                                    <!-- fieldsets -->
+
+                                    <fieldset>
+
+                                        <div class="text-center">
+                                            <h2 class="fs-title">Fill Basic Information</h2>
+                                            <h3 class="fs-subtitle">This is step 1</h3>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-xs-6">
+                                                <label>Nombre de nuitees </label>
+                                                {{ form_widget(form.nbNuitees, {'attr': {'class': 'form-control'}}) }}
+
+                                            </div>
+                                            {{ form_errors(form.nbNuitees,{'attr':{'class':'text-danger'}}) }}
+
+
+
+
+                                            <div class="col-xs-6">
+                                                <label>Nombre de personnes</label>
+                                                {{ form_widget(form.nbPersonnes, {'attr': {'class': 'form-control'}}) }}
+
+                                            </div>
+                                            {{ form_errors(form.nbPersonnes,{'attr':{'class':'text-danger'}}) }}
+
+
+
+                                            {{ form_errors(form.prix,{'attr':{'class':'text-danger'}}) }}
+
+
+                                            <div class="col-xs-6">
+                                                <label>Date de depart</label>
+                                                {{ form_widget(form.dateDepart, {'attr': {'class': 'form-control'}}) }}
+
+                                            </div>
+                                            {{ form_errors(form.dateDepart,{'attr':{'class':'text-danger'}}) }}
+
+
+
+                                            <div class="col-xs-6">
+                                                <label>Date d arrive</label>
+                                                {{ form_widget(form.dateArrivee, {'attr': {'class': 'form-control'}}) }}
+
+                                            </div>
+                                            {{ form_errors(form.dateArrivee,{'attr':{'class':'text-danger'}}) }}
+
+
+                                            <div class="col-xs-6">
+                                                <label> client</label>
+                                                {{ form_widget(form.idu, {'attr': {'class': 'form-control'}}) }}
+
+                                            </div>
+                                            {{ form_errors(form.idu,{'attr':{'class':'text-danger'}}) }}
+
+                                            <div class="col-xs-6">
+                                                <label>Hotel</label>
+                                                {{ form_widget(form.idh, {'attr': {'class': 'form-control'}}) }}
+
+                                            </div>
+
+                                            <div class="col-xs-6">
+                                                <label>Prix</label>
+                                                {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+
+                                            </div>
+                                            {{ form_errors(form.idh,{'attr':{'class':'text-danger'}}) }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        
+  <a href="{{ path('app_reservations_hotels_index') }}">back to list</a>
+  
+                                  </div>
+                                        <div class="col-xs-6">
+
+                                        {{ form_widget(form.next, {'attr': {'class': 'next action-button'}}) }}
+ </div>  
+                                    </fieldset>
+
+                                    {{ form_end(form) }}
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ======================= End  Add Hotel===================== -->
+    {{ include('reservations_hotels/_form.html.twig') }}
+
+   
+{% endblock %}
