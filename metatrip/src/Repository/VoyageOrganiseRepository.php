@@ -35,6 +35,19 @@ class VoyageOrganiseRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function findCoordonnes(){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT l.longitude,l.latitude,v.idv,vo.idvo,vo.prixBillet,vo.nbplaces,vo.airline,vo.etatvoyage ,v.imagePays,v.pays 
+
+            FROM  APP\Entity\VoyageOrganise vo,APP\Entity\Localisationvoyage l,APP\Entity\Voyage v
+            WHERE l.idv=vo.idv AND vo.idv=v.idv");
+          
+           
+        
+            return $query->getResult();
+    }
+
 
 
     public function findByNbPlaces(int $idvo,int $idv){
@@ -42,12 +55,28 @@ class VoyageOrganiseRepository extends ServiceEntityRepository
         $query=$entityManager
             ->createQuery("SELECT APP\Entity\VoyageOrganise vo
 
-            FROM  APP\Entity\VoyageOrganise vo, APP\Entity\Voyage v, APP\Entity\ReservationVoyage rv
+            FROM  App\Entity\VoyageOrganise vo, App\Entity\Voyage v, App\Entity\ReservationVoyage rv
             WHERE rv.idv=vo.idv AND vo.idv=v.idv AND vo.idvo =:idvo AND vo.idv =:idv")
           
             ->setParameter('idvo',$idvo)
             ->setParameter('idv',$idv);
         
             return $query->getOneOrNullResult();
+    }
+
+
+
+    public function findMapByVoy(int $idv){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT vo.nbplaces,vo.etatvoyage,vo.airline,vo.prixBillet,v.imagePays,v.pays
+
+            FROM  App\Entity\VoyageOrganise vo, App\Entity\Voyage v 
+            WHERE  vo.idv=v.idv AND vo.idv =:idv")
+          
+        
+            ->setParameter('idv',$idv);
+        
+            return $query->getResult();
     }
 }

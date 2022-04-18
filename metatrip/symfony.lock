@@ -100,6 +100,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.7"
     },
+    "ip2location/ip2location-php": {
+        "version": "8.3.0"
+    },
     "jms/metadata": {
         "version": "2.6.1"
     },

@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Localisationvoyage;
 use App\Entity\User;
+use App\Entity\Voyage;
+use App\Entity\VoyageOrganise;
+
 use App\Form\UserType;
 use App\Form\User1Type;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\LocalisationvoyageRepository;
 
 /**
  * @Route("/user")
@@ -75,6 +80,11 @@ class UserController extends AbstractController
         ]);
     }
 
+
+
+
+ 
+
     /**
      * @Route("/{idu}", name="app_user_show", methods={"GET"})
      */
@@ -84,6 +94,43 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
+
+
+
+    /**
+     * @Route("/map/test", name="app_mapp_show", methods={"GET","POST"})
+     */
+    public function openMap( LocalisationvoyageRepository $repo,EntityManagerInterface $entityManager): Response
+    {     
+         $voyageCoord = $repo->findCoordonne();
+
+         $localisations = $entityManager
+         ->getRepository(Localisationvoyage::class)
+         ->findAll();
+
+        $voyOrg=$entityManager
+        ->getRepository(VoyageOrganise::class)
+        ->findAll();
+
+  
+       
+         
+
+
+        
+        return $this->render('user/map.html.twig', [
+            
+       
+            'voyageCoord'=>$voyageCoord,
+            '$voyOrg'=>$voyOrg,
+   
+            'localisations'=>$localisations
+        ]);
+    }
+
+
+
+    
 
     /**
      * @Route("/{idu}/edit", name="app_user_edit", methods={"GET", "POST"})

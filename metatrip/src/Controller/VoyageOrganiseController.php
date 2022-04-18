@@ -38,11 +38,15 @@ class VoyageOrganiseController extends AbstractController
      * @Route("/", name="app_voyage_organise_index", methods={"GET"})
      */
     public function index(EntityManagerInterface $entityManager,VoyageOrganiseRepository $repo): Response
-    {
+    {$PublicIP = $_SERVER['REMOTE_ADDR'];
+     
+        
         $voyageOrganises = $repo->findListaVoyages();
 
-        return $this->render('voyage_organise/index.html.twig', [
+        //echo "<script > alert('$region'); </script>";  
+              return $this->render('voyage_organise/index.html.twig', [
             'voyage_organises' => $voyageOrganises,
+             
         ]);
     }
 
@@ -50,11 +54,12 @@ class VoyageOrganiseController extends AbstractController
      * @Route("/new", name="app_voyage_organise_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    {//Gets the IP Address from the visitor
+
         $voyageOrganise = new VoyageOrganise();
         $form = $this->createForm(VoyageOrganiseType::class, $voyageOrganise);
         $form->handleRequest($request);
-
+ 
         if ($form->isSubmitted() && $form->isValid()) {
             $voyageOrganise->setNbNuitees(0);
 
@@ -66,6 +71,7 @@ class VoyageOrganiseController extends AbstractController
 
         return $this->render('voyage_organise/new.html.twig', [
             'voyage_organise' => $voyageOrganise,
+ 
             'form' => $form->createView(),
         ]);
     }
@@ -88,9 +94,11 @@ class VoyageOrganiseController extends AbstractController
         $form = $this->createForm(VoyageOrganiseType::class, $voyageOrganise);
         $form->handleRequest($request);
         $voyageOrganise->setNbNuitees(0);
- 
-        if ($form->isSubmitted() && $form->isValid()) {
+   $x=$voyageOrganise->getAirline();
+   
         
+        if ($form->isSubmitted() ) {
+       
 
             $entityManager->flush();
 
