@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Form\User1Type;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\VoyageOrganiseRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,15 +23,25 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="app_user_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager,PaginatorInterface $paginator): Response
     {
         
         $users = $entityManager
             ->getRepository(User::class)
             ->findAll();
-
+            
+   // Paginate the results of the query
+   $appointments = $paginator->paginate(
+    // Doctrine Query, not results
+    $users,
+    // Define the page parameter
+    $request->query->getInt('page', 1),
+    // Items per page
+    5
+);
         return $this->render('user/index.html.twig', [
-            'users' => $users,
+            'users' => $appointments,
+        
         ]);
     }
 

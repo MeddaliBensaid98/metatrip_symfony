@@ -1,4 +1,7 @@
 {
+    "cmen/google-charts-bundle": {
+        "version": "5.0.0"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -105,6 +108,12 @@
     },
     "jms/metadata": {
         "version": "2.6.1"
+    },
+    "knplabs/knp-components": {
+        "version": "v3.4.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.8.0"
     },
     "laminas/laminas-code": {
         "version": "4.5.1"
@@ -655,6 +664,9 @@
     },
     "twig/twig": {
         "version": "v3.3.9"
+    },
+    "twilio/sdk": {
+        "version": "6.36.1"
     },
     "vich/uploader-bundle": {
         "version": "1.19",
