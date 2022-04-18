@@ -4,12 +4,36 @@
 
 {% block body %}
 
-    <main id="main" class="main">
 
-        <h1>Evenements </h1>
+
+    <main id="main" class="main">
+        <br>
+       <center>  <br> <h1>Evenements </h1> </center>
+
+
 
         <table class="table">
             <thead>
+
+            <td>
+
+                {{ form_start(form) }}
+                <div class="form-row align-items-end" >
+                    <div class="col">
+                        {{ form_row(form.chanteur) }}
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Rechercher</button>
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+
+
+            </td>
+
+
             <tr>
                 <th>TypeEvent</th>
                 <th>Chanteur</th>
