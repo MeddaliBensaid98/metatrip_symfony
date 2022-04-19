@@ -42,4 +42,15 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
       
             return $query->getResult();
     }
+
+    
+    
+    public function Statselondate():array{
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT   MONTH(rv.dateDepart) as dated , count(rv.dateArrivee)  AS nombre  FROM App\Entity\ReservationVoyage rv GROUP BY  rv.dateDepart");
+   
+            return $query->getResult();
+    }
         }
+     
