@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Serializable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -10,6 +12,10 @@ use Vich\UploaderBundle\Entity\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 use Symfony\Component\Validator\Constraints as Assert;
+
+
+use App\Form\PriceSearchType;
+
 
 /**
  * Evenement
@@ -79,6 +85,16 @@ class Evenement
      * @ORM\Column(name="image", type="string", length=255, nullable=false)
      */
     private $image;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Sponsor::class, inversedBy="evenements")
+     */
+    private $sponsors;
+
+    public function __construct()
+    {
+        $this->sponsors = new ArrayCollection();
+    }
 
 
 
@@ -158,6 +174,31 @@ class Evenement
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Sponsor>
+     */
+    public function getSponsors(): Collection
+    {
+        return $this->sponsors;
+    }
+
+    public function addSponsor(Sponsor $sponsor): self
+    {
+        if (!$this->sponsors->contains($sponsor)) {
+            $this->sponsors[] = $sponsor;
+        }
+
+        return $this;
+    }
+
+    public function removeSponsor(Sponsor $sponsor): self
+    {
+        $this->sponsors->removeElement($sponsor);
+
+        return $this;
+    }
+
 
 
 }

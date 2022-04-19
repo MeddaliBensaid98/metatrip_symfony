@@ -2,14 +2,38 @@
 
 namespace App\Controller;
 
+// Entities
 use App\Entity\Evenement;
 use App\Entity\PropertySearch;
+use App\Entity\PriceSearch ;
+
+// Form
 use App\Form\EvenementType;
+use App\Form\PriceSearchType ;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+// Repository
+use App\Repository\EvenementRepository ;
+
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
+// Include Dompdf required namespaces
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+
+use Doctrine\Common\Collections\ArrayCollection;
+
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 
 /**
  * @Route("/evenement")
@@ -96,6 +120,8 @@ class EvenementController extends AbstractController
 
         return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 
 
 }

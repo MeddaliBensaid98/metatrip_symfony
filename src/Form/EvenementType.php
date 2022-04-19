@@ -16,7 +16,12 @@ class EvenementType extends AbstractType
             ->add('typeEvent')
             ->add('chanteur')
             ->add('adresse')
-            ->add('dateEvent')
+            ->add('dateEvent' ,DateType::class, [
+                // renders it as a single text box
+                'required' => true,
+                'widget' => 'single_text'
+            ])
+
             ->add('prixE')
             ->add('image')
         ;

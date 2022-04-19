@@ -6,6 +6,7 @@ use App\Entity\Evenement;
 use App\Entity\Sponsor;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,7 +19,12 @@ class SponsorType extends AbstractType
             ->add('tel')
             ->add('email')
             ->add('image')
-            ->add('dateSp')
+            ->add('dateSp' ,DateType::class, [
+                // renders it as a single text box
+                'required' => true,
+                'widget' => 'single_text'
+            ])
+
             ->add('prixSp')
             ->add('ide' , EntityType::Class,array(
                 'class' => Evenement::class,

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block title%} Liste des Articles par prix{% endblock %}
+{% block body %}
+{{ form_start(form) }}
+<div class="form-row align-items-end" >
+    <div class="col">
+        {{ form_row(form.minPrice) }}
+    </div>
+    <div class="col">
+        {{ form_row(form.maxPrice) }}
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Rechercher</button>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+
+    {% if evenements %}
+<table class="table">
+    <thead>
+    <tr>
+        <th>TypeEvent</th>
+        <th>Chanteur</th>
+        <th>Adresse</th>
+        <th>DateEvent</th>
+        <th>PrixE</th>
+        <th>Image</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for evenement in evenements %}
+        <tr>
+            <td>{{ evenement.typeEvent }}</td>
+            <td>{{ evenement.chanteur }}</td>
+            <td>{{ evenement.adresse }}</td>
+            <td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d') : '' }}</td>
+            <td>{{ evenement.prixE }}</td>
+            <td>{{ evenement.image }}</td>
+
+
+        </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+   <br>
+       <p>Aucun articles</p>
+
+{% endif %}
+
+
+{% endblock %}
+
+
