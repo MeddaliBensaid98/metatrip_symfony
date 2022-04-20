@@ -122,7 +122,7 @@ class VoyageOrganiseController extends AbstractController
 /**
      * @Route("/upload-excel", name="app_voyage_organise_uexcel")
      */
-    public function uploadExcel(VoyageOrganiseRepository $repo)
+    public function uploadExcel(EntityManagerInterface $entityManager,VoyageOrganiseRepository $repo)
     {
       
 

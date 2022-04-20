@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4b2a7b9759cf8a92dc068ad3d35b5a89",
+    "content-hash": "ec5a58a064c769afc283ad9534dd2909",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1979,6 +1979,32 @@
                 }
             ],
             "time": "2021-12-19T18:06:55+00:00"
+        },
+        {
+            "name": "leaflet/leaflet",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aissasell/leaflet.git",
+                "reference": "7eadefcbd4d8bbb9af36a2b78186e6d068afa177"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aissasell/leaflet/zipball/7eadefcbd4d8bbb9af36a2b78186e6d068afa177",
+                "reference": "7eadefcbd4d8bbb9af36a2b78186e6d068afa177",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "description": "an open-source JavaScript library for mobile-friendly interactive maps",
+            "support": {
+                "issues": "https://github.com/aissasell/leaflet/issues",
+                "source": "https://github.com/aissasell/leaflet/tree/v1.4.0"
+            },
+            "time": "2019-03-23T14:27:52+00:00"
         },
         {
             "name": "maennchen/zipstream-php",

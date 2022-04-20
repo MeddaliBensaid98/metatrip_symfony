@@ -12,6 +12,7 @@
         "dompdf/dompdf": "^1.2",
         "endroid/qr-code": "^4.4",
         "ip2location/ip2location-php": "^8.3",
+        "leaflet/leaflet": "^1.4",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpoffice/phpspreadsheet": "^1.22",
         "sensio/framework-extra-bundle": "^6.2",
