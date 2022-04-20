@@ -1,0 +1,38 @@
+
+{% block body %}
+    <table class="table">
+        <thead>
+        <tr>
+        
+
+        </tr>
+            <tr>
+         
+                <th>DateDepart</th>
+                <th>DateArrivee</th>
+                <th>Etat</th>
+                <th>Idu</th>
+                <th>RefPaiement</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation_voyage in reservation_voyages %}
+            <tr>
+        
+                <td>{{ reservation_voyage.dateDepart ? reservation_voyage.dateDepart|date('Y-m-d') : '' }}</td>
+                <td>{{ reservation_voyage.dateArrivee ? reservation_voyage.dateArrivee|date('Y-m-d') : '' }}</td>
+                <td>{{ reservation_voyage.etat }}</td>
+                <td>{{ reservation_voyage.idu.idu }}</td>
+                <td>{{ reservation_voyage.refPaiement }}</td>
+                <td>
+                    <a href="{{ path('app_reservation_voyage_show', {'idrv': reservation_voyage.idrv}) }}"class="btn btn-primary">show</a>
+                    <a href="{{ path('app_reservation_voyage_edit', {'idrv': reservation_voyage.idrv}) }}" class="btn btn-warning">edit</a>
+                </td>
+            </tr>
+    
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

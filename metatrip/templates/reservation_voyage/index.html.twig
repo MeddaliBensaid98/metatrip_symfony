@@ -1,0 +1,52 @@
+ {% extends "base.html.twig" %} 
+{% block body %}
+        
+      <div>          
+
+<br> 
+       <a href="{{ path('imprimerRev') }}" class="btn btn-danger">
+                                             PDF
+                                        </a>
+                                        <br><br>
+    <table class="table">
+        <thead>
+                
+
+            <tr>
+         
+                <th>DateDepart</th>
+                <th>DateArrivee</th>
+                <th>Etat</th>
+                <th>Utilisateur</th>
+                <th>RefPaiement</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for reservation_voyage in reservation_voyages %}
+            <tr>
+        
+                <td>{{ reservation_voyage.dateDepart ? reservation_voyage.dateDepart|date('Y-m-d') : '' }}</td>
+                <td>{{ reservation_voyage.dateArrivee ? reservation_voyage.dateArrivee|date('Y-m-d') : '' }}</td>
+                <td>{{ reservation_voyage.etat }}</td>
+                <td>{{ reservation_voyage.idu.nom }} {{ reservation_voyage.idu.prenom }} </td>
+                <td>{{ reservation_voyage.refPaiement }}</td>
+                <td>
+                    <a href="{{ path('app_reservation_voyage_show', {'idrv': reservation_voyage.idrv}) }}"class="btn btn-primary">show</a>
+                   
+                    <a href="{{ path('app_reservation_voyage_edit', {'idrv': reservation_voyage.idrv}) }}" class="btn btn-warning">edit</a>
+                   <a href="{{ path('app_reservation_voyage_accept', {'idrv': reservation_voyage.idrv}) }}"class="btn btn-success">Accepter</a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
