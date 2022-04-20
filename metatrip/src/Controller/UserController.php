@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\User1Type;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\VoyageOrganiseRepository;
@@ -151,5 +152,23 @@ class UserController extends AbstractController
           ]);
     }
 
-
-}
+/**
+     * @Route("/trirole/10/user", name="triroleuser_99")
+     */
+    public function orderByROLE(EntityManagerInterface $entityManager,UserRepository $repository,Request $request,PaginatorInterface $paginator)
+    {  $allRole = $repository->orderByROLE();
+       // Paginate the results of the query
+   $appointments = $paginator->paginate(
+    // Doctrine Query, not results
+    $allRole,
+    // Define the page parameter
+    $request->query->getInt('page', 1),
+    // Items per page
+    5
+);
+        return $this->render('user/index.html.twig', [
+            'users' => $appointments,
+        
+        ]);
+    }  
+  }

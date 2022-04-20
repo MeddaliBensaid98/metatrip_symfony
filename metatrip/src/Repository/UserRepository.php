@@ -52,5 +52,15 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
    
             return $query->getResult();
     }
+
+    /**
+     * Requête QueryBuilder
+     * */
+    public function orderByROLE()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.role', 'ASC')
+            ->getQuery()->getResult();
+    }
         }
      

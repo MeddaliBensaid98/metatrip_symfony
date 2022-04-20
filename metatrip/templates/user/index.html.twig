@@ -1,9 +1,11 @@
  {% extends "base.html.twig" %} 
 {% block body %}
 
-    
-
-    <table class="table">
+ <br>
+ <br>
+    <br></br>
+   
+    <table class="table" id="tableac">
     
         <thead>
          <tr>
@@ -47,10 +49,7 @@
             </tr>
           
         </div>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
+      
         {% endfor %}
           <tr>
            
@@ -59,9 +58,7 @@
             {{ knp_pagination_render(users) }}
         </td>
          </tr>
-         <br>
-           <br>
-             <br>
+        
         </tbody>
        
     </table>

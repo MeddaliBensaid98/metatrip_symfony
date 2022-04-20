@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
+use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Entity\ReservationVoyage;
 use App\Form\ReservationVoyage1Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\ReservationVoyageRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Dompdf\Dompdf;
 
 /**
  * @Route("/reservation_voyage")
@@ -152,4 +153,53 @@ class ReservationVoyageController extends AbstractController
         ]);
     }
 
+   
+
+/**
+     * @Route("/tripardatedepart/depart", name="tripardatedepart")
+    */
+    public function orderBydateDepar(EntityManagerInterface $entityManager,ReservationVoyageRepository $repository,Request $request)
+    {  $allDate = $repository->orderByDateDepart();
+       // Paginate the results of the query
+   return $this->render('reservation_voyage/index.html.twig', [
+            'reservation_voyages' => $allDate,
+        
+        ]);
+    }  
+   
+    /**
+     * @Route("/tripardatearrivee/arrive/arrive", name="tripardatearrivee")
+    */
+    public function orderBydateArrivee(EntityManagerInterface $entityManager,ReservationVoyageRepository $repository,Request $request)
+    {  $allDate = $repository->orderBydateArrivee();
+       // Paginate the results of the query
+   return $this->render('reservation_voyage/index.html.twig', [
+            'reservation_voyages' => $allDate,
+        
+        ]);
+    } 
+ 
+       /**
+     * @Route("/triparetat/etat", name="triparetat")
+    */
+    public function orderByetat(EntityManagerInterface $entityManager,ReservationVoyageRepository $repository,Request $request)
+    {  $allDate = $repository->orderByetat();
+       // Paginate the results of the query
+   return $this->render('reservation_voyage/index.html.twig', [
+            'reservation_voyages' => $allDate,
+        
+        ]);
+    } 
+
+
+      /**
+     * @Route("/triparrefpaiment/ref", name="triparrefpaiment")
+    */
+    public function orderByRefpaiment(EntityManagerInterface $entityManager,ReservationVoyageRepository $repository,Request $request)
+    {  $allDate = $repository->orderByRefpaiment();
+       // Paginate the results of the query
+   return $this->render('reservation_voyage/index.html.twig', [
+            'reservation_voyages' => $allDate]);
+    } 
+ 
 }
