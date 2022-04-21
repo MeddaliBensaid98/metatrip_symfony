@@ -79,4 +79,46 @@ class VoyageOrganiseRepository extends ServiceEntityRepository
         
             return $query->getResult();
     }
+
+
+
+    public function stat(){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT count(rv.idu) as u,v.pays,count(rv.idv) as nb
+
+            FROM  App\Entity\Voyage v, App\Entity\ReservationVoyage rv 
+            WHERE  v.idv=rv.idv GROUP BY v.idv ORDER BY count(rv.idv) DESC");
+  
+        
+            return $query->getResult();
+    }
+
+
+    
+    public function stat2(){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT count(rv.idu) as u,v.pays,count(rv.idv) as nb
+
+            FROM  App\Entity\Voyage v, App\Entity\ReservationVoyage rv 
+            WHERE  v.idv=rv.idv GROUP BY v.idv ORDER BY count(rv.idv) ASC");
+  
+        
+            return $query->getResult();
+    }
+
+
+    public function prices(){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT SUM(vo.prix_billet),u.idu,vo.idvo,v.idv
+             from App\Entity\VoyageOrganise vo,App\Entity\Voyage v,App\Entity\ReservationVoyage rv,App\Entity\User u
+             where u.idu=rv.idu and rv.idv=v.idv and vo.idv=v.idv GROUP BY vo.idvo;");
+  
+        
+            return $query->getResult();
+    }
+
+    
 }

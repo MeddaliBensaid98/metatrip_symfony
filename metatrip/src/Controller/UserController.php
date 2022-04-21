@@ -113,11 +113,6 @@ class UserController extends AbstractController
         ->findAll();
 
   
-       
-         
-
-
-        
         return $this->render('user/map.html.twig', [
             
        
@@ -186,6 +181,35 @@ class UserController extends AbstractController
               'voyageOrganises' => $voyageOrganises,
           ]);
     }
+
+
+
+  /**
+     * @Route("/home/stat", name="homeSt", methods={"GET"})
+     */
+    public function statvist(EntityManagerInterface $entityManager,VoyageOrganiseRepository $repo): Response
+    {
+      
+
+
+ 
+
+
+        $lista=$repo->stat();
+        $lista2=$repo->stat2();
+
+        $n=sizeof($lista);
+    
+ 
+          return $this->render('stats/stat.html.twig', [
+              'lista' => $lista,
+              'lista2' => $lista2,
+              'n'=>$n
+
+          ]);
+    }
+
+
 
 
 }
