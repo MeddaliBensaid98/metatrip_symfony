@@ -29,7 +29,7 @@ class ReservationVoyage
      * @ORM\Column(name="Date_depart", type="date", nullable=false)
      */
     private $dateDepart;
-
+    
     /**
      * @var \DateTime
      *

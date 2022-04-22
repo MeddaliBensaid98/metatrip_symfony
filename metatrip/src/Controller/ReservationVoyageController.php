@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Entity\ReservationVoyage;
 use App\Form\ReservationVoyage1Type;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\ReservationVoyageRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/reservation_voyage")
@@ -18,15 +22,18 @@ class ReservationVoyageController extends AbstractController
     /**
      * @Route("/", name="app_reservation_voyage_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Session $session,EntityManagerInterface $entityManager): Response
     {
         $reservationVoyages = $entityManager
             ->getRepository(ReservationVoyage::class)
             ->findAll();
-
+            if( $session->get('login')=="true"){
         return $this->render('reservation_voyage/index.html.twig', [
             'reservation_voyages' => $reservationVoyages,
         ]);
+    }else{
+        return $this->redirectToRoute('security_login');
+    } 
     }
 
     /**
@@ -107,4 +114,96 @@ class ReservationVoyageController extends AbstractController
 
         return $this->redirectToRoute('app_reservation_voyage_index', [], Response::HTTP_SEE_OTHER);
     }
+
+   
+    
+    /**
+     * @Route("/imrpimer/imrpimer/voyage", name="imprimerRev", methods={"GET"})
+     */
+    public function indexImrpimer(EntityManagerInterface $entityManager)
+    {
+        $reservationVoyages = $entityManager
+            ->getRepository(ReservationVoyage::class)
+            ->findAll();
+          
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('reservation_voyage/index1.html.twig', [
+            'reservation_voyages' => $reservationVoyages,
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("mypdf2.pdf", [
+            "Attachment" => true
+        ]);
+              
+        return $this->render('reservation_voyage/index.html.twig', [
+            'reservation_voyages' => $reservationVoyages,
+        ]);
+    }
+
+   
+
+/**
+     * @Route("/tripardatedepart/depart", name="tripardatedepart")
+    */
+    public function orderBydateDepar(EntityManagerInterface $entityManager,ReservationVoyageRepository $repository,Request $request)
+    {  $allDate = $repository->orderByDateDepart();
+       // Paginate the results of the query
+   return $this->render('reservation_voyage/index.html.twig', [
+            'reservation_voyages' => $allDate,
+        
+        ]);
+    }  
+   
+    /**
+     * @Route("/tripardatearrivee/arrive/arrive", name="tripardatearrivee")
+    */
+    public function orderBydateArrivee(EntityManagerInterface $entityManager,ReservationVoyageRepository $repository,Request $request)
+    {  $allDate = $repository->orderBydateArrivee();
+       // Paginate the results of the query
+   return $this->render('reservation_voyage/index.html.twig', [
+            'reservation_voyages' => $allDate,
+        
+        ]);
+    } 
+ 
+       /**
+     * @Route("/triparetat/etat", name="triparetat")
+    */
+    public function orderByetat(EntityManagerInterface $entityManager,ReservationVoyageRepository $repository,Request $request)
+    {  $allDate = $repository->orderByetat();
+       // Paginate the results of the query
+   return $this->render('reservation_voyage/index.html.twig', [
+            'reservation_voyages' => $allDate,
+        
+        ]);
+    } 
+
+
+      /**
+     * @Route("/triparrefpaiment/ref", name="triparrefpaiment")
+    */
+    public function orderByRefpaiment(EntityManagerInterface $entityManager,ReservationVoyageRepository $repository,Request $request)
+    {  $allDate = $repository->orderByRefpaiment();
+       // Paginate the results of the query
+   return $this->render('reservation_voyage/index.html.twig', [
+            'reservation_voyages' => $allDate]);
+    } 
+ 
 }

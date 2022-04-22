@@ -6,8 +6,10 @@ namespace App\Controller;
 use App\Entity\User;
 
 use App\Form\LoginType;
+use Twilio\Rest\Client;
 use App\Form\InscriptionType;
 use Doctrine\Persistence\ObjectManager;
+use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,18 +21,19 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Security\LoginFormAuthenticator;
 
 class SecurityController extends AbstractController
 {
    /**
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request, EntityManagerInterface $manager,UserPasswordEncoderInterface  $encoder)
-     {
+    public function registration(\Swift_Mailer $mailer,Request $request, EntityManagerInterface $manager,UserPasswordEncoderInterface  $encoder)
+     {  
+       
     $user = new User();
     $form = $this->createForm(InscriptionType::class,$user);
     $form->handleRequest($request);
+
 if($form->isSubmitted() && $form->isValid()) {
 
 
@@ -39,11 +42,18 @@ if($form->isSubmitted() && $form->isValid()) {
    echo "<script > console.log('$email')</script>";
    $VarName = $em->findOneBy(['email'=>$email]);
    if( is_null($VarName)){
+    $pass=$user->getPassword();
     $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
-    $user->setPassword($hash);
-             
+    $user->setPassword($hash);       
     $manager->persist($user);
     $manager->flush();
+    $message = (new \Swift_Message('Hello Email'))
+    ->setFrom('solidev.3a18@gmail.com')
+    ->setTo($email)
+    ->setBody(' <center><img src="https://pbs.twimg.com/profile_images/1118720684950085632/Qc9LxLu0_400x400.png" alt="Girl in a jacket" height=50%;width=50%></center><center><h2>bienvenue sur notre site  Metatrip</h2> <br><h4>une fois metatrip!toujour metatrip </h4></center></br></center><center><h3>voici les coordonnéesde votre compte:</h3></center><br><center>Email:'.$email.'</center><br><center>Password:'.$pass.'</center></br>','text/html')
+;
+$mailer->send($message);
+    $this->addFlash('message', 'Le message a bien été envoyé');
     return $this->redirectToRoute('security_login');
    }else{
     echo "<script > console.log('email est deja utilise')</script>";
@@ -67,7 +77,11 @@ if($form->isSubmitted() && $form->isValid()) {
      */
     public function login(Request $request, EntityManagerInterface $manager,UserPasswordEncoderInterface  $encoder,Session  $session, GuardAuthenticatorHandler $handler,
    )
-    {         echo "<script> console.log('TEST')</script>";
+    {  
+
+        $session->set('login',"false"); 
+        $session->start();
+        echo "<script> console.log('TEST')</script>";
         $ok=false;
         $user = new User();
         $form = $this->createForm(LoginType::class,$user);
@@ -75,6 +89,8 @@ if($form->isSubmitted() && $form->isValid()) {
 
 
         if($form->isSubmitted() && $form->isValid()) {
+          //  $email=$request->request->get('email');    
+          
             echo "<script > console.log('sssssssssss')</script>";
             
             $email = $user->getEmail();
@@ -101,16 +117,51 @@ if($form->isSubmitted() && $form->isValid()) {
                     if (password_verify($user->getPassword(),$VarName->getPassword())) {
                         echo "<script >  console.log('shiha')</script>";
                
+                        $sid ='AC28ed23098bac2be7ac0a3aa2422993c0';
+                        $token ='581810bd4f5274ecd7e3c8a8068211a4';
+                        $twilio = new Client($sid, $token);
 
+                        $message = $twilio->messages
+                                          ->create("+21653084352", // to
+                                                   [   "from" => '+15005550006',
+                                                       "body" => "Welcome to metatrip   ",
+                                                    
+                                                       
+                                                   ]
+                                          );
+                                          if($message){
+                                            echo "<script >  console.log('sms 5edmet')</script>";
+                                          }else{
+                                            echo "<script >  console.log('sms ma5edmetich')</script>";
+                                          
+                                               
+                                             }
+
+                                           
+                                             //getPrenom()
+                                            // getNom()
+                                        // $session->start();     
                         // stores an attribute in the session for later reuse
-                        $session->set('email', $email);
+                        $session->set('Prenom', $VarName->getPrenom() );
+                        $session->set('Email', $VarName->getEmail() );
+                        $session->set('Nom', $VarName->getNom() );
+                        $session->set('Idu', $VarName->getIdu() );
+                        $session->set('Image',$VarName->getImage());
+                        $session->set('login',"true"); 
+                        $session->start();
 
                         if($VarName->getRole()==0){
 
-                            return $this->redirectToRoute('voyagelist',['session'=>$session]);
+                         return $this->redirectToRoute('voyagelist');
                         }
                         else{
-                            return $this->redirectToRoute('app_user_index',['session'=>$session]);
+
+
+                           
+
+                           // var_dump($session->get('user'));
+                   //Print null
+                    return $this->redirectToRoute('app_user_index');
                         }
                   
                         /*echo "<script >localStorage.setItem('email', '$email');</script>";
@@ -150,9 +201,12 @@ return $this->render('security/login.html.twig', [
       /**
      * @Route("/logout", name="logout")
      */
-    public function logout()
+    public function logout(Session  $session)
     {
- 
+       
+        $session->clear();
         return $this->redirectToRoute('security_login');
+  
+  
     }
 }

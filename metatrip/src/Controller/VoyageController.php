@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Voyage;
 use App\Form\Voyage1Type;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/voyage")
@@ -18,15 +19,18 @@ class VoyageController extends AbstractController
     /**
      * @Route("/", name="app_voyage_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Session  $session,EntityManagerInterface $entityManager): Response
     {
         $voyages = $entityManager
             ->getRepository(Voyage::class)
             ->findAll();
-
+            if( $session->get('login')=="true"){
         return $this->render('voyage/index.html.twig', [
             'voyages' => $voyages,
         ]);
+    }else{
+        return $this->redirectToRoute('security_login');
+    }
     }
 
     /**

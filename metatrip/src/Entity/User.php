@@ -133,7 +133,7 @@ class User implements UserInterface , \Serializable
 
         return $this;
     }
-
+    
     public function getPrenom(): ?string
     {
         return $this->prenom;
@@ -250,26 +250,15 @@ class User implements UserInterface , \Serializable
     public function getUsername(){}
 
     public function serialize(){
-    return serialize([
-        $this->id,
-        $this->prenom,
-        $this->tel,
-        $this->dateNaissance,
-        $this->Nom,
-        $this->email,
-        $this->password
-     ] );
+   
     }
+
+    public function __toString()
+{
+    return (string) $this->getIdu();
+}
  public function unserialize ($string){
-    list (
-        $this->id,
-        $this->prenom,
-        $this->tel,
-        $this->dateNaissance,
-        $this->Nom,
-        $this->email,
-        $this->password
-    ) = unserialize($string, ['allowed classes' => false]);
+  
 }
 
 }

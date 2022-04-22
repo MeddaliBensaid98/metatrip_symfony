@@ -34,7 +34,6 @@ class Voyage
     
     /**
      * @var string
-      * @Assert\NotBlank
      * @ORM\Column(name="Image_pays", type="string", length=50, nullable=false)
      */
     private $imagePays;

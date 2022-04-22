@@ -2,32 +2,33 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\EventDispatcher\GenericEvent;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use App\Entity\ReservationVoyage;
-
-use App\Entity\Voyage;
 use App\Entity\User;
-use App\Repository\VoyageOrganiseRepository;
+use App\Entity\Voyage;
+use App\Form\RsrvType;
+use App\Entity\VoyageOrganise;
+
+use App\Form\VoyageOrganiseType;
+use App\Entity\ReservationVoyage;
 use App\Repository\UserRepository;
 
-use App\Form\RsrvType;
-
-use App\Entity\VoyageOrganise;
-use App\Form\VoyageOrganiseType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\VoyageOrganiseRepository;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\EventDispatcher\GenericEvent;
+
+use Symfony\Component\HttpFoundation\Session\Session;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/voyage_organise")
@@ -37,15 +38,18 @@ class VoyageOrganiseController extends AbstractController
     /**
      * @Route("/", name="app_voyage_organise_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Session  $session,EntityManagerInterface $entityManager): Response
     {
         $voyageOrganises = $entityManager
             ->getRepository(VoyageOrganise::class)
             ->findAll();
-
+            if( $session->get('login')=="true"){
         return $this->render('voyage_organise/index.html.twig', [
             'voyage_organises' => $voyageOrganises,
         ]);
+    }else{
+        return $this->redirectToRoute('security_login');
+    }
     }
 
     /**
@@ -137,9 +141,9 @@ class VoyageOrganiseController extends AbstractController
      */
      public function testresr(EntityManagerInterface $entityManager,
      UserRepository $repu,VoyageOrganiseRepository $rep,User $user,VoyageOrganise $voyage,
-     VoyageOrganise $voyageorg,Request $request): Response
+     VoyageOrganise $voyageorg,Request $request,Session  $session): Response
     {
-              $idu=813;
+              $idu=$session->get('Idu');
             //$voyage = $repo->findByIdv($voyageorg->getIdv()->getIdv(),$voyageorg->getIdvo());
 
            

@@ -25,7 +25,7 @@
             {% if vv.etatvoyage=='DISPO' and vv.nbplaces>0 %}
              
          
-           <a style="text-decoration:none;color:white" href="{{ path('indexRes', {'idv': vv.idv,'idu':813} ) }}"> <button type="submit" class="btn btn-primary btn-xs btn3d"> Réserver</button> </a>
+           <a style="text-decoration:none;color:white" href="{{ path('indexRes', {'idv': vv.idv,'idu':app.session.get('Idu')} ) }}"> <button type="submit" class="btn btn-primary btn-xs btn3d"> Réserver</button> </a>
              {% endif %}
 
 
