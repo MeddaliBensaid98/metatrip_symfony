@@ -1,0 +1,147 @@
+{% extends 'base.front.html.twig' %}
+
+{% block title %}New Abonnement{% endblock %}
+
+{% block body %}
+    <h1>Create new Abonnement</h1>
+
+<!-- ======================= Start Page Title ===================== -->
+<div class="page-title image-title" style="background-image:url(assets/img/banner.jpg);">
+    <div class="container">
+        <div class="page-title-wrap">
+            <h2>Choisisez le meilleur abonnement pour vous!</h2>
+            <p><a href="#" class="theme-cl">Home</a> | <span>Pricing</span></p>
+        </div>
+    </div>
+</div>
+<!-- ======================= End Page Title ===================== -->
+
+    <!-- =========== Start Pricing =================== -->
+    <section class="gray-bg">
+        <div class="container">
+            <div class="container">
+
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link href="{{asset('/assets/css/styles.css')}}" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css?family=Lato|Poppins&display=swap" rel="stylesheet">
+        <title>Price Comparison Table</title>
+    </head>
+    <body>
+    <section class="price-comparison">
+        <div class="price-column">
+            <div class="price-header">
+                <div class="price">
+                    <div class="dollar-sign">€</div>
+                    35
+                    <div class="per-month">/mo</div>
+                </div>
+                <div class="plan-name">Silver</div>
+            </div>
+            <div class="divider"></div>
+            <div class="feature">
+                <img src="{{ asset('/assets/img/check-circle.svg') }}">
+                HD avaible            </div>
+            <div class="feature">
+                <img src="{{ asset('/assets/img/check-circle.svg') }}">
+       HD avaible               </div>
+            <div class="feature">
+                <img src="{{ asset('/assets/img/check-circle.svg') }}">
+                High dynamic range (HDR) avaible            </div>
+            <div class="feature ">
+                <img src="{{ asset('/assets/img/check-circle.svg') }}">
+                Screens you can watch on at the same time            </div>
+            <div class="feature inactive">
+                <img src="{{ asset('/assets/img/x-square.svg') }}">
+                Watch on your laptop, TV, phone and tablet             </div>
+            <div class="feature inactive">
+                <img src="{{ asset('/assets/img/x-square.svg') }}">
+                Cancel at any time
+            </div>
+            <form action="/checkout" method="POST">
+                <button type="submit" class="cta">Start Today</button>
+            </form>
+        </div>
+
+        <div class="price-column popular">
+            <div class="most-popular">Most Popular</div>
+            <div class="price-header">
+                <div class="price">
+                    <div class="dollar-sign">€</div>
+                    50
+                    <div class="per-month">/mo</div>
+                </div>
+                <div class="plan-name">Gold</div>
+            </div>
+            <div class="divider"></div>
+            <div class="feature">
+                <img src="{{ asset('/assets/img/check-circle.svg') }}">
+                HD avaible            </div>
+            <div class="feature">
+                <img src="{{ asset('/assets/img/check-circle.svg') }}">
+       HD avaible               </div>
+            <div class="feature">
+                <img src="{{ asset('/assets/img/check-circle.svg') }}">
+                High dynamic range (HDR) avaible            </div>
+            <div class="feature">
+                <img src="{{ asset('/assets/img/check-circle.svg') }}">
+                Screens you can watch on at the same time            </div>
+            <div class="feature">
+                <img src="{{ asset('/assets/img/check-circle.svg') }}">
+                Watch on your laptop, TV, phone and tablet             </div>
+            <div class="feature">
+                <img src="{{ asset('/assets/img/check-circle.svg') }}">
+                Cancel at any time
+            </div>
+            <form action="/checkout" method="POST">
+                <button type="submit" class="ctaG">Start Today</button>
+            </form>        </div>
+        <div class="price-column">
+            <div class="price-header">
+                <div class="price">
+                    <div class="dollar-sign">€</div>
+                    15
+                    <div class="per-month">/mo</div>
+                </div>
+                <div class="plan-name">Bronze</div>
+            </div>
+            <div class="divider"></div>
+            <div class="feature">
+                <img src="{{ asset('/assets/img/check-circle.svg') }}">
+                HD avaible            </div>
+            <div class="feature">
+                <img src="{{ asset('/assets/img/check-circle.svg') }}">
+       HD avaible               </div>
+            <div class="feature inactive">
+                <img src="{{ asset('/assets/img/x-square.svg') }}">
+
+                High dynamic range (HDR) avaible            </div>
+            <div class="feature inactive">
+                <img src="{{ asset('/assets/img/x-square.svg') }}">
+                Screens you can watch on at the same time            </div>
+            <div class="feature inactive">
+                <img src="{{ asset('/assets/img/x-square.svg') }}">
+                Watch on your laptop, TV, phone and tablet             </div>
+            <div class="feature inactive">
+                <img src="{{ asset('/assets/img/x-square.svg') }}">
+                Cancel at any time
+            </div>
+            <form action="/checkout" method="POST">
+                <button type="submit" class="cta">Start Today</button>
+            </form>
+        </div>
+    </section>
+    </body>
+    </html>
+
+            </div>
+        </div>
+    </section>
+    <!-- =========== End Pricing =================== -->
+ 
+
+{% endblock %}
