@@ -11,8 +11,61 @@
       
 <div class="container">
 
+    <br><br>
+<div>
+ <form  action="" method="post">
+ 
+    
+          <select name="listDevises1" id="listDevises1">  
+                 
+
+               {% for j in 0..valuee|length -1 %}
+                <option value="{{keyy[j]}}" > {{valuee[j]}} </option> 
+                  {% endfor %} 
+                 </select> 
+
+        <select name="listDevises2" id="listDevises2">  
+          
+
+               {% for j in 0..valuee|length -1 %}
+               <option value="{{keyy[j]}}"   >  {{valuee[j]}} </option>
+                {% endfor %}   
+                 </select> 
+
+   <input type="number" step="any" name="Montant" value="Montant" id="Montant" placeholder="Montant">
+   <input type="submit" name="submit" value="Convertir" >
+
+{% if conversion != 0    %}
+<div><br><p  style="text-align:center"><b  style="text-align:center;font-size:1.7em" class="bg-warning">Résultat = {{conversion}}</b></p></div>
+ 
+
+   {% else    %}
+   <p style="visibility:hidden"></p>
+
+   {% endif %}
+ 
+    </form>
+    </div>
+
+    <br><br>
     <div class="row clearfix">
+
+
       {% for vv in voyageOrganises %}
+               
+
+
+
+
+ 
+           
+               
+                     
+                 
+
+                       
+                     
+
         <div class="col-lg-3 col-md-4 col-sm-12">
 
             <div class="card product_item">
@@ -76,6 +129,6 @@
 </div>
 
 
-
+ 
 
 {% endblock %}

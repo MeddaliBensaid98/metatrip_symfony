@@ -23,7 +23,7 @@ use App\Entity\Voyage;
 use App\Entity\User;
 use App\Repository\VoyageOrganiseRepository;
 use App\Repository\UserRepository;
-
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\Form\RsrvType;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Entity\VoyageOrganise;
@@ -39,6 +39,25 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class VoyageOrganiseController extends AbstractController
 {
+
+
+
+
+    private $client;
+
+    public function __construct(HttpClientInterface $client)
+    {
+        $this->client = $client;
+    }
+
+
+
+
+
+
+
+
+
     /**
      * @Route("/", name="app_voyage_organise_index", methods={"GET"})
      */
@@ -264,25 +283,100 @@ class VoyageOrganiseController extends AbstractController
 
 
   /**
-     * @Route("/test/t", name="indexTest", methods={"GET"})
+     * @Route("/test/t", name="indexTest", methods={"GET","POST"})
      */
 
     public function listVoys(VoyageOrganiseRepository $repo)
     {
-
-        $voyageOrganises = $repo->findListaVoyages();
-        
-      //$l=sizeof($voyageOrganises);
-        //echo "alert('$l');";
+        $conversion=0.0;
+        $response = $this->client->request(
+            'GET',
+            'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json'
+        );
+        $keyy=[];
+        $valuee=[];
+        $yy=$response->toArray();
+       // $yy=$x["conversion_rates"];
+ 
+foreach($yy as $key => $value)
+    {
+    
+     $keyy[]=$key;
+     $valuee[]=$value;
+   
+     
+    } 
+     $voyageOrganises = $repo->findListaVoyages();
       
+     
+        if(isset($_POST['submit'])) {
+            $r=json_encode($_POST);
+            echo "<script> console.log('$r')</script>";
+            
+
+
+            $devise1=$_POST['listDevises1'];
+
+             $devise2=$_POST['listDevises2'];
+
+
+             $response2 = $this->client->request(
+                'GET',
+                'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/'.$devise1.'/'.$devise2.'.json'
+            );
+    
+            $resultat=$response2->toArray();
+
+             $montant=$_POST['Montant'];
+
+
+                    $conversion=$montant*$resultat[$devise2]; 
+
+         
+             
+ 
+
+            }
+
+ 
+            
+    
         return $this->render('user/listvoy.html.twig', [
             'voyageOrganises' => $voyageOrganises,
+            'keyy'=>$keyy,
+            'valuee'=>$valuee,
+            'yy'=>$yy,
+            'conversion'=>$conversion
         ]);
-
+  
 
         
     }
 
+
+
+
+
+    
+
+
+
+  /**
+     * @Route("/test/money", name="indexMoney", methods={"POST"})
+     */
+
+    public function money(VoyageOrganiseRepository $repo)
+    {
+      
+    
+      
+       
+
+
+    }
+
+
+ 
 
 
 

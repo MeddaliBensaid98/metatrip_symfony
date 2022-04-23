@@ -18,8 +18,7 @@
         
         }
     </style>
-   
-   
+
      <body onload="initialize()">
         <div class="container">
         <div id="map" ></div></div>
@@ -29,24 +28,18 @@
 </html>
 <script type="text/javascript">
     function initialize() {
-        var map = L.map('map').setView([11.833, 1.333], 7);  
+        var map = L.map('map').setView([ 33.892166, 9.561555499999997], 5);  
         var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {  
             attribution: '© METATRIP',
             maxZoom: 19
         });
 
- 
  {% for c in voyageCoord %}
- 
- 
  
     L.marker([{{c.latitude}},{{c.longitude}}]).
     bindPopup("<b style='color:blue'>Pays:</b> {{c.pays}}<br> <br> <img src='{{asset('assets/img/'~c.imagePays)}}'>  <br><br><b style='color:blue'>Compagnie:</b> {{c.airline}}  <br><br><b style='color:blue'>Etat voyage:</b> {{c.etatvoyage}} <br><br><b style='color:blue'>Prix billet:</b>{{c.prixBillet}}DT").on('click', markerOnClick).addTo(map);
       
-
- 
-           {% endfor %}
-
+         {% endfor %}
      
       function markerOnClick(e)
 {
@@ -58,21 +51,13 @@ map.closePopup();
 
    myWindow.document.write(content);
   
- 
-
- 
 
 }
- 
-     
 
         map.addLayer(osmLayer);
-
-
 
      }
 </script>
 </html>
-
  
 {% endblock %}
