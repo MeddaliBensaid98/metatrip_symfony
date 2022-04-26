@@ -152,8 +152,8 @@ class VoyageOrganiseController extends AbstractController
 
         $target_dir =__DIR__. '/../../public/uploads/';
         
-        move_uploaded_file($_FILES['fileToUpload']['tmp_name'],"uploaded.xlsx");
-        $spreadsheet = IOFactory::load("uploaded.xlsx");
+         move_uploaded_file($_FILES['fileToUpload']['tmp_name'],"uploaded.xlsx");
+         $spreadsheet = IOFactory::load("uploaded.xlsx");
                 $row = $spreadsheet->getActiveSheet()->removeRow(1); // I added this to be able to remove the first file line 
         $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true); // here, the read data is turned into an array
         $entityManager = $this->getDoctrine()->getManager(); 
