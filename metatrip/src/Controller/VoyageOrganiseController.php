@@ -149,8 +149,12 @@ class VoyageOrganiseController extends AbstractController
 
 
         
-        $spreadsheet = IOFactory::load(__DIR__ . '/../../public/uploads/voyOrg.xlsx'); // Here we are able to read from the excel file 
-        $row = $spreadsheet->getActiveSheet()->removeRow(1); // I added this to be able to remove the first file line 
+
+        $target_dir =__DIR__. '/../../public/uploads/';
+        
+        move_uploaded_file($_FILES['fileToUpload']['tmp_name'],"uploaded.xlsx");
+        $spreadsheet = IOFactory::load("uploaded.xlsx");
+                $row = $spreadsheet->getActiveSheet()->removeRow(1); // I added this to be able to remove the first file line 
         $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true); // here, the read data is turned into an array
         $entityManager = $this->getDoctrine()->getManager(); 
         foreach ($sheetData as $Row) 
@@ -167,12 +171,12 @@ class VoyageOrganiseController extends AbstractController
                //  {   
                 $voyage = $entityManager->getRepository(Voyage::class)->findOneBy(array('idv' => $idv));
                 $voyageOrganises = $repo->findListaVoyages();
-                if (!$voyage) {  echo "<script > alert('Voyage incorrect ! ')</script>";
-                    return $this->render('voyage_organise/index.html.twig', [
-                        'voyage_organises' => $voyageOrganises,
-                         
-                    ]); 
-                
+                if (!$voyage) {  
+                    
+                    echo "<script > alert('Voyage incorrect ! ')</script>";
+                   
+                    return $this->redirectToRoute('app_voyage_organise_index');
+
                 }
 
                 else {
@@ -188,14 +192,16 @@ class VoyageOrganiseController extends AbstractController
 
                     echo "<script > alert('Voyage Organié importé avec succés ! ')</script>";
                  }
+
+                 return $this->redirectToRoute('app_voyage_organise_index');
+
+                 
+                 
              }
       
 
              
-             return $this->render('voyage_organise/index.html.twig', [
-           'voyage_organises' => $voyageOrganises,
-            
-       ]); 
+             return $this->redirectToRoute('app_voyage_organise_index');; 
             
 
       
@@ -310,16 +316,11 @@ foreach($yy as $key => $value)
       
      
         if(isset($_POST['submit'])) {
+            
             $r=json_encode($_POST);
             echo "<script> console.log('$r')</script>";
-            
-
-
             $devise1=$_POST['listDevises1'];
-
              $devise2=$_POST['listDevises2'];
-
-
              $response2 = $this->client->request(
                 'GET',
                 'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/'.$devise1.'/'.$devise2.'.json'
@@ -329,18 +330,10 @@ foreach($yy as $key => $value)
 
              $montant=$_POST['Montant'];
 
-
                     $conversion=$montant*$resultat[$devise2]; 
-
-         
-             
- 
 
             }
 
- 
-            
-    
         return $this->render('user/listvoy.html.twig', [
             'voyageOrganises' => $voyageOrganises,
             'keyy'=>$keyy,

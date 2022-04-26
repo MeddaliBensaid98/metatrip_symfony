@@ -59,47 +59,74 @@
 
 <figure class="highcharts-figure">
   <div id="container"></div>
+<br>
+    <div id="cc"></div>
   <p class="highcharts-description"   style="visibility:hidden;">
     Chart showing how an HTML table can be used as the data source for the chart using the Highcharts data module. The chart is built by referencing the existing HTML data table in the page. Several common data source types are available, including CSV and Google Spreadsheet.
   </p>
 
-  <table id="datatable" style="visibility:hidden;">
-      {% for l in lista %}
-    <thead>
-
-      <tr>
-        <th></th>
-        <th>Voyage</th>
+   <table id="datatable3" style="visibility:hidden;">
   
-         
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th>'{{l.pays}}'</th>
-        <td>{{l.nb}}</td>
-         
-       
-      </tr>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Nombre de Voyage organise</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+              {% for y in lista3 %}
+            <tr>
+                <th>'{{y.pays}}'</th>
+                <td>{{y.nb}}</td>
       
-    </tbody>
-    {% endfor %}
-  </table>
+            </tr>
+         
+                      {% endfor %}
+
+        </tbody>
+    </table>
+
+
+  <table id="datatable2" style="visibility:hidden;">
+  
+        <thead>
+            <tr>
+                <th></th>
+                <th>Nombre de reservations</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+              {% for l in lista %}
+            <tr>
+                <th>'{{l.pays}}'</th>
+                <td>{{l.nb}}</td>
+      
+            </tr>
+         
+                      {% endfor %}
+
+        </tbody>
+    </table>
 </figure>
+
+
+<br>x
    {% block javascripts %}
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-  
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
   <script>
   Highcharts.chart('container', {
   data: {
-    table: 'datatable'
+    table: 'datatable2'
   },
   chart: {
-    type: 'column'
+    type: 'area'
   },
   title: {
     text: 'Voyage le plus/moins réservé'
@@ -117,6 +144,48 @@
     }
   }
 });
+
+
+
+
+  Highcharts.chart('cc', {
+  data: {
+    table: 'datatable3',
+  },
+  chart: {
+    type: 'pie'
+  },
+  title: {
+    text: 'Nombre voyage_organise/voyage'
+  },
+  yAxis: {
+    allowDecimals: false,
+    title: {
+      text: 'Units'
+    }
+  },
+  tooltip: {
+    formatter: function () {
+      return '<b>' + this.series.name + '</b><br/>' +
+        this.point.y + ' ' + this.point.name.toLowerCase();
+    }
+  }
+
+}
+
+);
+
+
+
+
+
+
+
+
+
+
+
+
   </script>
    {% endblock %}
 

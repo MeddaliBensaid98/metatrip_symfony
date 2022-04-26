@@ -198,12 +198,15 @@ class UserController extends AbstractController
         $lista=$repo->stat();
         $lista2=$repo->stat2();
 
+        $lista3=$repo->nbVOYORG();
+
         $n=sizeof($lista);
     
  
           return $this->render('stats/stat.html.twig', [
               'lista' => $lista,
               'lista2' => $lista2,
+              'lista3' => $lista3,
               'n'=>$n
 
           ]);

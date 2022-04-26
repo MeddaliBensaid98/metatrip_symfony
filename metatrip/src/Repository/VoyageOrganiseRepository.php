@@ -88,7 +88,7 @@ class VoyageOrganiseRepository extends ServiceEntityRepository
             ->createQuery("SELECT count(rv.idu) as u,v.pays,count(rv.idv) as nb
 
             FROM  App\Entity\Voyage v, App\Entity\ReservationVoyage rv 
-            WHERE  v.idv=rv.idv GROUP BY v.idv ORDER BY count(rv.idv) DESC");
+            WHERE  v.idv=rv.idv GROUP BY v.idv  ");
   
         
             return $query->getResult();
@@ -121,4 +121,16 @@ class VoyageOrganiseRepository extends ServiceEntityRepository
     }
 
     
+    public function nbVOYORG(){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT count(vo.idv) as nb,v.pays 
+            from App\Entity\VoyageOrganise vo,App\Entity\Voyage v
+            where vo.idv =v.idv group by vo.idv order by vo.prixBillet desc ");
+  
+        
+            return $query->getResult();
+    }
+
+     
 }

@@ -11,12 +11,6 @@
                 <div class="main-box-body clearfix">
                     <div class="table-responsive">
                     <br><br>
-   <a href="{{ path('app_voyage_organise_new') }}" class="table-link text-success">
-                                            <span class="fa-stack">
-                                                <i class="fa fa-square fa-stack-2x"></i>
-                                                <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </a>
 
  
                               <a href="{{ path('app_voyage_organise_excel') }}" class="btn btn-success" style="    margin-left: 79%;
@@ -24,10 +18,19 @@
                                            Export Excel
                                         </a>
 <br>
- <a href="{{ path('app_voyage_organise_uexcel') }}" class="btn btn-danger" style="margin-left: 82%">
-                                           Upload Excel
-                                        </a>
  
+<form action="/voyage_organise/upload-excel" method="post" enctype="multipart/form-data" style=" margin-left: 24pc;">
+                                  Choisir un fichier :
+                                  <input  type="file" name="fileToUpload" id="fileToUpload" class="btn bg-gradient-primary mb-0">
+                                  <input type="submit" value="Upload DATA" name="submit"    class="btn btn-danger">
+                                </form><br>
+    <a href="{{ path('app_voyage_organise_new') }}" class="table-link text-info">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+
                                         <br><br>
                         <table class="table user-list">
                             <thead>
