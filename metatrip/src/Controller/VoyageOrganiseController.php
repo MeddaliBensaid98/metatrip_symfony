@@ -40,23 +40,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class VoyageOrganiseController extends AbstractController
 {
 
-
-
-
     private $client;
 
     public function __construct(HttpClientInterface $client)
     {
         $this->client = $client;
     }
-
-
-
-
-
-
-
-
 
     /**
      * @Route("/", name="app_voyage_organise_index", methods={"GET"})
@@ -154,8 +143,8 @@ class VoyageOrganiseController extends AbstractController
         
          move_uploaded_file($_FILES['fileToUpload']['tmp_name'],"uploaded.xlsx");
          $spreadsheet = IOFactory::load("uploaded.xlsx");
-                $row = $spreadsheet->getActiveSheet()->removeRow(1); // I added this to be able to remove the first file line 
-        $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true); // here, the read data is turned into an array
+                $row = $spreadsheet->getActiveSheet()->removeRow(1);  
+        $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);  
         $entityManager = $this->getDoctrine()->getManager(); 
         foreach ($sheetData as $Row) 
             { 
@@ -165,21 +154,19 @@ class VoyageOrganiseController extends AbstractController
                 $airline= $Row['C'];     
                 $etatVoyage = $Row['D'];
                 $idv = $Row['E'];    
-              //  $user_existant = $entityManager->getRepository(VoyageOrganise::class)->findOneBy(array('idvo' => $email)); 
-                    // make sure that the user does not already exists in your db 
-               // if (!$user_existant) 
-               //  {   
+            
                 $voyage = $entityManager->getRepository(Voyage::class)->findOneBy(array('idv' => $idv));
-                $voyageOrganises = $repo->findListaVoyages();
-                if (!$voyage) {  
+                 if (!$voyage) 
+                 {  
                     
-                    echo "<script > alert('Voyage incorrect ! ')</script>";
-                   
-                    return $this->redirectToRoute('app_voyage_organise_index');
+                        echo "<script > alert('Voyage incorrect ! ')</script>";
+                    
+                        return $this->redirectToRoute('app_voyage_organise_index');
 
                 }
 
                 else {
+
                     $voyage_organise = new VoyageOrganise();
                     $voyage_organise->setPrixBillet($prixBillet);
                     $voyage_organise->setNbplaces($nbPlaces);
@@ -191,17 +178,18 @@ class VoyageOrganiseController extends AbstractController
                     $entityManager->flush();
 
                     echo "<script > alert('Voyage Organié importé avec succés ! ')</script>";
+                    return $this->redirectToRoute('app_voyage_organise_index');
+
                  }
 
-                 return $this->redirectToRoute('app_voyage_organise_index');
-
+        
                  
                  
              }
       
 
              
-             return $this->redirectToRoute('app_voyage_organise_index');; 
+                return $this->redirectToRoute('app_voyage_organise_index'); 
             
 
       
