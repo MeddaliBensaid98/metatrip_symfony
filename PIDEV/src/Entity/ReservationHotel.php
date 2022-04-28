@@ -43,18 +43,18 @@ class ReservationHotel
     private $prix;
 
     /**
-     * @var \DateTime|null
+     * @var \DateTime
      *
      * @ORM\Column(name="Date_depart", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $dateDepart = 'NULL';
+    private $dateDepart ;
 
     /**
-     * @var \DateTime|null
+     * @var \DateTime
      *
      * @ORM\Column(name="Date_arrivee", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $dateArrivee = 'NULL';
+    private $dateArrivee;
 
     /**
      * @var \User
@@ -79,7 +79,7 @@ class ReservationHotel
     /**
      * @return int
      */
-    public function getIdrh(): int
+    public function getIdrh(): ?int
     {
         return $this->idrh;
     }
@@ -95,7 +95,7 @@ class ReservationHotel
     /**
      * @return int
      */
-    public function getNbNuitees(): int
+    public function getNbNuitees(): ?int
     {
         return $this->nbNuitees;
     }
@@ -111,7 +111,7 @@ class ReservationHotel
     /**
      * @return int
      */
-    public function getNbPersonnes(): int
+    public function getNbPersonnes(): ?int
     {
         return $this->nbPersonnes;
     }
@@ -127,7 +127,7 @@ class ReservationHotel
     /**
      * @return float
      */
-    public function getPrix(): float
+    public function getPrix(): ?float
     {
         return $this->prix;
     }
@@ -175,7 +175,7 @@ class ReservationHotel
     /**
      * @return \User
      */
-    public function getIdu(): \User
+    public function getIdu(): ?User
     {
         return $this->idu;
     }
@@ -183,15 +183,17 @@ class ReservationHotel
     /**
      * @param \User $idu
      */
-    public function setIdu(\User $idu): void
+    public function setIdu(?User $idu): self
     {
         $this->idu = $idu;
+        return $this;
+
     }
 
     /**
      * @return \Hotel
      */
-    public function getIdh(): \Hotel
+    public function getIdh(): ?Hotel
     {
         return $this->idh;
     }
@@ -199,9 +201,17 @@ class ReservationHotel
     /**
      * @param \Hotel $idh
      */
-    public function setIdh(\Hotel $idh): void
+    public function setIdh(?Hotel $idh): self
     {
         $this->idh = $idh;
+        return $this;
+
+    }
+    public function  __toString(){
+        // to show the name of the Category in the select
+        return $this->User;
+        // to show the id of the Category in the select
+        // return $this->id;
     }
 
 

@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
+use App\Repository\AbonnementRepository;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
- * Abonnement
- *
+ * @ORM\Entity(repositoryClass=AbonnementRepository::class)
  * @ORM\Table(name="abonnement", indexes={@ORM\Index(name="Ida", columns={"Ida"}), @ORM\Index(name="FK_pai", columns={"Ref_paiement"})})
- * @ORM\Entity
  */
 class Abonnement
 {
@@ -22,9 +23,19 @@ class Abonnement
      */
     private $ida;
 
+
+    /**
+     * @var \User
+     *@Assert\NotBlank
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Idu", referencedColumnName="Idu")
+     * })
+     */
+    private $idu;
+
     /**
      * @var string
-     *@Assert\NotBlank
      * @ORM\Column(name="Type", type="string", length=20, nullable=false)
 
      */
@@ -41,7 +52,7 @@ class Abonnement
      * @var \DateTime
      *@Assert\NotBlank
      * @ORM\Column(name="Date_achat", type="date", nullable=false)
-     * @Assert\GreaterThan("today", message="Veuillez choisir une date plus recente")
+     * @Assert\GreaterThan("today", message="Veuillez choisir une date plus recente que cette date")
      */
     private $dateAchat;
 
@@ -49,7 +60,7 @@ class Abonnement
      * @var \DateTime
      *
      * @ORM\Column(name="Date_expiration", type="date", nullable=false)
-     * @Assert\Expression("this.getDateAchat() < this.getDateExpiration()", message="Veuillez vérifier la date")
+     * @Assert\Expression("this.getDateAchat() < this.getDateExpiration()", message="Veuillez vérifier la date d'expiration")
      */
     private $dateExpiration;
 
@@ -146,11 +157,30 @@ class Abonnement
 
         return $this;
     }
+
+
+    public function getIdu(): ?User
+    {
+        return $this->idu;
+    }
+
+
+    public function setIdu(?User $idu): self
+    {
+        $this->idu = $idu;
+        return $this;
+
+    }
+
     public function  __toString(){
         // to show the name of the Category in the select
         return $this->type ;
         // to show the id of the Category in the select
         // return $this->id;
     }
+    public function __construct()
+    {
+        $this->dateAchat = new \DateTime('now');
+}
 
 }

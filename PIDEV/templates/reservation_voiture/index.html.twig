@@ -23,6 +23,8 @@
                 <td>
                     <a href="{{ path('app_reservation_voiture_show', {'idrvoit': reservation_voiture.idrvoit}) }}">show</a>
                     <a href="{{ path('app_reservation_voiture_edit', {'idrvoit': reservation_voiture.idrvoit}) }}">edit</a>
+                    <a href="{{ path('pdfsalima') }}">PDF</a>
+
                 </td>
             </tr>
         {% else %}
@@ -32,6 +34,7 @@
         {% endfor %}
         </tbody>
     </table>
+    <a href="{{ path('pdfsalima') }}">PDF</a>
 
     <a href="{{ path('app_reservation_voiture_new') }}">Create new</a>
 {% endblock %}

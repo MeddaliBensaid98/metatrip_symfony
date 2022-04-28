@@ -40,6 +40,15 @@ class VoyageVirtuel
     /**
      * @var string
      *
+     * @ORM\Column(name="Nom", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Nom  is required")
+
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="Image_v", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="Image path is required")
      */
@@ -78,6 +87,16 @@ class VoyageVirtuel
     public function setVideo(string $video): self
     {
         $this->video = $video;
+
+        return $this;
+    }
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
 
         return $this;
     }

@@ -6,6 +6,7 @@ use App\Entity\Chauffeur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ChauffeurType extends AbstractType
 {
@@ -18,6 +19,8 @@ class ChauffeurType extends AbstractType
             ->add('tel')
             ->add('description')
             ->add('etatdispo')
+            ->add('next',SubmitType::class)
+            ->add('Edit',SubmitType::class)
         ;
     }
 

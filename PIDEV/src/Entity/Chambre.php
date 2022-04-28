@@ -69,7 +69,7 @@ class Chambre
     /**
      * @return int
      */
-    public function getIdc(): int
+    public function getIdc(): ?int
     {
         return $this->idc;
     }
@@ -85,7 +85,7 @@ class Chambre
     /**
      * @return int
      */
-    public function getNumc(): int
+    public function getNumc(): ?int
     {
         return $this->numc;
     }
@@ -101,7 +101,7 @@ class Chambre
     /**
      * @return string
      */
-    public function getImage(): string
+    public function getImage(): ?string
     {
         return $this->image;
     }
@@ -117,7 +117,7 @@ class Chambre
     /**
      * @return string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -133,7 +133,7 @@ class Chambre
     /**
      * @return string
      */
-    public function getEtat(): string
+    public function getEtat(): ?string
     {
         return $this->etat;
     }
@@ -165,7 +165,7 @@ class Chambre
     /**
      * @return \Hotel
      */
-    public function getIdh(): \Hotel
+    public function getIdh(): ?Hotel
     {
         return $this->idh;
     }
@@ -179,7 +179,7 @@ class Chambre
     }
     public function  __toString(){
         // to show the name of the Category in the select
-        return $this->type;
+        return $this->hotel;
         // to show the id of the Category in the select
         // return $this->id;
     }

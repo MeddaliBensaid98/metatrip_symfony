@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/chat.min.css')}}" rel="stylesheet" />
+
+{% endblock  %}
+
+    {% block javascripts %}
+        <script id="botmanWidget" src={{ asset('assets/plugins/js/chat.js')}}></script>
+
+    {% endblock %}
+</html>

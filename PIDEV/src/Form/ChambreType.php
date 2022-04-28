@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Chambre;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,7 +19,11 @@ class ChambreType extends AbstractType
             ->add('etat')
             ->add('prixc')
             ->add('idh')
+            ->add('next',SubmitType::class)
+            ->add('Edit',SubmitType::class)
+
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

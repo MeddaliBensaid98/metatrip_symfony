@@ -113,53 +113,47 @@ class ReservationVoiture
         $this->trajet = $trajet;
     }
 
-    /**
-     * @return \Chauffeur
-     */
-    public function getIdch(): \Chauffeur
+
+    public function getIdch(): ?Chauffeur
     {
         return $this->idch;
     }
 
-    /**
-     * @param \Chauffeur $idch
-     */
-    public function setIdch(\Chauffeur $idch): void
+
+    public function setIdch(?Chauffeur $idch): self
     {
         $this->idch = $idch;
+        return $this;
     }
 
-    /**
-     * @return \Voiture
-     */
-    public function getIdvoit(): \Voiture
+
+    public function getIdvoit(): ?Voiture
     {
         return $this->idvoit;
     }
 
-    /**
-     * @param \Voiture $idvoit
-     */
-    public function setIdvoit(\Voiture $idvoit): void
+    public function setIdvoit(?Voiture $idvoit): self
     {
         $this->idvoit = $idvoit;
+        return $this;
     }
 
-    /**
-     * @return \User
-     */
-    public function getIdu(): \User
+
+    public function getIdu(): ?User
     {
         return $this->idu;
     }
 
-    /**
-     * @param \User $idu
-     */
-    public function setIdu(\User $idu): void
+    public function setIdu(?User $idu): self
     {
         $this->idu = $idu;
+        return $this;
     }
-
+    public function  __toString(){
+        // to show the name of the Category in the select
+        return $this->trajet;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 
 }

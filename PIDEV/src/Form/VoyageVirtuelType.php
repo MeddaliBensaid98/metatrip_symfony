@@ -6,6 +6,8 @@ use App\Entity\VoyageVirtuel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class VoyageVirtuelType extends AbstractType
 {
@@ -13,9 +15,15 @@ class VoyageVirtuelType extends AbstractType
     {
         $builder
             ->add('video')
+            ->add('nom')
+
             ->add('imageV')
             ->add('ida')
             ->add('idv')
+            ->add('next',SubmitType::class)
+            ->add('Edit',SubmitType::class)
+
+
         ;
     }
 

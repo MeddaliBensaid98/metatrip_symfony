@@ -1,0 +1,34 @@
+
+{% block body %}
+    <h1 align="center">Liste DES RESERVATIONS VOITURES</h1><hr>
+
+    <table>
+        <thead>
+        <tr>
+            <th class="wd-15p">ID</th>
+            <th class="wd-15p">Trajet</th>
+            <th class="wd-15p">Prix</th>
+            <th class="wd-15p">Chauffeur</th>
+            <th class="wd-15p">Client</th>
+
+
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for a in reservationVoiture %}
+            <tr >
+                <td>{{a.Idrvoit}}</td>
+                <td>{{a.trajet}}</td>
+                <td>{{a.PrixRent}}</td>
+                <td>{{a.idch}}</td>
+                <td>{{a.idu}}</td>
+
+
+            </tr >
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+{% endblock %}

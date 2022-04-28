@@ -52,7 +52,7 @@ class Voiture
     /**
      * @return int
      */
-    public function getIdvoit(): int
+    public function getIdvoit(): ?int
     {
         return $this->idvoit;
     }
@@ -68,7 +68,7 @@ class Voiture
     /**
      * @return string
      */
-    public function getMatricule(): string
+    public function getMatricule(): ?string
     {
         return $this->matricule;
     }
@@ -84,7 +84,7 @@ class Voiture
     /**
      * @return int
      */
-    public function getPuissanceFiscalle(): int
+    public function getPuissanceFiscalle(): ?int
     {
         return $this->puissanceFiscalle;
     }
@@ -100,7 +100,7 @@ class Voiture
     /**
      * @return string
      */
-    public function getImageV(): string
+    public function getImageV(): ?string
     {
         return $this->imageV;
     }
@@ -116,7 +116,7 @@ class Voiture
     /**
      * @return string
      */
-    public function getModele(): string
+    public function getModele(): ?string
     {
         return $this->modele;
     }
@@ -128,6 +128,11 @@ class Voiture
     {
         $this->modele = $modele;
     }
-
+    public function  __toString(){
+        // to show the name of the Category in the select
+        return $this->modele;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 
 }

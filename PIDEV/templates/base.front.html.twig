@@ -6,18 +6,157 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tour & Travel Bootstrap Template | Themez Hub</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo-light.png') }}" />
 
+    <title>MetaTrip</title>
     <!-- Plugins CSS -->
+    {% block stylesheets %}
+
     <link rel="stylesheet" href="{{ asset('assets/plugins/css/plugins.css')}}" />
 
     <!-- Custom style -->
     <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet" />
     <link href="{{ asset('assets/css/responsiveness.css')}}" rel="stylesheet" />
     <link id="jssDefault" rel="stylesheet" href="{{ asset('assets/css/skins/default.css')}}" />
+        <link href="{{ asset('assets/css/chat.min.css')}}" rel="stylesheet" />
+
+    {% endblock  %}
+
+    {% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#myInput").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTable tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+        </script>
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        </style>
+
+        <!-- =================== START JAVASCRIPT ================== -->
+        <script src="{{ asset('assets/plugins/js/jquery.min.js')}}"></script>
+        <script src="{{ asset('assets/plugins/js/bootstrap.min.js')}}"></script>
+        <script src="{{ asset('assets/plugins/js/viewportchecker.js')}}"></script>
+        <script src="{{ asset('assets/plugins/js/bootsnav.js')}}"></script>
+        <script src="{{ asset('assets/plugins/js/slick.min.js')}}"></script>
+        <script src="{{ asset('assets/plugins/js/jquery.nice-select.min.js')}}"></script>
+        <script src="{{ asset('assets/plugins/js/jquery.fancybox.min.js')}}"></script>
+        <script src="{{ asset('assets/plugins/js/jquery.downCount.js')}}"></script>
+        <script src="{{ asset('assets/plugins/js/freshslider.1.0.0.js')}}"></script>
+        <script src="{{ asset('assets/plugins/js/moment.min.js')}}"></script>
+        <script src="{{ asset('assets/plugins/js/daterangepicker.js')}}"></script>
+        <script src="{{ asset('assets/plugins/js/wysihtml5-0.3.0.js')}}"></script>
+        <script src="{{ asset('assets/plugins/js/bootstrap-wysihtml5.js')}}"></script>
+
+        <!-- Dashboard Js -->
+        <script src="{{ asset('assets/plugins/js/jquery.slimscroll.min.js')}}"></script>
+        <script src="{{ asset('assets/plugins/js/jquery.metisMenu.js')}}"></script>
+        <script src="{{ asset('assets/plugins/js/jquery.easing.min.js')}}"></script>
+
+        <script id="botmanWidget" src={{ asset('assets/plugins/js/chat.js')}}></script>
+
+
+        <!-- Custom Js -->
+        <script src="{{ asset('assets/js/custom.js')}}"></script>
+
+        <script>
+            $(function() {
+                $('input[name="check-in-out"]').daterangepicker({
+                        autoUpdateInput: false,
+                        opens: "left",
+                    },
+                    function(start, end, label) {
+                        console.log(
+                            "A new date selection was made: " +
+                            start.format("YYYY-MM-DD") +
+                            " to " +
+                            end.format("YYYY-MM-DD")
+                        );
+                    }
+                );
+            });
+        </script>
+        <script>
+            $("#flight-book").daterangepicker({
+                    singleDatePicker: true,
+                    timePicker: true,
+                    startDate: "07/06/2018",
+                    endDate: "07/12/2018",
+                },
+                function(start, end, label) {
+                    console.log(
+                        "New date range selected: " +
+                        start.format("YYYY-MM-DD") +
+                        " to " +
+                        end.format("YYYY-MM-DD") +
+                        " (predefined range: " +
+                        label +
+                        ")"
+                    );
+                }
+            );
+        </script>
+        <script>
+            $("#book-date").daterangepicker({
+                    singleDatePicker: true,
+                    timePicker: true,
+                    startDate: "07/06/2018",
+                    endDate: "07/12/2018",
+                },
+                function(start, end, label) {
+                    console.log(
+                        "New date range selected: " +
+                        start.format("YYYY-MM-DD") +
+                        " to " +
+                        end.format("YYYY-MM-DD") +
+                        " (predefined range: " +
+                        label +
+                        ")"
+                    );
+                }
+            );
+        </script>
+        <script src="{{ asset('assets/js/jQuery.style.switcher.js')}}"></script>
+        <script>
+            function openRightMenu() {
+                document.getElementById("rightMenu").style.display = "block";
+            }
+
+            function closeRightMenu() {
+                document.getElementById("rightMenu").style.display = "none";
+            }
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#styleOptions").styleSwitcher();
+            });
+        </script>
+    {% endblock %}
+
 </head>
 
 <body>
+{% block Navigation %}
+
     <!-- ======================= Start Navigation ===================== -->
     <nav class="navbar navbar-default navbar-mobile navbar-fixed light bootsnav">
         <div class="container">
@@ -27,8 +166,8 @@
             <i class="fa fa-bars"></i>
           </button>
                 <a class="navbar-brand" href="index.html">
-                    <img src="{{ asset('assets/img/culinaira.png')}}" class="logo logo-display" alt="" />
-                    <img src="{{ asset('assets/img/culinaira.png')}}" class="logo logo-scrolled" alt="" />
+                    <img src="{{ asset('assets/img/logo-light.png')}}" class="logo logo-display" alt="" />
+                    <img src="{{ asset('assets/img/logo-light.png')}}" class="logo logo-scrolled" alt="" />
                 </a>
             </div>
             <!-- End Logo Header Navigation -->
@@ -137,136 +276,12 @@
         <!-- /.navbar-collapse -->
       </div>
     </nav>
+
+
     <!-- ======================= End Navigation ===================== -->
+{% endblock  %}
 
-    {% block body %}
-    {% endblock %}
 
-        <!-- ================= footer start ========================= -->
-        <footer class="footer dark-bg">
-            <div class="container">
-                <!-- Row Start -->
-                <div class="row">
-                    <div class="col-md-8 col-sm-8">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-4">
-                                <h4>Featured Destinations</h4>
-                                <ul>
-                                    <li><a href="destination-grid.html">Destination Grid</a></li>
-                                    <li><a href="destination-list.html">Destination List</a></li>
-                                    <li>
-                                        <a href="destination-grid-sidebar.html">Destination Grid Sidebar</a
-                    >
-                  </li>
-                  <li>
-                    <a href="destination-list-sidebar.html"
-                      >Destination List Sidebar</a
-                    >
-                  </li>
-                  <li>
-                    <a href="destination-detail.html">Destination Detail</a>
-                                    </li>
-                                    <li><a href="restaurant-grid.html">Restaurant Grid</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-4 col-sm-4">
-                                <h4>Featured Tours</h4>
-                                <ul>
-                                    <li><a href="tour-grid.html">Tour Grid</a></li>
-                                    <li><a href="tour-list.html">Tour List</a></li>
-                                    <li>
-                                        <a href="tour-grid-sidebar.html">Tour Grid Sidebar</a>
-                                    </li>
-                                    <li>
-                                        <a href="tour-list-sidebar.html">tour List Sidebar</a>
-                                    </li>
-                                    <li><a href="tour-detail.html">Tour Detail</a></li>
-                                    <li>
-                                        <a href="restaurant-list-html.html">Restaurant Grid</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-4 col-sm-4">
-                                <h4>Featured Hotels</h4>
-                                <ul>
-                                    <li><a href="hotel-grid.html">Hotel Grid</a></li>
-                                    <li><a href="hotel-list.html">Hotel List</a></li>
-                                    <li>
-                                        <a href="hotel-grid-sidebar.html">Hotel Grid Sidebar</a>
-                                    </li>
-                                    <li>
-                                        <a href="hotel-list-sidebar.html">Hotel List Sidebar</a>
-                                    </li>
-                                    <li><a href="hotel-detail.html">Hotel Detail</a></li>
-                                    <li>
-                                        <a href="restaurant-detail.html">Restaurant Detail</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4">
-                        <h4>Subscribe Now</h4>
-                        <!-- Newsletter -->
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Enter Email" />
-                            <span class="input-group-btn">
-                <button type="button" class="btn btn-default">
-                  <i class="fa fa-location-arrow font-20"></i>
-                </button>
-              </span>
-                        </div>
-
-                        <!-- Social Box -->
-                        <div class="f-social-box">
-                            <ul>
-                                <li>
-                                    <a href="#"><i class="fa fa-facebook facebook-cl"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-google google-plus-cl"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-twitter twitter-cl"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-pinterest pinterest-cl"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-instagram instagram-cl"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- App Links -->
-                        <div class="f-app-box">
-                            <ul>
-                                <li>
-                                    <a href="#"><i class="fa fa-apple"></i>App Store</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-android"></i>Play Store</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Row Start -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="copyright text-center">
-                            <p>
-                                &copy; Copyright 2018 Travel Stock | Powerd By
-                                <a href="http://themezhub.com/" title="Themez Hub">Themez Hub</a
-                >
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
 
     <!-- Sign Up Window Code -->
     <div
@@ -467,101 +482,140 @@
                         </div>
                         <!-- /Switcher -->
 
-                        <!-- =================== START JAVASCRIPT ================== -->
-                        <script src="{{ asset('assets/plugins/js/jquery.min.js')}}"></script>
-                        <script src="{{ asset('assets/plugins/js/bootstrap.min.js')}}"></script>
-                        <script src="{{ asset('assets/plugins/js/viewportchecker.js')}}"></script>
-                        <script src="{{ asset('assets/plugins/js/bootsnav.js')}}"></script>
-                        <script src="{{ asset('assets/plugins/js/slick.min.js')}}"></script>
-                        <script src="{{ asset('assets/plugins/js/jquery.nice-select.min.js')}}"></script>
-                        <script src="{{ asset('assets/plugins/js/jquery.fancybox.min.js')}}"></script>
-                        <script src="{{ asset('assets/plugins/js/jquery.downCount.js')}}"></script>
-                        <script src="{{ asset('assets/plugins/js/freshslider.1.0.0.js')}}"></script>
-                        <script src="{{ asset('assets/plugins/js/moment.min.js')}}"></script>
-                        <script src="{{ asset('assets/plugins/js/daterangepicker.js')}}"></script>
-                        <script src="{{ asset('assets/plugins/js/wysihtml5-0.3.0.js')}}"></script>
-                        <script src="{{ asset('assets/plugins/js/bootstrap-wysihtml5.js')}}"></script>
 
-                        <!-- Dashboard Js -->
-                        <script src="{{ asset('assets/plugins/js/jquery.slimscroll.min.js')}}"></script>
-                        <script src="{{ asset('assets/plugins/js/jquery.metisMenu.js')}}"></script>
-                        <script src="{{ asset('assets/plugins/js/jquery.easing.min.js')}}"></script>
+{% block body %}
+{% endblock %}
 
-                        <!-- Custom Js -->
-                        <script src="{{ asset('assets/js/custom.js')}}"></script>
 
-                        <script>
-                            $(function() {
-                                $('input[name="check-in-out"]').daterangepicker({
-                                        autoUpdateInput: false,
-                                        opens: "left",
-                                    },
-                                    function(start, end, label) {
-                                        console.log(
-                                            "A new date selection was made: " +
-                                            start.format("YYYY-MM-DD") +
-                                            " to " +
-                                            end.format("YYYY-MM-DD")
-                                        );
-                                    }
-                                );
-                            });
-                        </script>
-                        <script>
-                            $("#flight-book").daterangepicker({
-                                    singleDatePicker: true,
-                                    timePicker: true,
-                                    startDate: "07/06/2018",
-                                    endDate: "07/12/2018",
-                                },
-                                function(start, end, label) {
-                                    console.log(
-                                        "New date range selected: " +
-                                        start.format("YYYY-MM-DD") +
-                                        " to " +
-                                        end.format("YYYY-MM-DD") +
-                                        " (predefined range: " +
-                                        label +
-                                        ")"
-                                    );
-                                }
-                            );
-                        </script>
-                        <script>
-                            $("#book-date").daterangepicker({
-                                    singleDatePicker: true,
-                                    timePicker: true,
-                                    startDate: "07/06/2018",
-                                    endDate: "07/12/2018",
-                                },
-                                function(start, end, label) {
-                                    console.log(
-                                        "New date range selected: " +
-                                        start.format("YYYY-MM-DD") +
-                                        " to " +
-                                        end.format("YYYY-MM-DD") +
-                                        " (predefined range: " +
-                                        label +
-                                        ")"
-                                    );
-                                }
-                            );
-                        </script>
-                        <script src="{{ asset('assets/js/jQuery.style.switcher.js')}}"></script>
-                        <script>
-                            function openRightMenu() {
-                                document.getElementById("rightMenu").style.display = "block";
-                            }
+{% block footer %}
 
-                            function closeRightMenu() {
-                                document.getElementById("rightMenu").style.display = "none";
-                            }
-                        </script>
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                $("#styleOptions").styleSwitcher();
-                            });
-                        </script>
+    <!-- ================= footer start ========================= -->
+    <footer class="footer dark-bg">
+        <div class="container">
+            <!-- Row Start -->
+            <div class="row">
+                <div class="col-md-8 col-sm-8">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <h4>Featured Destinations</h4>
+                            <ul>
+                                <li><a href="destination-grid.html">Destination Grid</a></li>
+                                <li><a href="destination-list.html">Destination List</a></li>
+                                <li>
+                                    <a href="destination-grid-sidebar.html">Destination Grid Sidebar</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="destination-list-sidebar.html"
+                                    >Destination List Sidebar</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="destination-detail.html">Destination Detail</a>
+                                </li>
+                                <li><a href="restaurant-grid.html">Restaurant Grid</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <h4>Featured Tours</h4>
+                            <ul>
+                                <li><a href="tour-grid.html">Tour Grid</a></li>
+                                <li><a href="tour-list.html">Tour List</a></li>
+                                <li>
+                                    <a href="tour-grid-sidebar.html">Tour Grid Sidebar</a>
+                                </li>
+                                <li>
+                                    <a href="tour-list-sidebar.html">tour List Sidebar</a>
+                                </li>
+                                <li><a href="tour-detail.html">Tour Detail</a></li>
+                                <li>
+                                    <a href="restaurant-list-html.html">Restaurant Grid</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <h4>Featured Hotels</h4>
+                            <ul>
+                                <li><a href="hotel-grid.html">Hotel Grid</a></li>
+                                <li><a href="hotel-list.html">Hotel List</a></li>
+                                <li>
+                                    <a href="hotel-grid-sidebar.html">Hotel Grid Sidebar</a>
+                                </li>
+                                <li>
+                                    <a href="hotel-list-sidebar.html">Hotel List Sidebar</a>
+                                </li>
+                                <li><a href="hotel-detail.html">Hotel Detail</a></li>
+                                <li>
+                                    <a href="restaurant-detail.html">Restaurant Detail</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <h4>Subscribe Now</h4>
+                    <!-- Newsletter -->
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter Email" />
+                        <span class="input-group-btn">
+                <button type="button" class="btn btn-default">
+                  <i class="fa fa-location-arrow font-20"></i>
+                </button>
+              </span>
+                    </div>
+
+                    <!-- Social Box -->
+                    <div class="f-social-box">
+                        <ul>
+                            <li>
+                                <a href="#"><i class="fa fa-facebook facebook-cl"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-google google-plus-cl"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-twitter twitter-cl"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-pinterest pinterest-cl"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-instagram instagram-cl"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- App Links -->
+                    <div class="f-app-box">
+                        <ul>
+                            <li>
+                                <a href="#"><i class="fa fa-apple"></i>App Store</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-android"></i>Play Store</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row Start -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyright text-center">
+                        <p>
+                            &copy; Copyright 2018 Travel Stock | Powerd By
+                            <a href="http://themezhub.com/" title="Themez Hub">Themez Hub</a
+                            >
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ================= footer end ========================= -->
+{% endblock  %}
 </body>
 
 <!-- Mirrored from codeminifier.com/travel-stock-demo/home-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 08 Feb 2022 22:31:33 GMT -->

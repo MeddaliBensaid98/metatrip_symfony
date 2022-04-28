@@ -89,6 +89,7 @@ class VoyageVirtuelController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$voyageVirtuel->getIdvv(), $request->request->get('_token'))) {
             $entityManager->remove($voyageVirtuel);
             $entityManager->flush();
+
         }
 
         return $this->redirectToRoute('app_voyage_virtuel_index', [], Response::HTTP_SEE_OTHER);
