@@ -15,7 +15,9 @@ class PropertySearchType extends AbstractType
     {
         $builder
             ->add('chanteur' , TextType::class)
+
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

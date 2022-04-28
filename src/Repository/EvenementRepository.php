@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Evenement;
+use App\Entity\ReservationEvent;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -15,21 +16,118 @@ class EvenementRepository extends ServiceEntityRepository
         parent::__construct($registry, Evenement::class);
     }
 
-    public function findAllGreaterThanPrice(int $prix_e): array
+
+
+    public function findByIde(int $ide){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery('SELECT e FROM APP\Entity\Evenement e WHERE e.ide =:ide')
+            ->setParameter('ide',$ide);
+
+
+        return $query->getOneOrNullResult();
+    }
+
+
+    public function findListaevenements(){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT v.ide,vo.chanteur,vo.date_event FROM APP\Entity\Evenement vo,APP\Entity\ReservationEvent v WHERE vo.ide=v.ide")
+        ;
+        return $query->getResult();
+    }
+
+
+    // Find/search articles by title/content
+    public function findArticlesByName(string $query)
     {
-        $entityManager = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('p.chanteur', ':query'),
+                        $qb->expr()->like('p.type_event', ':query'),
+                    ),
+                    $qb->expr()->isNotNull('p.date_event')
+                )
+            )
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
 
-        $query = $entityManager->createQuery(
-            'SELECT p
-            FROM App\Entity\Evenement p
-            WHERE p.prix_e > :prix_e
-            ORDER BY p.prix_e ASC'
-        )->setParameter('prix_e', $price);
 
-        // returns an array of Product objects
+    //  TRIE PAR CHANTEUR/Prix_e/
+    /**
+     * Requête QueryBuilder
+     * */
+    public function orderByChanteur()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.chanteur', 'ASC')
+            ->getQuery()->getResult();
+    }
+
+    public function orderByPrix()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.prixE', 'ASC')
+            ->getQuery()->getResult();
+    }
+
+
+
+
+
+
+    public function Statselondate():array{
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT MONTH (rv.date_event) as dated , count(rv.date_event)  AS nombre  FROM App\Entity\Evenement rv GROUP BY  rv.date_event");
+
         return $query->getResult();
     }
 
 
 
+    public function search($chanteur) {
+        return $this->createQueryBuilder('evenement')
+            ->andWhere('evenement.chanteur LIKE :chanteur')
+            ->setParameter('title', '%'.$title.'%')
+            ->getQuery()
+            ->execute();
+    }
+
+
+    public function stat2(){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT count(rv.ide) as e,v.chanteur,count(rv.idrev) as nb
+            FROM  App\Entity\Evenement v, App\Entity\ReservationEvent rv 
+            WHERE  v.ide=rv.ide GROUP BY v.ide ORDER BY count(rv.idrev) ASC");
+
+
+        return $query->getResult();
+    }
+
+
+
+    public function stat(){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT count(rv.idu) as u,v.chanteur,count(rv.ide) as nb
+            FROM  App\Entity\Evenement v, App\Entity\ReservationEvent rv 
+            WHERE  v.ide=rv.ide GROUP BY v.ide  ");
+
+
+        return $query->getResult();
+    }
+
+
+
+
 }
+

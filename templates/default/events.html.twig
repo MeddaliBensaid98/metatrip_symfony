@@ -1,68 +1,390 @@
 {% extends 'base.front.html.twig' %}
+  {% block body%}
 
-{% block title %}Evenements{% endblock %}
-
-{% block body %}
-
-
-
-    <main id="main" class="main">
-        <br>
-       <center>  <br> <h1>Evenements </h1> </center>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 
 
-        <table class="table">
-            <thead>
 
-            <td>
-
-                {{ form_start(form) }}
-                <div class="form-row align-items-end" >
-                    <div class="col">
-                        {{ form_row(form.chanteur) }}
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success">Rechercher</button>
-                        </div>
-                    </div>
-                </div>
-                {{ form_end(form) }}
+      {% block includes %}
+      <script src="https://js.pusher.com/4.2/pusher.min.js"></script>
+      <script src="main.js"></script>
 
 
-            </td>
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css?family=Lato:400i,600" rel="stylesheet" />
+          <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
 
 
-            <tr>
-                <th>TypeEvent</th>
-                <th>Chanteur</th>
-                <th>Adresse</th>
-                <th>DateEvent</th>
-                <th>PrixE</th>
-                <th>Image</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for evenement in evenements %}
-                <tr>
-                    <td>{{ evenement.typeEvent }}</td>
-                    <td>{{ evenement.chanteur }}</td>
-                    <td>{{ evenement.adresse }}</td>
-                    <td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d') : '' }}</td>
-                    <td>{{ evenement.prixE }}</td>
-                    <td>{{ evenement.image }}</td>
+          {% endblock %}
 
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="8">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+{% block stars_css %}
+      <style>
+
+          *{
+              font-family: "Lato";
+          }
+
+          /*decoration*/
+          h1{
+              margin: 20px 50px 0;
+              background: #EFF0F2;
+              width:  275px;
+              font-size: 1.5em;
+              text-align: center;
+              border-radius: 5px 5px 0 0;
+              padding: 30px 0;
+              color: #34495E;
+          }
+          h1:before{
+              color: #E74C3C;
+              content: "★";
+              display: block;
+              font-size: 2em;
+              padding: 20px 0;
+          }
+          .product-review-stars{
+              margin: 0 50px;
+              background: #2C3E50;
+              padding: 20px 50px 20px 20px;
+          }
+
+          .product-review-stars label{
+              text-shadow: 0px 0px 10px black;
+          }
+
+          /*end decoration*/
+
+          .visuallyhidden{
+              position: absolute !important; clip: rect(1px 1px 1px 1px); clip: rect(1px, 1px, 1px, 1px);
+          }
+          .product-review-stars label:after{
+              content: "★";
+              color: inherit;
+              -webkit-transform: scale(4);
+              position: absolute;
+              z-index: 4;
+              left: 0px;
+              transition: all .4s;
+              opacity: 0;
+              color: inherit;
+              visibility: hidden;
+
+          }
+
+          .product-review-stars input:checked + label:after{
+              visibility: visible;
+              -webkit-transform: scale(1);
+              opacity: 1;
+          }
+
+          .product-review-stars  {
+              unicode-bidi: bidi-override;
+              direction: rtl;
+              width:  205px;
+          }
+
+          .product-review-stars label{
+              font-family: "icomoon";
+              font-size: 2em;
+              position: relative;
+              cursor: pointer;
+              color: #DFE3E4;
+          }
+          .product-review-stars input:checked ~ label:before{
+              opacity: 1;
+          }
+          .product-review-stars:hover input ~ label:before{
+              opacity: 0;
+          }
+
+          .product-review-stars input + label:before{
+              content: "\2605";
+              position: absolute;
+              right: 0;
+              opacity: 0;
+              transition: opacity .3s ease-in-out, color .3s ease-in-out;
+              backface-visibility:hidden;
+              -webkit-backface-visibility:hidden; /* Chrome and Safari */
+              -moz-backface-visibility:hidden; /* Firefox */
+              -ms-backface-visibility:hidden; /* Internet Explorer */
+          }
+          .product-review-stars input + label:hover:before,
+          .product-review-stars input + label:hover ~ label:before
+          {
+              opacity: 1;
+          }
+          .product-review-stars input + label:nth-of-type(1):after,
+          .product-review-stars input + label:nth-of-type(1):before,
+          .product-review-stars input +  label:nth-of-type(1):hover:before,
+          .product-review-stars input + label:nth-of-type(1):hover ~ label:before,
+          .product-review-stars input:nth-of-type(1):checked ~ label:before{
+              color: #2ecc71;
+          }
+          .product-review-stars input + label:nth-of-type(2):after,
+          .product-review-stars input + label:nth-of-type(2):before,
+          .product-review-stars input + label:nth-of-type(2):hover:before,
+          .product-review-stars input + label:nth-of-type(2):hover ~ label:before,
+          .product-review-stars input:nth-of-type(2):checked ~ label:before{
+              color: #f1c40f;
+          }
+          .product-review-stars input + label:nth-of-type(3):after,
+          .product-review-stars input + label:nth-of-type(3):before,
+          .product-review-stars input + label:nth-of-type(3):hover:before,
+          .product-review-stars input + label:nth-of-type(3):hover ~ label:before,
+          .product-review-stars input:nth-of-type(3):checked ~ label:before{
+              color: #F39C12;
+          }
+          .product-review-stars input + label:nth-of-type(4):after,
+          .product-review-stars input + label:nth-of-type(4):before,
+          .product-review-stars input + label:nth-of-type(4):hover:before,
+          .product-review-stars input + label:nth-of-type(4):hover ~ label:before,
+          .product-review-stars input:nth-of-type(4):checked ~ label:before{
+              color: #e74c3c;
+          }
+
+          .product-review-stars input + label:nth-of-type(5):after,
+          .product-review-stars input + label:nth-of-type(5):before,
+          .product-review-stars label:nth-of-type(5):hover:before,
+          .product-review-stars input:nth-of-type(5):checked ~ label:before{
+              color: #d35400;
+          }
+
+          .product-review-stars label:nth-of-type(5):hover:before{
+              color: #d35400 !important;
+          }
 
 
+      </style>
 
-    </main>
 {% endblock %}
+
+      {% block notif_css %}
+<style>
+
+
+    *, *:before, *:after {box-sizing:border-box}
+
+
+
+    .menu {
+        display:inline-block;
+        margin:0 -.5em 1.5em;
+        box-shadow:0.12em 0.12em 0 rgba(40,40,40,.2);
+        list-style-type:none;
+        padding:0;
+        margin:0;
+        font-size:1em;
+        margin-bottom:1.5em;
+    }
+
+    .menu li {
+        float:left;
+        border-left:0.063em solid #a6c6cd;
+        border-right:0.063em solid #6ca1ac;
+    }
+
+    .menu a {
+        display:block;
+        padding:0 1em;
+        line-height:2.5em;
+        position:relative;
+        font-weight:bold;
+        text-decoration:none;
+        color:#364652;
+        background-color:#86B2BB;
+        text-shadow:0 0.063em 0 #a6c6cd;
+    }
+
+    .menu a:hover, .menu a:active, .menu a:focus {
+        color:#eee;
+        text-shadow:0.063em 0.063em 0 #547177;
+    }
+
+    .menu a[data-bubble]:after {
+        content:attr(data-bubble);
+        position:absolute;
+        top:0;
+        right:0.5em;
+        height:1.5em;
+        line-height:1.5em;
+        padding:0 .46em;
+        text-align:center;
+        text-shadow:0 0.063em 0 rgba(0,0,0,.2);
+        background-color:#eee;
+        color:#364652;
+        box-shadow:0 0.063em 0.063em rgba(0,0,0,.2);
+        border-radius:4em;
+        z-index:-1;
+        -webkit-transform: translateZ(0);/*Prevents text flicker*/
+        will-change: transform;
+    }
+
+    a.gold[data-bubble]:after {
+        background-color:gold;
+    }
+
+    .menu a:hover[data-bubble]:after, .menu a:active[data-bubble]:after, .menu a:focus[data-bubble]:after {
+        -webkit-animation:ease bubbleover .4s;
+        animation:ease bubbleover .4s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        top:-1.25em; /* If pseudo animation not supported [see https://css-tricks.com/transitions-and-animations-on-css-generated-content/], simple hover fallback happens*/
+        z-index:1;
+    }
+
+    @-webkit-keyframes bubbleover {
+        0%   {
+            -webkit-transform:translate(0, 1em);
+            z-index:-1
+        }
+        50% {
+            -webkit-transform:translate(0, -.5em);
+            z-index:-1
+        }
+        100% {
+            -webkit-transform:translate(0, 0);
+            z-index:1;
+        }
+    }
+
+    @keyframes bubbleover {
+        0%   {
+            top:0;
+            transform:translate(0, 0);
+            z-index:-1;
+        }
+        50% {
+            transform:translate(0, -12px);
+            z-index:-1
+        }
+        100% {
+            transform:translate(0, 6px);
+            z-index:1;
+        }
+    }
+
+</style>
+
+          {% endblock %}
+
+
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-12 col-sm-8 col-lg-6">
+                  <!-- Section Heading-->
+                  <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                      <br>
+                      <h3>Liste de nos evenements  </h3>
+                      <div class="line"></div>
+                  </div>
+              </div>
+          </div>
+
+
+
+
+          {{ form_start(form) }}
+          <div class="form-row align-items-end" >
+              <div class="col">
+                  {{ form_row(form.chanteur) }}
+              </div>
+
+
+
+              <div class="col">
+                  <div class="form-group">
+                      <button type="submit" class="btn btn-success">Rechercher</button>
+                  </div>
+              </div>
+          </div>
+          {{ form_end(form) }}
+
+
+
+          <br><br>
+          <div class="row">
+              <br>
+              {% for evenement in evenements %}
+                  <!-- Single Advisor-->
+                  <div class="col-12 col-sm-6 col-lg-3">
+                      <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                          <!-- Team Thumb-->
+                          <div class="advisor_thumb">
+                              <img src="{{asset('assets/img/'~evenement.image)}}" style="height:20em;width:20em">
+                              <!-- Social Info-->
+                          </div>
+                          <!-- Team Details-->
+                          <div class="single_advisor_details_info">
+
+                              <p class="designation">Chanteur: {{ evenement.chanteur }}</p>
+                              <h6>Prix: {{ evenement.prixE }}</h6>
+
+                          </div>
+
+
+
+                          <div class="single_advisor_details_info">
+
+
+
+                          </div>
+
+
+                      </div>
+
+
+                  </div>
+
+
+
+              {% endfor  %}
+
+
+          </div>
+
+
+      </div>
+
+
+      {%  block rating_stars_system %}
+      <script>
+
+
+
+          function CloseModal() {
+              let element = document.getElementById('close')
+              element.style.display = 'none'
+              let element2 = document.getElementById('ok')
+              element2.style.display = 'none'
+          }
+
+
+          function popup() {
+              alert("Thank you for raiting");
+              CloseModal()
+
+          }
+
+
+      </script>
+
+
+      <h1 id="ok" > Did you like our events? </h1>
+      <div class="product-review-stars" id="close" >
+          <input type="radio" id="star5" name="rating" value="5"  onclick= "popup()"  class="visuallyhidden" /><label for="star5" title="Rocks!">★</label>
+          <input type="radio" id="star4" name="rating" value="4" onclick= "popup()" class="visuallyhidden" /><label for="star4" title="Pretty good">★</label>
+          <input type="radio" id="star3" name="rating" value="3" onclick= "popup()" class="visuallyhidden" /><label for="star3" title="Meh">★</label>
+          <input type="radio" id="star2" name="rating" value="2" onclick= "popup()" class="visuallyhidden" /><label for="star2" title="Kinda bad">★</label>
+          <input type="radio" id="star1" name="rating" value="1" onclick= "popup()" class="visuallyhidden" /><label for="star1" title="Sucks big time">★</label>
+      </div>
+
+
+{% endblock %}
+
+
+  {% endblock %}

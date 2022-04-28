@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Form;
-
+use App\Entity\Sponsor;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use App\Entity\Evenement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +16,8 @@ class EvenementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('typeEvent')
+
+             ->add('typeEvent')
             ->add('chanteur')
             ->add('adresse')
             ->add('dateEvent' ,DateType::class, [
@@ -22,9 +26,24 @@ class EvenementType extends AbstractType
                 'widget' => 'single_text'
             ])
 
+            ->add('dateend' ,DateType::class, [
+                // renders it as a single text box
+                'required' => true,
+                'widget' => 'single_text'
+            ])
+
+
             ->add('prixE')
-            ->add('image')
+
+            ->add('imageFile',VichImageType::class,[
+                'required' => true
+            ])
+
+
         ;
+
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

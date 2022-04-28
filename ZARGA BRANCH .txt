@@ -4,5 +4,3 @@ Commit 2 :  ADDED CRUD(FORM WITHOUT TEMPLATE)*
 Commit 3 :  Integration Template (BACK) +  Input Control + upload image
 Commit 4 :   LAST FIX Template(BACK) + ALL CRUD WORK 
 Commit 5 :  Integration Final Template ( BACK + FRONT ) 
-Commit 6 :  Added Search By Criteria (Chanteur) 
-Commit 7 :   ADDED EXPORT TO PDF  (DOMPDF Bundle )

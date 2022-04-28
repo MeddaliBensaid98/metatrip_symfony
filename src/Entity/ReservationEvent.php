@@ -10,6 +10,9 @@ use Vich\UploaderBundle\Entity\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Captcha\Bundle\CaptchaBundle\Validator\Constraints as CaptchaAssert;
+
+
 
 /**
  * ReservationEvent
@@ -27,6 +30,20 @@ class ReservationEvent
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idrev;
+
+
+    protected $captchaCode;
+
+    public function getCaptchaCode()
+    {
+        return $this->captchaCode;
+    }
+
+    public function setCaptchaCode($captchaCode)
+    {
+        $this->captchaCode = $captchaCode;
+    }
+
 
     /**
      * @var int

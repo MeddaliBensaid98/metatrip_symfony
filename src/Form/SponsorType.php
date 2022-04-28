@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class SponsorType extends AbstractType
 {
@@ -18,7 +19,11 @@ class SponsorType extends AbstractType
             ->add('nomsponsor')
             ->add('tel')
             ->add('email')
-            ->add('image')
+
+            ->add('imageFile',VichImageType::class,[
+                'required' => true
+            ])
+
             ->add('dateSp' ,DateType::class, [
                 // renders it as a single text box
                 'required' => true,

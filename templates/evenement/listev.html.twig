@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block body %}
+
+    <main id="main" class="main">
+
+
+        <h1>Gestion Evenement </h1>
+        <a href="{{ path('app_evenement_new') }}"  class="btn btn-info">Ajouter</a>
+        <a href="{{ path('listp') }}" class="btn btn-danger" >To PDF</a>
+
+
+
+
+        <ul>
+
+            <li><a href="{{ path('trie_chanteur')}}">Trie Par chanteur</a></li>
+        </ul>
+
+        <ul>
+
+            <li><a href="{{ path('trie_prix')}}">Trie Par Prix </a></li>
+        </ul>
+
+
+
+        <div id="calendar-holder"></div>
+
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.css">
+
+
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js"></script>
+
+
+
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>TypeEvent</th>
+                <th>Chanteur</th>
+                <th>Adresse</th>
+                <th>DateEvent</th>
+                <th>PrixE</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for evenement in evenements %}
+                <tr>
+                    <td>{{ evenement.typeEvent }}</td>
+                    <td>{{ evenement.chanteur }}</td>
+                    <td>{{ evenement.adresse }}</td>
+                    <td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d') : '' }}</td>
+                    <td>{{ evenement.prixE }}</td>
+
+                    <td>
+                        <img src="{{asset('assets/img/'~evenement.image)}}">
+                    </td>
+
+
+                    <td>
+                        <a href="{{ path('app_evenement_show', {'ide': evenement.ide}) }}" class="btn btn-danger" >Afficher</a>
+                        <a href="{{ path('app_evenement_edit', {'ide': evenement.ide}) }}" class="btn btn-danger" >Modifier</a>
+
+
+                    </td>
+                </tr>
+
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+
+            {% endfor %}
+
+            <tr>
+
+
+                <td>  <div class="navigation">
+                        {{ knp_pagination_render(evenements) }}
+                </td>
+            </tr>
+
+
+            </tbody>
+        </table>
+
+
+
+
+
+
+    </main>
+{% endblock %}

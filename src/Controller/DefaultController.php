@@ -25,6 +25,15 @@ use App\Repository\EvenementRepository;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
+
+
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
+
+
+use Knp\Component\Pager\PaginatorInterface; // Nous appelons le bundle KNP Paginator
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPaginationInterface ;
+
 class DefaultController extends AbstractController
 {
     /**
@@ -32,6 +41,7 @@ class DefaultController extends AbstractController
      */
     public function index(): Response
     {
+
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
@@ -50,7 +60,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/Myevents", name="Myevents")
      */
-    public function Myevents(EntityManagerInterface $entityManager , Request $request): Response
+    public function Myevents(EntityManagerInterface $entityManager , Request $request  ): Response
     {
 
         //  Affichage par defaut
@@ -79,11 +89,11 @@ class DefaultController extends AbstractController
         }
 
 
-      return $this->render('default/events.html.twig', [
+        return $this->render('default/events.html.twig', [
             'form' => $form->createView(),
             'evenements' => $evenements
 
-      ]  ) ;
+        ]  ) ;
 
     }
 
@@ -105,48 +115,8 @@ class DefaultController extends AbstractController
 
 
 
-    // SAVE EVENTS TO PDF
 
-    /**
-     * @Route("/listp", name="listp", methods={"GET"})
-     */
-    public function listp(EntityManagerInterface $entityManager , Request $request) : Response
-    {
 
-        // Configure Dompdf according to your needs
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-
-        // Configure Dompdf according to your needs
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-
-        // Instantiate Dompdf with our options
-        $dompdf = new Dompdf($pdfOptions);
-
-        $evenements = $entityManager
-            ->getRepository(Evenement::class)
-            ->findAll();
-
-        // Retrieve the HTML generated in our twig file
-        $html = $this->renderView('evenement/mypdf.html.twig', [
-            'evenements' => $evenements
-        ]);
-
-        // Load HTML to Dompdf
-        $dompdf->loadHtml($html);
-        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-        $dompdf->setPaper('A4', 'portrait');
-        // Render the HTML as PDF
-        $dompdf->render();
-        // Output the generated PDF to Browser (force download)
-        $dompdf->stream("MyEventsList.pdf", [
-            "Attachment" => true
-        ]);
-
-        return new Response('success');
-
-    }
 
 }
 

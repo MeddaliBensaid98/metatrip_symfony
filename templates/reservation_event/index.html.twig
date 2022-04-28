@@ -2,21 +2,177 @@
 
 {% block title %}ReservationEvent index{% endblock %}
 
+
+
 {% block body %}
 
 
-<main id="main" class="main">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
- <h1>Gestion ReservationEvent</h1>
 
-    <a href="{{ path('app_reservation_event_new') }}"  class="btn btn-info">Ajouter</a>
+<style>
 
-    <table class="table">
+
+    * {
+        box-sizing: border-box;
+    }
+
+
+    h1 {
+        color: #333;
+        font-family: tahoma;
+        font-size: 3rem;
+        font-weight: 100;
+        line-height: 1.5;
+        text-transform: uppercase;
+        white-space: nowrap;
+        overflow: hidden;
+        position: relative;
+        width: 550px;
+    }
+
+    h1 span {
+        font-size: 40px;
+        margin-left: 40px;
+    }
+
+    .message {
+        background-color: yellow;
+        color: #333;
+        display: block;
+        font-weight: 900;
+        overflow: hidden;
+        position: absolute;
+        padding-left: 0.5rem;
+        top: 0.2rem;
+        left: 270px;
+        animation: openclose 5s ease-in-out infinite;
+    }
+
+    .word1, .word2, .word3 {
+        font-family: tahoma;
+    }
+
+    @keyframes openclose {
+        0% {
+            top: 0.2rem;
+            width: 0;
+        }
+        5% {
+            width: 0;
+        }
+        15% {
+            width: 230px;
+        }
+        30% {
+            top: 0.2rem;
+            width: 230px;
+        }
+        33% {
+            top: 0.2rem;
+            width: 0;
+        }
+        35% {
+            top: 0.2rem;
+            width: 0;
+        }
+        38% {
+            top: -4.5rem;
+
+        }
+        48% {
+            top: -4.5rem;
+            width: 190px;
+        }
+        62% {
+            top: -4.5rem;
+            width: 190px;
+        }
+        66% {
+            top: -4.5rem;
+            width: 0;
+            text-indent: 0;
+        }
+        71% {
+            top: -9rem;
+            width: 0;
+            text-indent: 5px;
+        }
+        86% {
+            top: -9rem;
+            width: 285px;
+        }
+        95% {
+            top: -9rem;
+            width: 285px;
+        }
+        98% {
+            top: -9rem;
+            width: 0;
+            text-indent: 5px;
+        }
+        100% {
+            top: 0;
+            width: 0;
+            text-indent: 0;
+        }
+    }
+
+
+
+
+</style>
+
+    <main id="main" class="main">
+
+
+        <p><a href="{{ path('stat_events') }}"> Check Statistics</a></p>
+
+
+        <br>
+
+        <table class="table2">
+            <thead>
+
+            <h1>
+
+                <span>STATUS </span>
+                <div class="message">
+                    <div class="word1">{{ totalArticles }}</div>
+                    <div class="word2">in</div>
+                    <div class="word3">pending</div>
+                </div>
+            </h1>
+
+
+
+
+
+                {% if  sumePerso < 1000 %}
+                    <a href="{{ path('app_reservation_event_new') }}"  class="btn btn-info"  >Reserve</a>
+
+
+                {% else %}
+
+
+                    <button type="button" disabled class="btn btn-info" >Reserve</button>
+                    <b> MAX TOTAL PERSONNES : 1000 </b>
+
+                {% endif %}
+
+
+
+            <table class="table">
         <thead>
             <tr>
-                <th>Idrev</th>
-                <th>NbPers</th>
-                <th>actions</th>
+                <th>Id de la reservation</th>
+                <th>Nombre de personnes</th>
+                <th>Actions</th>
+
+
+
+
             </tr>
         </thead>
         <tbody>
@@ -27,6 +183,20 @@
                 <td>
                     <a href="{{ path('app_reservation_event_show', {'idrev': reservation_event.idrev}) }}"   class="btn btn-danger" >Afficher</a>
                     <a href="{{ path('app_reservation_event_edit', {'idrev': reservation_event.idrev}) }}"   class="btn btn-danger"  >Modifier</a>
+
+
+                    <form method="post" action="{{ path('app_reservation_event_delete', {'idrev': reservation_event.idrev}) }}" onsubmit="return confirm('Are you sure to accept this reservation?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation_event.idrev) }}">
+                        <button  class="btn btn-success"class="btn">Accept</button>
+                    </form>
+
+                    <form method="post" action="{{ path('app_reservation_event_delete', {'idrev': reservation_event.idrev}) }}" onsubmit="return confirm('Are you sure to accept this reservation?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation_event.idrev) }}">
+                        <button  class="btn btn-success"class="btn">Reject</button>
+                    </form>
+
+
+
                 </td>
             </tr>
         {% else %}

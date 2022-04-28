@@ -30,7 +30,9 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ sponsor.image }}</td>
+                <td>
+                    <img src="{{asset('assets/img/'~sponsor.image)}}">
+                </td>
             </tr>
             <tr>
                 <th>DateSp</th>

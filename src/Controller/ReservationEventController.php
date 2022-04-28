@@ -4,30 +4,162 @@ namespace App\Controller;
 
 use App\Entity\ReservationEvent;
 use App\Form\ReservationEventType;
+use App\Repository\ReservationEventRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
+
+use Symfony\Bundle\DebugBundle\DependencyInjection\Compiler\RemoveWebServerBundleLoggerPass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
 
 /**
  * @Route("/reservation/event")
  */
 class ReservationEventController extends AbstractController
 {
+
+
+
+
+
+
     /**
      * @Route("/", name="app_reservation_event_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager ): Response
     {
         $reservationEvents = $entityManager
             ->getRepository(ReservationEvent::class)
             ->findAll();
 
-        return $this->render('reservation_event/index.html.twig', [
+
+        // 1. Obtain doctrine manager
+        $em = $this->getDoctrine()->getManager();
+
+        // 2. Setup repository of some entity
+        $repoArticles = $em->getRepository(ReservationEvent::class);
+
+        // 3. Query how many rows are there in the Articles table
+        $totalArticles = $repoArticles->createQueryBuilder('a')
+            // Filter by some parameter if you want
+            // ->where('a.published = 1')
+            ->select('count(a.idrev)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+
+
+
+//  LIMIT PERSONNES
+
+
+        // 3. Query how many rows are there in the Articles table
+        $sumPerso= $repoArticles->createQueryBuilder('a')
+            // Filter by some parameter if you want
+            // ->where('a.published = 1')
+            ->select('SUM(a.nbPers)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        // 4. Return a number as response
+        // e.g 972
+
+
+
+
+
+      return $this->render('reservation_event/index.html.twig', [
             'reservation_events' => $reservationEvents,
+            'totalArticles'  => $totalArticles,
+             'sumePerso' => $sumPerso
+
         ]);
+
+
     }
+
+
+
+
+
+    //  COUNT NUMBER OF RESERVATIONS
+
+
+
+
+    /**
+     * @Route("/view", name="viewer", methods={"GET"})
+     */
+
+
+    public function indexviwer()
+    {
+
+        // 1. Obtain doctrine manager
+        $em = $this->getDoctrine()->getManager();
+
+        // 2. Setup repository of some entity
+        $repoArticles = $em->getRepository(ReservationEvent::class);
+
+        // 3. Query how many rows are there in the Articles table
+        $totalArticles = $repoArticles->createQueryBuilder('a')
+            // Filter by some parameter if you want
+            // ->where('a.published = 1')
+            ->select('count(a.idrev)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        // 4. Return a number as response
+        // e.g 972
+        return new Response($totalArticles);
+
+
+
+    }
+
+
+
+    // TOTAL PERSONNES RESERVATIONS
+
+    /**
+     *
+     * @Route("/limit", name="limit", methods={"GET"})
+     */
+     public function setlimitnbre (  )  {
+
+         // 1. Obtain doctrine manager
+         $em = $this->getDoctrine()->getManager();
+
+         // 2. Setup repository of some entity
+         $repoArticles = $em->getRepository(ReservationEvent::class);
+
+         // 3. Query how many rows are there in the Articles table
+         $sumPersos = $repoArticles->createQueryBuilder('a')
+             // Filter by some parameter if you want
+             // ->where('a.published = 1')
+             ->select('SUM(a.nbPers)')
+             ->getQuery()
+             ->getSingleScalarResult();
+
+         // 4. Return a number as response
+         // e.g 972
+
+
+
+         return new Response($sumPersos);
+
+
+
+     }
+
+
+
 
     /**
      * @Route("/new", name="app_reservation_event_new", methods={"GET", "POST"})
@@ -45,10 +177,13 @@ class ReservationEventController extends AbstractController
             return $this->redirectToRoute('app_reservation_event_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('reservation_event/new.html.twig', [
+   return $this->render('reservation_event/new.html.twig', [
             'reservation_event' => $reservationEvent,
             'form' => $form->createView(),
         ]);
+
+
+
     }
 
     /**
@@ -81,6 +216,9 @@ class ReservationEventController extends AbstractController
         ]);
     }
 
+
+
+
     /**
      * @Route("/{idrev}", name="app_reservation_event_delete", methods={"POST"})
      */
@@ -93,4 +231,7 @@ class ReservationEventController extends AbstractController
 
         return $this->redirectToRoute('app_reservation_event_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
 }

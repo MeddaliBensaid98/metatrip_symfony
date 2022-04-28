@@ -13,6 +13,8 @@
 
     <!-- Custom style -->
     <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
     <link href="{{ asset('assets/css/responsiveness.css')}}" rel="stylesheet" />
     <link id="jssDefault" rel="stylesheet" href="{{ asset('assets/css/skins/default.css')}}" />
 </head>
@@ -468,6 +470,20 @@
                         <!-- /Switcher -->
 
                         <!-- =================== START JAVASCRIPT ================== -->
+
+
+
+
+
+    <!-- Flashy depends on jQuery -->
+    <script src="http:://code.jquery.com/jquery.js"></script>
+    <!-- Load Flashy default JavaScript -->
+    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+    <!-- Include Flashy default partial -->
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+
+
+
                         <script src="{{ asset('assets/plugins/js/jquery.min.js')}}"></script>
                         <script src="{{ asset('assets/plugins/js/bootstrap.min.js')}}"></script>
                         <script src="{{ asset('assets/plugins/js/viewportchecker.js')}}"></script>

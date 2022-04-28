@@ -30,15 +30,21 @@
     </div>
 
     <div class="form-group">
+        {{ form_label (form.dateend,"La date fin de l'evenement:") }}
+        {{ form_widget(form.dateend,{'attr' : {'class':'form-control'}}) }}
+        {{ form_errors(form.dateend) }}
+    </div>
+
+    <div class="form-group">
         {{ form_label (form.prixE,"Le prix de l'evenement:") }}
         {{ form_widget(form.prixE,{'attr' : {'class':'form-control'}}) }}
         {{ form_errors(form.prixE) }}
     </div>
 
     <div class="form-group">
-        {{ form_label (form.image,"L'image de l'evenement:") }}
-        {{ form_widget(form.image,{'attr' : {'class':'form-control'}}) }}
-        {{ form_errors(form.image) }}
+        {{ form_label (form.imageFile,"Image:") }}
+        {{ form_widget(form.imageFile,{'attr' : {'class':'form-control'}}) }}
+        {{ form_errors(form.imageFile) }}
     </div>
 
 

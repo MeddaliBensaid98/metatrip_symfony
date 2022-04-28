@@ -1,0 +1,72 @@
+
+
+       <figure class="highcharts-figure">
+           <div id="container"></div>
+           <br>
+           <div id="cc"></div>
+           <p class="highcharts-description"   style="visibility:hidden;">
+                EVENTS CHART
+           </p>
+
+
+           <table id="datatable2" style="visibility:hidden;">
+
+               <thead>
+               <tr>
+                   <th></th>
+                   <th>Nombre de reservations</th>
+
+               </tr>
+               </thead>
+               <tbody>
+               {% for l in lista %}
+                   <tr>
+                       <th>'{{l.chanteur}}'</th>
+                       <td>{{l.nb}}</td>
+
+                   </tr>
+
+               {% endfor %}
+
+               </tbody>
+           </table>
+       </figure>
+
+
+       <br>x
+
+
+           <script src="https://code.highcharts.com/highcharts.js"></script>
+           <script src="https://code.highcharts.com/modules/data.js"></script>
+           <script src="https://code.highcharts.com/modules/exporting.js"></script>
+           <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+           <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+           <script>
+               Highcharts.chart('container', {
+                   data: {
+                       table: 'datatable2'
+                   },
+                   chart: {
+                       type: 'area'
+                   },
+                   title: {
+                       text: 'Event le plus/moins réservé'
+                   },
+                   yAxis: {
+                       allowDecimals: false,
+                       title: {
+                           text: 'Units'
+                       }
+                   },
+                   tooltip: {
+                       formatter: function () {
+                           return '<b>' + this.series.name + '</b><br/>' +
+                               this.point.y + ' ' + this.point.name.toLowerCase();
+                       }
+                   }
+               });
+
+
+           </script>
+
+

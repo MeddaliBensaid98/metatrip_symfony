@@ -16,4 +16,19 @@ class PropertySearch
 
 
 
+    private $typeEvent;
+
+
+    public function getTypeEvent(): ?string
+    {
+        return $this->typeEvent;
+    }
+    public function setTypeEvent(string $typeEvent): self
+    {
+        $this->typeEvent = $typeEvent;
+        return $this;
+    }
+
+
+
 }

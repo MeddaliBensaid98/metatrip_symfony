@@ -27,16 +27,24 @@
                 <td>{{ evenement.adresse }}</td>
             </tr>
             <tr>
-                <th>DateEvent</th>
-                <td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d') : '' }}</td>
+                <th>Date Event</th>
+                <td>{{ evenement.dateEvent ? evenement.dateEvent|date('Y-m-d' ) : '' }}</td>
             </tr>
+
+            <tr>
+                <th>Date Fin Event</th>
+                <td>{{ evenement.dateend ? evenement.dateend|date('Y-m-d  ' ) : '' }}</td>
+            </tr>
+
             <tr>
                 <th>PrixE</th>
                 <td>{{ evenement.prixE }}</td>
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ evenement.image }}</td>
+                <td>
+                    <img src="{{asset('assets/img/'~evenement.image)}}">
+                </td>
             </tr>
         </tbody>
     </table>

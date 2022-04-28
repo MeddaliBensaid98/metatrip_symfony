@@ -7,19 +7,17 @@ use Doctrine\Common\Collections\Collection;
 use Serializable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use DateTime;
 use Vich\UploaderBundle\Entity\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-
-use App\Form\PriceSearchType;
+use DateTimeInterface;
 
 
 /**
  * Evenement
- *
  * @Vich\Uploadable
  * @ORM\Table(name="evenement")
  * @ORM\Entity
@@ -28,7 +26,6 @@ class Evenement
 {
     /**
      * @var int
-     *
      *
      * @ORM\Column(name="Ide", type="integer", nullable=false)
      * @ORM\Id
@@ -39,7 +36,6 @@ class Evenement
     /**
      * @var string
      *
-     * @Assert\NotBlank
      * @ORM\Column(name="Type_event", type="string", length=20, nullable=false)
      */
     private $typeEvent;
@@ -47,7 +43,6 @@ class Evenement
     /**
      * @var string
      *
-     * @Assert\NotBlank
      * @ORM\Column(name="Chanteur", type="string", length=20, nullable=false)
      */
     private $chanteur;
@@ -55,7 +50,6 @@ class Evenement
     /**
      * @var string
      *
-     * @Assert\NotBlank
      * @ORM\Column(name="Adresse", type="string", length=20, nullable=false)
      */
     private $adresse;
@@ -63,16 +57,20 @@ class Evenement
     /**
      * @var \DateTime
      *
-     * @Assert\NotBlank
      * @ORM\Column(name="Date_event", type="date", nullable=false)
      */
     private $dateEvent;
 
     /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="dateEnd", type="date", nullable=true)
+     */
+    private $dateend;
+
+    /**
      * @var float
      *
-     * @Assert\NotBlank
-     *  @Assert\Positive
      * @ORM\Column(name="prix_e", type="float", precision=10, scale=0, nullable=false)
      */
     private $prixE;
@@ -80,23 +78,9 @@ class Evenement
     /**
      * @var string
      *
-     * @Assert\NotBlank
-     *
      * @ORM\Column(name="image", type="string", length=255, nullable=false)
      */
     private $image;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Sponsor::class, inversedBy="evenements")
-     */
-    private $sponsors;
-
-    public function __construct()
-    {
-        $this->sponsors = new ArrayCollection();
-    }
-
-
 
     public function getIde(): ?int
     {
@@ -151,6 +135,18 @@ class Evenement
         return $this;
     }
 
+    public function getDateend(): ?\DateTimeInterface
+    {
+        return $this->dateend;
+    }
+
+    public function setDateend(\DateTimeInterface $dateend): self
+    {
+        $this->dateend = $dateend;
+
+        return $this;
+    }
+
     public function getPrixE(): ?float
     {
         return $this->prixE;
@@ -175,6 +171,42 @@ class Evenement
         return $this;
     }
 
+
+
+
+
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="Image")
+     * @var File
+     */
+    private $imageFile;
+
+
+    public function setImageFile( $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Sponsor::class, inversedBy="evenements")
+     */
+    private $sponsors;
+
+
     /**
      * @return Collection<int, Sponsor>
      */
@@ -198,6 +230,10 @@ class Evenement
 
         return $this;
     }
+
+
+
+
 
 
 

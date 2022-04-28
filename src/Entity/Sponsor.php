@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Sponsor
  *
+ *  @Vich\Uploadable
  * @UniqueEntity("nomsponsor",message="nom sponsor est deja exist")
  * @ORM\Table(name="sponsor", indexes={@ORM\Index(name="sponsor_ibfk_1", columns={"ide"})})
  * @ORM\Entity
@@ -30,6 +31,8 @@ class Sponsor
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $ids;
+
+
 
     /**
      * @var string
@@ -63,6 +66,33 @@ class Sponsor
      * @ORM\Column(name="image", type="string", length=255, nullable=false)
      */
     private $image;
+
+
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="Image")
+     * @var File
+     */
+    private $imageFile;
+
+
+    public function setImageFile( $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
 
 
 

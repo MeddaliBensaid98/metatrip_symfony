@@ -23,4 +23,44 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getQuery()
             ->getOneOrNullResult();
     }
-}
+
+    public function findByIdu(int $idu){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery('SELECT u FROM APP\Entity\User u WHERE u.idu =:idu')
+            ->setParameter('idu',$idu);
+      
+        
+        return $query->getOneOrNullResult();
+    }
+
+    
+    public function StatReservation(){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery('SELECT v.pays"pays",count(v.idv)"number" FROM App\Entity\Voyage v , App\Entity\ReservationVoyage rv WHERE v.idv=rv.idv GROUP BY v.pays');
+      
+            return $query->getResult();
+    }
+
+    
+    
+    public function Statselondate():array{
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT   MONTH(rv.dateDepart) as dated , count(rv.dateArrivee)  AS nombre  FROM App\Entity\ReservationVoyage rv GROUP BY  rv.dateDepart");
+   
+            return $query->getResult();
+    }
+
+    /**
+     * Requête QueryBuilder
+     * */
+    public function orderByROLE()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.role', 'ASC')
+            ->getQuery()->getResult();
+    }
+        }
+     
