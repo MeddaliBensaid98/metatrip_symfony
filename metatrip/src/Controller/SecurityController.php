@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\LoginType;
 use Twilio\Rest\Client;
 use App\Form\InscriptionType;
+use App\Form\motePassFormType;
 use Doctrine\Persistence\ObjectManager;
 use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,6 +22,7 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 class SecurityController extends AbstractController
 {
@@ -37,11 +39,14 @@ class SecurityController extends AbstractController
 if($form->isSubmitted() && $form->isValid()) {
 
 
-   $em=$this->getDoctrine()->getRepository(User::class);
    $email = $user->getEmail();
    echo "<script > console.log('$email')</script>";
+   
+   $em=$this->getDoctrine()->getRepository(User::class);
    $VarName = $em->findOneBy(['email'=>$email]);
+   
    if( is_null($VarName)){
+       
     $pass=$user->getPassword();
     $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
     $user->setPassword($hash);       
@@ -117,25 +122,7 @@ $mailer->send($message);
                     if (password_verify($user->getPassword(),$VarName->getPassword())) {
                         echo "<script >  console.log('shiha')</script>";
                
-                        $sid ='AC28ed23098bac2be7ac0a3aa2422993c0';
-                        $token ='581810bd4f5274ecd7e3c8a8068211a4';
-                        $twilio = new Client($sid, $token);
-
-                        $message = $twilio->messages
-                                          ->create("+21653084352", // to
-                                                   [   "from" => '+15005550006',
-                                                       "body" => "Welcome to metatrip   ",
-                                                    
-                                                       
-                                                   ]
-                                          );
-                                          if($message){
-                                            echo "<script >  console.log('sms 5edmet')</script>";
-                                          }else{
-                                            echo "<script >  console.log('sms ma5edmetich')</script>";
-                                          
-                                               
-                                             }
+                    
 
                                            
                                              //getPrenom()
@@ -208,5 +195,51 @@ return $this->render('security/login.html.twig', [
         return $this->redirectToRoute('security_login');
   
   
+    }
+  /**
+     * @Route("/motedepassoublie", name="motedepassoublie")
+     */
+    public function motedepassoublie(Request $request, EntityManagerInterface $manager,UserPasswordEncoderInterface  $encoder,Session  $session, GuardAuthenticatorHandler $handler,
+   )
+    {    $user = new User();
+        $form = $this->createForm(motePassFormType::class,$user);
+        $form->handleRequest($request);
+    
+
+
+        if($form->isSubmitted() ) {
+            $tel = $user->getTel();
+            $em=$this->getDoctrine()->getRepository(User::class);
+            $VarName = $em->findOneBy(['tel'=>$tel]);
+            if( is_null($VarName)==false){
+                $motdepass="0000";
+               $user= $VarName;
+            
+                
+                $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
+                $user->setPassword( $hash); 
+                $manager->flush();
+                $sid    = "AC0c322b9cef5473f69e18c0d8bdf226e3"; 
+$token  = "ecb1006f326ee0803c0592a8da5dba24"; 
+$twilio = new Client($sid, $token); 
+ 
+$message = $twilio->messages 
+                  ->create("+21650480316", // to 
+                           array(  
+                               "messagingServiceSid" => "MG09a0f595a98c1544d6a4068c212ba887",      
+                               "body" => "Metatrip:Voici votre mot de pass est 0000" 
+                           ) 
+                  ); 
+ 
+print($message->sid);
+                return $this->redirectToRoute('security_login');
+               }else{
+                echo "<script > console.log('Tel ')</script>";
+                echo "<script > alert('tel n est pas exist')</script>";
+               }
+        }
+        return $this->render('security/motdepassoblie.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

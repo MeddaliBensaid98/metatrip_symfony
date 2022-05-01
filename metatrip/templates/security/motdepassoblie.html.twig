@@ -5,15 +5,15 @@
 	
 	<div class="form-container sign-in-container">
 {{ form_start(form, {'attr' : {'novalidate':'novalidate','class':'form-signin'}})}}
-			<h1>Sign in</h1>
+		
 			<div class="social-container">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
 				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
-			<span>or use your account</span>
+<span>mot de pass oublié?</span>
 	{{ form_widget(form)}}
-			<a href="{{ path('motedepassoublie') }}">Forgot your password?</a>
+
 		
             <button type="submit">Comfirmer</button>
 		{{ form_end(form)}}

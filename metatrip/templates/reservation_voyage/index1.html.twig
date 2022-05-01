@@ -1,5 +1,34 @@
-
 {% block body %}
+<br>
+        <style>
+            body{
+                font:normal 12px/20PX "Liberation sans", Arial, Helvetica, sans-serif;
+                color:#585858;
+            }
+            img{
+                width:300px;
+                margin:10px;
+                border: solid 5px #E8E8E8;
+
+            }
+        </style>
+        <style>
+            table, th, td {
+                border: 4px solid #696969;
+                border-collapse: collapse;
+            }
+
+            tr:nth-child(even) {
+                background-color: #d3d3d3;
+            }
+
+            th:nth-child(even),td:nth-child(even) {
+                background-color: #d3d3d3;
+            }
+        </style>
+
+        <img src='data:image;base64,<?= {{ img64 }};?>' />
+
     <table class="table">
         <thead>
         <tr>
@@ -13,7 +42,7 @@
                 <th>Etat</th>
                 <th>Idu</th>
                 <th>RefPaiement</th>
-                <th>actions</th>
+          
             </tr>
         </thead>
         <tbody>
@@ -25,14 +54,13 @@
                 <td>{{ reservation_voyage.etat }}</td>
                 <td>{{ reservation_voyage.idu }}</td>
                 <td>{{ reservation_voyage.refPaiement }}</td>
-                <td>
-                    <a href="{{ path('app_reservation_voyage_show', {'idrv': reservation_voyage.idrv}) }}"class="btn btn-primary">show</a>
-                    <a href="{{ path('app_reservation_voyage_edit', {'idrv': reservation_voyage.idrv}) }}" class="btn btn-warning">edit</a>
-                </td>
+              
             </tr>
     
         {% endfor %}
         </tbody>
     </table>
-
+    <div>
+printed by  {{app.session.get('Nom')}} {{app.session.get('Prenom')}}
+</div>
 {% endblock %}

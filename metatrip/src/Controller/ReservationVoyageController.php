@@ -132,10 +132,11 @@ class ReservationVoyageController extends AbstractController
         
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
-        
+        $png = file_get_contents("metatrip.png");
+        $pngbase64 = base64_encode($png);
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('reservation_voyage/index1.html.twig', [
-            'reservation_voyages' => $reservationVoyages,
+            'reservation_voyages' => $reservationVoyages,"img64"=>$pngbase64
         ]);
         
         // Load HTML to Dompdf
