@@ -51,7 +51,7 @@ class VoyageOrganiseController extends AbstractController
      * @Route("/", name="app_voyage_organise_index", methods={"GET"})
      */
     public function index(EntityManagerInterface $entityManager,VoyageOrganiseRepository $repo): Response
-    {$PublicIP = $_SERVER['REMOTE_ADDR'];
+    { 
      
         
         $voyageOrganises = $repo->findListaVoyages();
@@ -91,8 +91,7 @@ class VoyageOrganiseController extends AbstractController
     ];
     $columnLetter = 'A';
     foreach ($columnNames as $columnName) {
-        // Allow to access AA column if needed and more
-        $columnLetter++;
+         $columnLetter++;
         $sheet->setCellValue($columnLetter.'2', $columnName);
     }
 
@@ -112,18 +111,14 @@ class VoyageOrganiseController extends AbstractController
     }
     $sheet->setTitle("Voyage Organise & voyages List");
     
-    // Create your Office 2007 Excel (XLSX Format)
-    $writer = new Xlsx($spreadsheet);
+     $writer = new Xlsx($spreadsheet);
     
-    // Create a Temporary file in the system
-    $fileName = 'Voyage Organise & voyages.xlsx';
+     $fileName = 'Voyage Organise & voyages.xlsx';
     $temp_file = tempnam(sys_get_temp_dir(), $fileName);
     
-    // Create the excel file in the tmp directory of the system
-    $writer->save($temp_file);
+     $writer->save($temp_file);
     
-    // Return the excel file as an attachment
-    return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
+     return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
 }
 
 
@@ -181,21 +176,9 @@ class VoyageOrganiseController extends AbstractController
                     return $this->redirectToRoute('app_voyage_organise_index');
 
                  }
-
-        
-                 
-                 
-             }
+         }
       
-
-             
-                return $this->redirectToRoute('app_voyage_organise_index'); 
-            
-
-      
-             
-             
-        
+             return $this->redirectToRoute('app_voyage_organise_index');            
     }
 
 
@@ -340,21 +323,6 @@ foreach($yy as $key => $value)
 
     
 
-
-
-  /**
-     * @Route("/test/money", name="indexMoney", methods={"POST"})
-     */
-
-    public function money(VoyageOrganiseRepository $repo)
-    {
-      
-    
-      
-       
-
-
-    }
 
 
  

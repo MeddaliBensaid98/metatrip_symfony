@@ -22,7 +22,7 @@ class LocalisationvoyageRepository extends ServiceEntityRepository
         ("SELECT l.longitude,l.latitude,l.idl,v.idv,v.imagePays,v.pays,vo.etatvoyage,vo.nbplaces,vo.airline,vo.prixBillet
 
              FROM   App\Entity\Localisationvoyage l,App\Entity\Voyage v,App\Entity\VoyageOrganise vo
-             WHERE v.idv=l.idv AND vo.idv=v.idv AND l.idv=vo.idv GROUP BY l.idl");
+             WHERE v.idv=l.idv AND vo.idv=v.idv AND l.idv=vo.idv  ");
      
             return $query->getResult();
     }

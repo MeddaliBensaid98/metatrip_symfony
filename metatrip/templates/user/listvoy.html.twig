@@ -12,17 +12,17 @@
 <div class="container">
 
     <br><br>
-<div>
+<div style="text-align:center" >
  <form  action="" method="post">
  
-    
-          <select name="listDevises1" id="listDevises1">  
+    <p class="h3">Convertir vos devises</p>
+          <select name="listDevises1" id="listDevises1" >  
                  
 
                {% for j in 0..valuee|length -1 %}
                 <option value="{{keyy[j]}}" > {{valuee[j]}} </option> 
                   {% endfor %} 
-                 </select> 
+                 </select> <br><br>
 
         <select name="listDevises2" id="listDevises2">  
           
@@ -30,10 +30,15 @@
                {% for j in 0..valuee|length -1 %}
                <option value="{{keyy[j]}}"   >  {{valuee[j]}} </option>
                 {% endfor %}   
-                 </select> 
+                 </select> <br><br>
 
-   <input type="number" step="any" name="Montant" value="Montant" id="Montant" placeholder="Montant">
-   <input type="submit" name="submit" value="Convertir" >
+
+
+
+
+
+   <input type="number" step="any" name="Montant" value="Montant" id="Montant" placeholder="Montant"><br><br>
+   <input type="submit" name="submit" value="Convertir" class="btn-success">
 
 {% if conversion != 0    %}
 <div><br><p  style="text-align:center"><b  style="text-align:center;font-size:1.7em" class="bg-warning">Résultat = {{conversion}}</b></p></div>

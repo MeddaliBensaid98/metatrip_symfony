@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Repository\LocalisationvoyageRepository;
+use App\Repository\VoyageRepository;
 
 /**
  * @Route("/user")
@@ -100,8 +101,67 @@ class UserController extends AbstractController
     /**
      * @Route("/map/test", name="app_mapp_show", methods={"GET","POST"})
      */
-    public function openMap( LocalisationvoyageRepository $repo,EntityManagerInterface $entityManager): Response
+    public function openMap(VoyageOrganiseRepository $repv, LocalisationvoyageRepository $repo,EntityManagerInterface $entityManager): Response
     {     
+
+
+
+        $voyages = $entityManager
+        ->getRepository(Voyage::class)
+        ->findAll();
+
+
+        if (isset($_POST['submit'])) {
+            $r=json_encode($_POST);
+            echo "<script> 
+            alert('$r')</script>";
+
+            $lat=$_POST["lat"];
+            $lng=$_POST["lng"];
+            $nbplaces=$_POST["nbplaces"];
+            $airline=$_POST["airline"];
+            $etatvoyage=$_POST["etatvoyage"];
+            $idv=(int)$_POST["idv"];
+            $prixBillet=$_POST["prixBillet"];
+
+             $loc=new Localisationvoyage();
+
+             $loc->setLatitude($lat);
+             $loc->setLongitude($lng);
+
+             $voyage3adi= $entityManager
+             ->getRepository(Voyage::class)
+             ->find($idv);
+             $loc->setIdv($voyage3adi);
+
+             $entityManager->persist($loc);
+             $entityManager->flush();
+
+             $voyOrg=new VoyageOrganise();
+             $voyOrg->setAirline($airline);
+             $voyOrg->setPrixBillet($prixBillet);
+             $voyOrg->setNbNuitees(0);
+             $voyOrg->setEtatvoyage($etatvoyage);
+             $voyOrg->setNbplaces($nbplaces);
+             
+             $voyOrg->setIdv($voyage3adi);
+           $entityManager->persist($voyOrg);
+              $entityManager->flush();
+
+
+
+
+            echo "<script> 
+            window.close();           </script>";
+
+            echo "<script> 
+            window.location.reload();           </script>";
+        }
+
+
+
+
+
          $voyageCoord = $repo->findCoordonne();
 
          $localisations = $entityManager
@@ -118,6 +178,7 @@ class UserController extends AbstractController
        
             'voyageCoord'=>$voyageCoord,
             '$voyOrg'=>$voyOrg,
+            'voyages'=>$voyages,
    
             'localisations'=>$localisations
         ]);
@@ -196,8 +257,7 @@ class UserController extends AbstractController
 
 
         $lista=$repo->stat();
-        $lista2=$repo->stat2();
-
+         
         $lista3=$repo->nbVOYORG();
 
         $n=sizeof($lista);
@@ -205,8 +265,7 @@ class UserController extends AbstractController
  
           return $this->render('stats/stat.html.twig', [
               'lista' => $lista,
-              'lista2' => $lista2,
-              'lista3' => $lista3,
+               'lista3' => $lista3,
               'n'=>$n
 
           ]);
