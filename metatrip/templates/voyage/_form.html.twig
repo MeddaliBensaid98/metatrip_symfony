@@ -1,0 +1,34 @@
+  
+
+ 
+ 
+{% block body %}
+<div class="container">
+
+ <br>
+    <h1 style="text-align:center">Nouveau Voyage</h1>
+
+{{ form_start(form, {'attr' : {'novalidate':'novalidate'}})}}
+
+ <div class="form-group">
+ 
+  {{ form_label (form.pays,"Pays:") }}
+{{ form_widget(form.pays,{'attr' : {'class':'form-control'}}) }}
+{{ form_errors(form.pays) }}
+</div>
+ <div class="form-group">
+ 
+
+  {{ form_label (form.imageFile,"Image:") }}
+{{ form_widget(form.imageFile,{'attr' : {'class':'form-control'}}) }}
+{{ form_errors(form.imageFile) }}
+
+</div>
+    
+
+
+
+    <button class="btn btn-success" >{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+{% endblock %}

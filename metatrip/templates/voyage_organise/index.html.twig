@@ -1,0 +1,99 @@
+ {% extends "base.html.twig" %} 
+ 
+   {% block body %}
+
+<hr>
+<div class="container bootstrap snippets bootdey">
+    <div class="row">
+    
+        <div class="col-lg-12">
+            <div class="main-box no-header clearfix">
+                <div class="main-box-body clearfix">
+                    <div class="table-responsive">
+                              <br><br>
+
+ 
+                              <a href="{{ path('app_voyage_organise_excel') }}" class="btn btn-success" style="    margin-left: 79%;
+    margin-top: -2%;">
+                                           Export Excel
+                                        </a>
+<br>
+ 
+<form action="/voyage_organise/upload-excel" method="post" enctype="multipart/form-data" style=" margin-left: 24pc;">
+                                  Choisir un fichier :
+                                  <input  type="file" name="fileToUpload" id="fileToUpload" class="btn bg-gradient-primary mb-0">
+                                  <input type="submit" value="Upload DATA" name="submit"    class="btn btn-danger">
+                                </form><br>
+    <a href="{{ path('app_voyage_organise_new') }}" class="table-link text-info">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+
+                                        <br><br>
+                        <table class="table user-list">
+                            <thead>
+                                <tr>
+                                <th><b>ID</b></th>
+                                <th><b>Prix Billet</b></th>
+                                <th><b>Disponibilité</b></th>
+ 
+                                <th class="text-center"><b>Nombre de places</b></th>
+                                <th><b>Compagnie</b></th>
+                                   <th><b>Actions</b></th>
+
+                             
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 {% for voyage_organise in voyage_organises %}
+                                <tr>
+                                    <td>
+                                        <img src="{{asset('assets/img/'~voyage_organise.imagePays)}}" alt="">
+                                        <a href="#" class="user-link">{{ voyage_organise.idvo }}</a>
+                                        <span class="user-subhead"></span>
+                                    </td>
+
+                                    <td>{{ voyage_organise.prixBillet }} DT</td>
+
+                                    <td class="text-center">
+                                        <span class="label label-danger">{{ voyage_organise.etatvoyage }}</span>
+                                    </td>
+
+                                    <td  class="text-center">
+                                       {{ voyage_organise.nbplaces }}
+                                    </td>
+<td  class="text-center">{{ voyage_organise.airline }}</td>
+                                    <td  >
+                                 
+                                        <a href="{{ path('app_voyage_organise_show', {'idvo': voyage_organise.idvo}) }}" class="table-link text-warning">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                        <a href="{{ path('app_voyage_organise_edit', {'idvo': voyage_organise.idvo}) }}" class="table-link text-info">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                       
+                                                           {{ include('voyage_organise/_delete_form.html.twig') }}
+
+                                     </td>
+
+
+                                </tr>
+{% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

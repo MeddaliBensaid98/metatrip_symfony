@@ -1,0 +1,58 @@
+
+<link rel="stylesheet" href="{{asset('assets/css/bootstrap.css')}}">
+<div class="container">
+
+
+
+{{ form_start(form, {'attr' : {'novalidate':'novalidate'}})}}
+ <div class="form-group">
+
+</div>
+ <div class="form-group">
+ 
+  {{ form_label (form.dateDepart,"Date de depart:") }}
+{{ form_widget(form.dateDepart,{'attr' : {'class':'form-control'}}) }}
+{{ form_errors(form.dateDepart) }}
+</div>
+ <div class="form-group">
+ 
+  {{ form_label (form.dateArrivee,"Date d'arrivée:") }}
+{{ form_widget(form.dateArrivee,{'attr' : {'class':'form-control'}}) }}
+{{ form_errors(form.dateArrivee) }}
+</div>
+ <div class="form-group">
+ 
+  {{ form_label (form.etat,"Etat:") }}
+{{ form_widget(form.etat,{'attr' : {'class':'form-control'}}) }}
+{{ form_errors(form.etat) }}
+</div>
+ 
+ <div class="form-group">
+
+ 
+  {{ form_label (form.idu,"Idu :") }}
+{{ form_widget(form.idu,{'attr' : {'class':'form-control'}}) }}
+{{ form_errors(form.idu) }}
+</div>
+
+ <div class="form-group">
+ 
+  {{ form_label (form.refPaiement,"refPaiement:") }}
+{{ form_widget(form.refPaiement,{'attr' : {'class':'form-control'}}) }}
+{{ form_errors(form.refPaiement) }}
+
+</div>
+ <div class="form-group">
+ 
+  {{ form_label (form.idv,"idv:") }}
+{{ form_widget(form.idv,{'attr' : {'class':'form-control'}}) }}
+{{ form_errors(form.idv) }}
+
+</div>
+
+    
+
+
+
+    <button class="btn btn-success" >{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

@@ -1,0 +1,63 @@
+{% block body %}
+<br>
+        <style>
+            body{
+                font:normal 12px/20PX "Liberation sans", Arial, Helvetica, sans-serif;
+                color:#585858;
+            }
+            img{
+                width:300px;
+                margin:10px;
+                border: solid 5px #E8E8E8;
+            }
+        </style>
+        <style>
+            table, th, td {
+                border: 4px solid #696969;
+                border-collapse: collapse;
+            }
+            tr:nth-child(even) {
+                background-color: #d3d3d3;
+            }
+            th:nth-child(even),td:nth-child(even) {
+                background-color: #d3d3d3;
+            }
+        </style>
+
+        <img src='data:image;base64,<?= {{ img64 }};?>' />
+
+    <table class="table">
+        <thead>
+        <tr>
+        
+
+        </tr>
+            <tr>
+         
+                <th>DateDepart</th>
+                <th>DateArrivee</th>
+                <th>Etat</th>
+                <th>Idu</th>
+                <th>RefPaiement</th>
+          
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation_voyage in reservation_voyages %}
+            <tr>
+        
+                <td>{{ reservation_voyage.dateDepart ? reservation_voyage.dateDepart|date('Y-m-d') : '' }}</td>
+                <td>{{ reservation_voyage.dateArrivee ? reservation_voyage.dateArrivee|date('Y-m-d') : '' }}</td>
+                <td>{{ reservation_voyage.etat }}</td>
+                <td>{{ reservation_voyage.idu }}</td>
+                <td>{{ reservation_voyage.refPaiement }}</td>
+              
+            </tr>
+    
+        {% endfor %}
+        </tbody>
+    </table>
+    <div>
+printed by  {{app.session.get('Nom')}} {{app.session.get('Prenom')}}
+</div>
+{% endblock %}
