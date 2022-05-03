@@ -18,8 +18,8 @@ class HotelType extends AbstractType
             ->add('nbEtoiles')
             ->add('adresse')
             ->add('image',FileType::class,array('data_class'=>null,'label'=>'image'))
+           
             ->add('Edit',SubmitType::class)
-            ->add('add',SubmitType::class)
            
 
         ;

@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\ReservationHotel;
 use App\Form\ReservationHotelType;
+use App\Repository\HotelRepository;
+use App\Repository\ReservationHotelRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +30,19 @@ class ReservationHotelController extends AbstractController
             'reservation_hotels' => $reservationHotels,
         ]);
     }
+    /**
+     * @Route("/listp", name="produit_list", methods={"GET"})
+     */
+    public function listp(ReservationHotelRepository $hotelRepository): Response
+    {
+        $reservationHotels =$hotelRepository->findAll();
+
+        return $this->render('reservation_hotel/listep.html.twig', [
+            'reservation_hotels' => $reservationHotels,
+        ]);
+    }
+ 
+    
    
 
 

@@ -17,13 +17,14 @@ class ReservationHotelType extends AbstractType
         $builder
             ->add('nbNuitees')
             ->add('nbPersonnes')
-            ->add('prix')
+            
             ->add('dateDepart',DateTimeType::class,['date_widget' => 'single_text'])
             ->add('dateArrivee',DateTimeType::class,['date_widget' => 'single_text'])
             ->add('idu')
             ->add('idh')
            
             ->add('add',SubmitType::class)
+            ->add('edit',SubmitType::class)
         ;
     }
 

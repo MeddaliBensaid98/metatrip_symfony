@@ -1,5 +1,6 @@
 {% extends 'base.admin.html.twig' %}
 
+
 {% block title %}Edit VoyageVirtuel{% endblock %}
 
 {% block body %}
@@ -151,15 +152,8 @@
 
 
 
-                                            <div class="col-xs-6">
-                                                <label>Image</label>
-                                                <div class="cf-input">
-                                                    <label class="custom-file">
-                                                        <input type="file" id="file" class="custom-file-input">
-                                                        <span class="custom-file-control"></span>
-                                                    </label>
-                                                </div>
-                                            </div>
+                                           
+                                            
 
 
                                             <div class="col-xs-6">
@@ -218,7 +212,7 @@
 
                                         </div>
 
-                                        {{ form_widget(form.Edit, {'attr': {'class': 'btn theme-btn'}}) }}
+                                     {{ form_widget(form.edit, {'attr': {'class': 'btn theme-btn'}}) }} 
 
 
                                     </fieldset>

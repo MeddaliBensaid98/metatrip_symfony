@@ -66,5 +66,82 @@ class Sponsor
      */
     private $ide;
 
+    public function getIds(): ?int
+    {
+        return $this->ids;
+    }
+
+    public function getNomsponsor(): ?string
+    {
+        return $this->nomsponsor;
+    }
+
+    public function setNomsponsor(string $nomsponsor): self
+    {
+        $this->nomsponsor = $nomsponsor;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(string $tel): self
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getDateSp(): ?\DateTimeInterface
+    {
+        return $this->dateSp;
+    }
+
+    public function setDateSp(\DateTimeInterface $dateSp): self
+    {
+        $this->dateSp = $dateSp;
+
+        return $this;
+    }
+
+    public function getPrixSp(): ?float
+    {
+        return $this->prixSp;
+    }
+
+    public function setPrixSp(float $prixSp): self
+    {
+        $this->prixSp = $prixSp;
+
+        return $this;
+    }
+
+    public function getIde(): ?Evenement
+    {
+        return $this->ide;
+    }
+
+    public function setIde(?Evenement $ide): self
+    {
+        $this->ide = $ide;
+
+        return $this;
+    }
+
 
 }

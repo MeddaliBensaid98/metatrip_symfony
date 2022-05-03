@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ReservationHotel;
-use App\Form\ReservationHotel1Type;
+use App\Form\ReservationHotelType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,10 +11,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Mailer\MailerInterface;
-use App\Entity\SmsNotification;
+use Symfony\Component\Mailer\MailerInterface; 
 use Symfony\Component\Messenger\MessageBusInterface;
-use MercurySeries\FlashyBundle\FlashyNotifier;
+use Mediumart\Orange\SMS\SMS;
+use Mediumart\Orange\SMS\Http\SMSClient;
+
+
+
 
 /**
  * @Route("/reservationshotels")
@@ -42,22 +45,35 @@ class ReservationsHotelsController extends AbstractController
     {
         $user = new User();
         $reservationHotel = new ReservationHotel();
-        $form = $this->createForm(ReservationHotel1Type::class, $reservationHotel);
+        $reservationHotel->setPrix(60.0);
+        $form = $this->createForm(ReservationHotelType ::class, $reservationHotel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($reservationHotel);
             $entityManager->flush();
+            
             $mail=$form ['idu']->getData();
             $maill =$mail->getEmail();
             $email=(new Email())
            -> from('gasmi.nayrouz@esprit.tn')
            ->to($maill)
            ->subject('Time for symfony Mailer!')
-           ->text('Votre reservation est enregistré avec succés ');
+           ->text('Bonjour notre agence Metatrip veut vous informer que votre reservation numero '.$reservationHotel->getIdrh().' a eté  approuvéé merci de nous contactez pour regler votre paiement');
            $mailer->send ($email);
+          
+           $client = SMSClient::getInstance('WsxsGp78wGVCUMyuzWhGHMPsM2ZbzaOG', 'pR3ZnujGzrVAc0EC');
+           $esms=$form['idu']->getData();
+
+           $sms = new SMS($client);
+           $sms->message('Bonjour notre agence Metatrip veut vous informer que votre reservation numero: '. $reservationHotel->getIdrh().' a eté  approuvéé merci de nous contactez pour regler votre paiement'
+                                                          )
+               ->from('+21655841954')
+               ->to("+21629845823")
+               ->send();
          
-            return $this->redirectToRoute('app_hotels_index', [], Response::HTTP_SEE_OTHER);
+         
+           // return $this->redirectToRoute('app_hotels_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('reservations_hotels/new.html.twig', [
@@ -65,7 +81,6 @@ class ReservationsHotelsController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
     /**
      * @Route("/{idrh}", name="app_reservations_hotels_show", methods={"GET"})
      */
@@ -99,13 +114,13 @@ class ReservationsHotelsController extends AbstractController
     /**
      * @Route("/{idrh}", name="app_reservations_hotels_delete", methods={"POST"})
      */
-    public function delete(FlashyNotifier $flashy,Request $request, ReservationHotel $reservationHotel, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, ReservationHotel $reservationHotel, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$reservationHotel->getIdrh(), $request->request->get('_token'))) {
             $entityManager->remove($reservationHotel);
             $entityManager->flush();
         }
-        $flashy->success('Event created!', 'http://your-awesome-link.com');
+      
         return $this->redirectToRoute('app_reservations_hotels_index', [], Response::HTTP_SEE_OTHER);
     }
 }

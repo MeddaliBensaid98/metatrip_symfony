@@ -9,8 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Chambre
  *
  * @ORM\Table(name="chambre", indexes={@ORM\Index(name="idc", columns={"idc"}), @ORM\Index(name="idh", columns={"idh"})})
- * @ORM\Entity
- */
+ * @ORM\Entity(repositoryClass="App\Repository\ChambreRepository") */
 class Chambre
 {
     /**
@@ -177,7 +176,7 @@ class Chambre
     /**
      * @param \Hotel $idh
      */
-    public function setIdh(\Hotel $idh): void
+    public function setIdh(?Hotel $idh): void
     {
         $this->idh = $idh;
     }

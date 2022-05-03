@@ -1,0 +1,14 @@
+{% block body %}
+
+ <tr>
+    
+                 <td> {% set sum = reservation_hotel.nbPersonnes * reservation_hotel.nbNuitees * 60 %}    </td>
+
+                   
+</tr>
+<label> Total à payer: <a><strong> {{ sum }} dinars </strong></a></label>
+</br>
+
+</br>
+<button type="button" class="btn btn-danger rounded-pill" data-dismiss="modal">Exit</button>
+{% endblock %}

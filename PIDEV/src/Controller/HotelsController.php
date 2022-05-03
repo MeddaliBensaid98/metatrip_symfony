@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\Hotel;
 use App\Form\Hotel1Type;
 use Doctrine\ORM\EntityManagerInterface;
@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\PaginatorInterface;
+
 
 use MercurySeries\FlashyBundle\FlashyNotifier;
 
@@ -22,11 +22,21 @@ class HotelsController extends AbstractController
     /**
      * @Route("/", name="app_hotels_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(PaginatorInterface $paginator, EntityManagerInterface $entityManager,Request $request ): Response
     {
+
         $hotels = $entityManager
             ->getRepository(Hotel::class)
             ->findAll();
+            $hotels = $paginator->paginate(
+                $hotels,
+    
+                $request->query->getInt('page', 1),
+                6
+                // Items per page
+    
+            );
+            
 
         return $this->render('hotels/index.html.twig', [
             'hotels' => $hotels,
@@ -36,7 +46,7 @@ class HotelsController extends AbstractController
     /**
      * @Route("/new", name="app_hotels_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager ): Response
     {
         $hotel = new Hotel();
         $form = $this->createForm(Hotel1Type::class, $hotel);
@@ -45,6 +55,7 @@ class HotelsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($hotel);
             $entityManager->flush();
+           
 
             return $this->redirectToRoute('app_hotels_index', [], Response::HTTP_SEE_OTHER);
         }

@@ -20,9 +20,9 @@ class ChambreType extends AbstractType
             ->add('etat')
             ->add('prixc')
             ->add('idh')
-            ->add('next',SubmitType::class)
-            ->add('Edit',SubmitType::class)
-            ->add('Add',SubmitType::class)
+          
+            ->add('edit',SubmitType::class)
+           
 
 
         ;

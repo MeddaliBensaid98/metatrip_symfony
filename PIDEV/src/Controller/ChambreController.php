@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Chambre;
+use App\Form\Chambre1Type;
 use App\Form\ChambreType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
+use Flasher\Toastr\Prime\ToastrFactory;
 
 
 /**
@@ -31,7 +33,7 @@ class ChambreController extends AbstractController
         ]);
     }
      /**
-     * @Route("/chartjs", name="chartjs")
+     * @Route("/chartjs", name="chartjs"), methods={"GET"}
      */
     public function statistiques(EntityManagerInterface $entityManager): Response
 
@@ -49,10 +51,10 @@ class ChambreController extends AbstractController
         // On "démonte" les données pour les séparer tel qu'attendu par ChartJS
         foreach ($resch as $ch)
         {
-            if (  $ch->getType()=="Single")  :
+            if (  $ch->getEtat()=="Disponible")  :
 
                 $ic+=1;
-            elseif ( $ch->getType()=="Double"):
+            elseif ( $ch->getEtat()=="Non Disponible"):
 
                 $icc+=1;
 
@@ -64,10 +66,10 @@ class ChambreController extends AbstractController
         $pieChart = new PieChart();
         $pieChart->getData()->setArrayToDataTable(
             [['type', 'type'],
-                ['Single',     $ic],
-                ['Double',      $icc]
+                ['Disponible',     $ic],
+                ['Non Disponible',      $icc]
             ]);
-        $pieChart->getOptions()->setColors(['#ffd700', '#C0C0C0']);
+        $pieChart->getOptions()->setColors(['#4682B4', '#4169E1']);
 
         $pieChart->getOptions()->setHeight(500);
         $pieChart->getOptions()->setWidth(900);
@@ -83,10 +85,10 @@ class ChambreController extends AbstractController
     /**
      * @Route("/new", name="app_chambre_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, ToastrFactory $flasher): Response
     {
         $chambre = new Chambre();
-        $form = $this->createForm(ChambreType::class, $chambre);
+        $form = $this->createForm(Chambre1Type::class, $chambre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -94,11 +96,13 @@ class ChambreController extends AbstractController
             $imageName = md5(uniqid()).'.'.$image->guessExtension();
             $image->move($this->getParameter('brochures_directory'), $imageName);
             $chambre->setImage($imageName);
-
+            $flasher->addSuccess('Data has been saved successfully!');
             $entityManager->persist($chambre);
             $entityManager->flush();
-
+            
             return $this->redirectToRoute('app_chambre_index', [], Response::HTTP_SEE_OTHER);
+           
+         
         }
 
         return $this->render('chambre/new.html.twig', [
@@ -120,7 +124,7 @@ class ChambreController extends AbstractController
     /**
      * @Route("/{idc}/edit", name="app_chambre_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Chambre $chambre, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Chambre $chambre, EntityManagerInterface $entityManager,ToastrFactory $flasher): Response
     {
         $form = $this->createForm(ChambreType::class, $chambre);
         $form->handleRequest($request);
@@ -130,10 +134,13 @@ class ChambreController extends AbstractController
             $imageName = md5(uniqid()).'.'.$image->guessExtension();
             $image->move($this->getParameter('brochures_directory'), $imageName);
             $chambre->setImage($imageName);
+            
 
             $entityManager->flush();
+           
 
             return $this->redirectToRoute('app_chambre_index', [], Response::HTTP_SEE_OTHER);
+            $flasher->addSuccess('Data has been updated successfully!');
         }
 
         return $this->render('chambre/edit.html.twig', [
@@ -145,12 +152,14 @@ class ChambreController extends AbstractController
     /**
      * @Route("/{idc}", name="app_chambre_delete", methods={"POST"})
      */
-    public function delete(Request $request, Chambre $chambre, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Chambre $chambre, EntityManagerInterface $entityManager,ToastrFactory $flasher): Response
     {
         if ($this->isCsrfTokenValid('delete'.$chambre->getIdc(), $request->request->get('_token'))) {
             $entityManager->remove($chambre);
             $entityManager->flush();
         }
+        $flasher->addSuccess('Data has been removed successfully!');
+
 
         return $this->redirectToRoute('app_chambre_index', [], Response::HTTP_SEE_OTHER);
     }

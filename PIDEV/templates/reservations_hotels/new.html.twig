@@ -53,8 +53,7 @@
 
 
 
-                                            {{ form_errors(form.prix,{'attr':{'class':'text-danger'}}) }}
-
+                                           
 
                                             <div class="col-xs-6">
                                                 <label>Date de depart</label>
@@ -86,13 +85,7 @@
 
                                             </div>
 
-                                            <div class="col-xs-6">
-                                                <label>Prix</label>
-                                                {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
-
-                                            </div>
-                                            {{ form_errors(form.idh,{'attr':{'class':'text-danger'}}) }}
-
+                                           
 
 
 
@@ -114,12 +107,39 @@
                                     </fieldset>
 
                                {{ form_widget(form.add, {'attr': {'class': 'btn theme-btn'}}) }}
+                               <br>
+                             <center>  <button type="button" class="btn theme-btn" data-toggle="modal" data-target="#myModal" > Voir la total de votre reservation </button></center>
+                             
  {{ form_rest(form) }}
 
                                 </form>
+                                <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Total Reservation</h4>
+
+            </div>
+            <br class="modal-body">
+
+
+            {{ include('reservations_hotels/totallres.html.twig') }}
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+ 
+</div>
                                 
 
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
