@@ -2,47 +2,38 @@
 
 namespace App\Controller;
 
-use App\Entity\Localisationvoyage;
+use DateTime;
 use App\Entity\User;
-use App\Entity\Voyage;
-use App\Entity\VoyageOrganise;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\Form\UserType;
 use App\Form\User1Type;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\VoyageOrganiseRepository;
+
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Repository\LocalisationvoyageRepository;
-use App\Repository\VoyageRepository;
-use App\Repository\UserRepository; 
-use Knp\Component\Pager\PaginatorInterface;
-  
-
-
 
 /**
  * @Route("/user")
  */
 class UserController extends AbstractController
 {
-  
-    private $client;
 
-    public function __construct(HttpClientInterface $client)
-    {
-        $this->client = $client;
-    }
-
-
-
-  /**
+   
+    /**
      * @Route("/", name="app_user_index", methods={"GET"})
      */
-    public function index(Session $session, Request $request, EntityManagerInterface $entityManager,PaginatorInterface $paginator): Response
+    public function index(SerializerInterface $serializer,NormalizerInterface $normalizer,Session $session, Request $request, EntityManagerInterface $entityManager,PaginatorInterface $paginator): Response
     {
  
    
@@ -50,7 +41,7 @@ class UserController extends AbstractController
         $users = $entityManager
             ->getRepository(User::class)
             ->findAll();
-            
+
    // Paginate the results of the query
    $appointments = $paginator->paginate(
     // Doctrine Query, not results
@@ -70,12 +61,6 @@ if( $session->get('login')=="true"){
 
     }
 
-
-
-
-
- 
-
        /**
      * @Route("/admin", name="indexAdmin", methods={"GET"})
      */
@@ -86,8 +71,6 @@ if( $session->get('login')=="true"){
             'users' => $user
         ]);
     }
-   
-   
     /**
      * @Route("/new", name="app_user_new", methods={"GET", "POST"})
      */
@@ -123,10 +106,7 @@ if( $session->get('login')=="true"){
         return $this->redirectToRoute('security_login');
     }  
     }
-
- 
-
-     /**
+    /**
      * @Route("/{idu}", name="app_user_show", methods={"GET"})
      */
     public function show(Session $session,User $user): Response
@@ -140,112 +120,7 @@ if( $session->get('login')=="true"){
     } 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
-     * @Route("/map/test", name="app_mapp_show", methods={"GET","POST"})
-     */
-    public function openMap(VoyageOrganiseRepository $repv, LocalisationvoyageRepository $repo,EntityManagerInterface $entityManager): Response
-    {     
-
-
-
-        $voyages = $entityManager
-        ->getRepository(Voyage::class)
-        ->findAll();
-
-
-        if (isset($_POST['submit'])) {
-            $r=json_encode($_POST);
-            echo "<script> 
-            alert('$r')</script>";
-
-            $lat=$_POST["lat"];
-            $lng=$_POST["lng"];
-            $nbplaces=$_POST["nbplaces"];
-            $airline=$_POST["airline"];
-            $etatvoyage=$_POST["etatvoyage"];
-            $idv=(int)$_POST["idv"];
-            $prixBillet=$_POST["prixBillet"];
-
-             $loc=new Localisationvoyage();
-
-             $loc->setLatitude($lat);
-             $loc->setLongitude($lng);
-
-             $voyage3adi= $entityManager
-             ->getRepository(Voyage::class)
-             ->find($idv);
-             $loc->setIdv($voyage3adi);
-
-             $entityManager->persist($loc);
-             $entityManager->flush();
-
-             $voyOrg=new VoyageOrganise();
-             $voyOrg->setAirline($airline);
-             $voyOrg->setPrixBillet($prixBillet);
-             $voyOrg->setNbNuitees(0);
-             $voyOrg->setEtatvoyage($etatvoyage);
-             $voyOrg->setNbplaces($nbplaces);
-             
-             $voyOrg->setIdv($voyage3adi);
-           $entityManager->persist($voyOrg);
-              $entityManager->flush();
-
-
-
-
-            echo "<script> 
-            window.close();           </script>";
-
-            echo "<script> 
-            window.location.reload();           </script>";
-        }
-
-
-
-
-
-         $voyageCoord = $repo->findCoordonne();
-
-         $localisations = $entityManager
-         ->getRepository(Localisationvoyage::class)
-         ->findAll();
-
-        $voyOrg=$entityManager
-        ->getRepository(VoyageOrganise::class)
-        ->findAll();
-
-  
-        return $this->render('user/map.html.twig', [
-            
-       
-            'voyageCoord'=>$voyageCoord,
-            '$voyOrg'=>$voyOrg,
-            'voyages'=>$voyages,
-   
-            'localisations'=>$localisations
-        ]);
-    }
-
-
-
-    
-
-      /**
      * @Route("/{idu}/edit", name="app_user_edit", methods={"GET", "POST"})
      */
     public function edit(Session $session,Request $request, User $user, EntityManagerInterface $entityManager): Response
@@ -273,8 +148,6 @@ if( $session->get('login')=="true"){
     } 
     }
 
-
-
     /**
      * @Route("/{idu}", name="app_user_delete", methods={"POST"})
      */
@@ -300,92 +173,15 @@ if( $session->get('login')=="true"){
         //$l=sizeof($voyageOrganises);
           //echo "alert('$l');";
           if( $session->get('login')=="true"){
-            $conversion=0.0;
-            $response = $this->client->request(
-                'GET',
-                'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json'
-            );
-            $keyy=[];
-            $valuee=[];
-            $yy=$response->toArray();
-           // $yy=$x["conversion_rates"];
-     
-    foreach($yy as $key => $value)
-        {
-        
-         $keyy[]=$key;
-         $valuee[]=$value;
-       
-         
-        } 
-         $voyageOrganises = $repo->findListaVoyages();
-          
-         
-            if(isset($_POST['submit'])) {
-                
-                $r=json_encode($_POST);
-                echo "<script> console.log('$r')</script>";
-                $devise1=$_POST['listDevises1'];
-                 $devise2=$_POST['listDevises2'];
-                 $response2 = $this->client->request(
-                    'GET',
-                    'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/'.$devise1.'/'.$devise2.'.json'
-                );
-        
-                $resultat=$response2->toArray();
-    
-                 $montant=$_POST['Montant'];
-    
-                        $conversion=$montant*$resultat[$devise2]; 
-    
-                }
-    
-            return $this->render('user/listvoy.html.twig', [
-                'voyageOrganises' => $voyageOrganises,
-                'keyy'=>$keyy,
-                'valuee'=>$valuee,
-                'yy'=>$yy,
-                'conversion'=>$conversion
-            ]);
-      
-    
-            
-        
-    
+          return $this->render('user/listvoy.html.twig', [
+              'voyageOrganises' => $voyageOrganises,
+          ]);
         }else{
             return $this->redirectToRoute('security_login');
         } 
     }
 
-
-  /**
-     * @Route("/home/stat", name="homeSt", methods={"GET"})
-     */
-    public function statvist(EntityManagerInterface $entityManager,VoyageOrganiseRepository $repo): Response
-    {
-      
-
-
- 
-
-
-        $lista=$repo->stat();
-         
-        $lista3=$repo->nbVOYORG();
-
-        $n=sizeof($lista);
-    
- 
-          return $this->render('stats/stat.html.twig', [
-              'lista' => $lista,
-               'lista3' => $lista3,
-              'n'=>$n
-
-          ]);
-    }
-
-
-    /**
+/**
      * @Route("/trirole/10/user", name="triroleuser_99")
     */
     public function orderByROLE(EntityManagerInterface $entityManager,UserRepository $repository,Request $request,PaginatorInterface $paginator)
@@ -404,8 +200,123 @@ if( $session->get('login')=="true"){
         
         ]);
     }   
-  }
 
 
+      
+    /**
+     * @Route("/get/users",name="getuserjason", methods={"GET"})
+      * @return JsonResponse
+      */
+    public function getusers(SerializerInterface $serializer,NormalizerInterface $normalizer,Session $session, Request $request, EntityManagerInterface $entityManager): Response
+    {
+ 
+   
+   
+        $users = $entityManager
+            ->getRepository(User::class)
+            ->findAll();
+            $JsonContent = $normalizer ->normalize($users);
+
+            return new Response(json_encode($JsonContent));
+    }
+
+    /**
+     * @Route("/supp/{idrec}", name="supp")
+     */
+    public function supp($idrec)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($idrec);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
+        return $this->redirectToRoute("getuserjason");
+
+    }
+    /**
+     * @Route("/supp/supp/supprimerfrommobile/{idrec}", name="suppmobike")
+     */
+    public function suppmob($idrec)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($idrec);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
+      
+
+        return new Response("done");
+
+    }
 
 
+ /**
+     * @Route("/10/modifieruser/{idrec}" ,name="updatemob", methods={"GET"})
+      * @return JsonResponse
+     */
+    public function update(Request $request,$idrec,NormalizerInterface $serializer){
+        $rec=  $this->getDoctrine()->getManager()->getRepository(User::class)->find($idrec);
+        
+        $data = json_decode($request->getContent(), true);
+        $rec->setCin( $request->get("cin"));
+         $rec->setNom( $request->get("nom"));
+         $rec->setPrenom( $request->get('prenom'));
+         $rec->setTel($request->get("tel"));
+         $rec->setEmail( $request->get("email"));
+         $rec->setPassword( $request->get("password"));
+         $rec->setImage( $request->get("image"));
+    
+        $rec->setDatenaissance($request->get("datenaissance"));
+        $data=$serializer->normalize($rec);
+      
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();//mise a jour
+        return new Response(json_encode($data));
+
+    }
+
+     /**
+     * @Route("/t/adduser/", name="app_projet_adda", methods={"GET"})
+     * @return JsonResponse
+     */
+    public function adduser(Request $request,NormalizerInterface $serializer,EntityManagerInterface $em):JsonResponse{
+        $em = $this->getDoctrine()->getManager();
+        $rec=new User();
+     
+        $rec->setCin((String)$request->get('cin') );
+         $rec->setNom( (String)$request->get('nom'));
+        $rec->setPrenom( (String)$request->get('prenom'));
+        $rec->setTel( (String)$request->get("tel"));
+        $rec->setEmail( (String)$request->get("email"));
+        $rec->setPassword((String) $request->get("password"));
+        $rec->setImage( (String)$request->get("image"));
+       
+     //  $ymd = DateTime::createFromFormat('m-d-Y', $request->query->get("datenaissance"))->format('Y-m-d');
+     
+   $date=  new \DateTime($request->get("datenaissance"));
+     $rec->setDatenaissance($date);
+        $em->persist($rec);
+        $em->flush();
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object;
+        });
+        $serializer = new Serializer([$normalizer], [$encoder]);
+        $formatted = $serializer->normalize($rec);
+        return new JsonResponse($formatted);
+    }
+
+
+     /**
+     * @Route("/findby/id/{idu}", name="findby", methods={"GET"})
+     */
+    public function showjson($idu,UserRepository $us,Request $request,NormalizerInterface $serializer,EntityManagerInterface $em):JsonResponse{
+       $user=  $us->findOneBy(['idu' => $idu]);
+   
+       if ($user==null){return new JsonResponse(['reponse' => 'user inexistant'],Response::HTTP_NOT_FOUND);}
+ 
+       $data=['idu'=>$user->getIdu(),'nom'=>$user->getNom(),'prenom'=>$user->getPrenom()];
+
+            return new JsonResponse($data,Response::HTTP_OK);
+
+    }
+}

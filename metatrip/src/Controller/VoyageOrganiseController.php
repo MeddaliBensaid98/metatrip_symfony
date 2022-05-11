@@ -9,6 +9,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
+
+
+
+
 // Include PhpSpreadsheet required namespaces
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -33,6 +45,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncode;
+use PHPUnit\Util\Json;
+use App\Repository\VoyageRepository;
 
 /**
  * @Route("/voyage_organise")
@@ -47,6 +62,151 @@ class VoyageOrganiseController extends AbstractController
         $this->client = $client;
     }
 
+
+
+  /**
+     * @Route("/json", name="app_voyageorg_json", methods={"GET"})
+     */
+    public function AffichageJson(EntityManagerInterface $entityManager,VoyageOrganiseRepository $repo)
+    { 
+     
+        
+        $voyages = $repo->findAll();
+
+        $data =  $this->get('serializer')->serialize($voyages, 'json');
+
+        $response = new Response($data);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+     }
+      
+
+
+/**
+ * @Route("/json/{idvo}", name="updatevoyorg", methods={"PUT"})
+ */
+public function updateVoy($idvo, Request $request,EntityManagerInterface $entityManager
+,VoyageRepository $rep,VoyageOrganiseRepository $repo): JsonResponse
+{
+    $voyageorg =$repo->findOneBy(['idvo' => $idvo]);
+    $data = json_decode($request->getContent(), true);
+    $voyage =$rep->findOneBy(['idv' => $data['idv']]);
+
+    if ($voyage==null )
+    {   return new JsonResponse(['status' => 'ID voyage incorrect !'], Response::HTTP_NOT_FOUND); }
+ 
+
+    if (empty($data['prixBillet']) || empty($data['airline']) ||  empty($data['nbplaces']) || empty($data['etatvoyage']) )
+  {   return new JsonResponse(['status' => 'manque des attributs !'], Response::HTTP_NOT_FOUND); }
+    empty($data['prixBillet']) ? true : $voyageorg->setPrixBillet($data['prixBillet']);
+    empty($data['airline']) ? true : $voyageorg->setAirline($data['airline']);
+    empty($data['nbplaces']) ? true : $voyageorg->setNbplaces($data['nbplaces']);
+    empty($data['etatvoyage']) ? true : $voyageorg->setEtatvoyage($data['etatvoyage']);
+    empty($data['idv']) ? true : $voyageorg->setIdv($voyage);
+
+
+
+ 
+     $entityManager->flush();
+
+    return new JsonResponse(['status' => 'voyage organisé modifié avec succès !'], Response::HTTP_CREATED);}
+
+
+
+/**
+ * @Route("/json/{idvo}", name="delvoy", methods={"DELETE"})
+ */
+public function removeVoy($idvo, Request $request,EntityManagerInterface $entityManager,VoyageOrganiseRepository $repo): JsonResponse
+{
+    $voyage =$repo->findOneBy(['idvo' => $idvo]);
+ 
+
+    if ($voyage==null )
+    {   return new JsonResponse(['status' => 'ID voyage organisé incorrect !'], Response::HTTP_NOT_FOUND); }
+ 
+
+
+ 
+     $entityManager->remove($voyage);   
+     $entityManager->flush();
+
+
+
+    return new JsonResponse(['status' => 'voyage organisé suprrimé avec succès !'], Response::HTTP_CREATED);}
+
+
+
+
+
+
+/**
+ * @Route("/json/{idvo}", name="getvoy", methods={"GET"})
+ */
+public function getVoy($idvo, Request $request,EntityManagerInterface $entityManager
+,VoyageRepository $rep,VoyageOrganiseRepository $repo)
+{
+    $voyage =$repo->findOneBy(['idvo' => $idvo]);
+
+  
+
+
+
+    $data =  $this->get('serializer')->serialize($voyage, 'json');
+
+    $response = new Response($data);
+    $response->headers->set('Content-Type', 'application/json');
+
+   return $response; 
+ }
+
+
+
+ /**
+     * @Route("/new/json/{air}/{nbp}/{etat}/{prixB}/{idvoy}", name="addVoyorgJson", methods={"GET"})
+     */
+    public function addVoy($air,$nbp,$idvoy,$etat,$prixB,Request $request,EntityManagerInterface $entityManager,VoyageRepository $repo): JsonResponse
+    {
+        $voyage_organise = new VoyageOrganise();
+        $data = json_decode($request->getContent(), true);
+
+        $Airline = $air;
+        $nbplaces = $nbp;
+        $Prix_billet=$prixB;
+        $Idv=$idvoy;
+        $etatVoyage=$etat;
+
+      
+
+      
+
+
+
+
+        if (empty($Airline) || empty($nbplaces) ||  empty($Prix_billet) || empty($Idv) || empty($etatVoyage)  )
+         {   return new JsonResponse(['status' => 'manque des attributs !'], Response::HTTP_NOT_FOUND); }
+        $voyage_organise->setAirline($Airline);
+        $voyage_organise->setNbplaces($nbplaces);
+        $voyage_organise->setEtatVoyage($etatVoyage);
+        $voyage_organise->setNbNuitees(0);
+        $voyage_organise->setPrixBillet($Prix_billet);
+        $voyage =$repo->findOneBy(['idv' => $Idv]);
+        $voyage_organise->setIdv($voyage);
+
+
+    
+
+        $entityManager->persist($voyage_organise);
+        $entityManager->flush();
+
+        return new JsonResponse(['status' => 'voyage crée avec succès !'], Response::HTTP_CREATED);
+    }
+
+
+
+
+
+      
     /**
      * @Route("/", name="app_voyage_organise_index", methods={"GET"})
      */
@@ -62,6 +222,9 @@ class VoyageOrganiseController extends AbstractController
              
         ]);
     }
+
+
+
 
 
 

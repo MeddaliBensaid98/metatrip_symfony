@@ -19,6 +19,7 @@ use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Guard\AuthenticatorInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -242,4 +243,116 @@ print($message->sid);
             'form' => $form->createView()
         ]);
     }
+
+
+   
+    /**
+     * @Route("/Security/Security/mobile/loginuser/", name="security_login_mobile", methods={"GET"})
+     */
+    public function loginmobile(NormalizerInterface $serializer,Request $request, EntityManagerInterface $manager,UserPasswordEncoderInterface  $encoder,Session  $session, GuardAuthenticatorHandler $handler,
+   )
+    {  
+    
+    
+        $ok=false;
+   
+      
+
+       
+          //  $email=$request->request->get('email');    
+          
+          
+            $email =  $request->get("email");
+           
+    
+            $em=$this->getDoctrine()->getRepository(User::class);
+            $VarName = $em->findOneBy(['email'=>$email]);
+              //  $Role=$user->getRole();
+              
+                if( is_null($VarName)) {
+                    return new Response("login failed");  
+                    }  else{
+                        $hash = password_hash($request->get("password"), PASSWORD_DEFAULT);
+                       # $encoded = $encoder->encodePassword($user,$user->getPassword());
+                        $pass=$VarName->getPassword();
+                  
+                  
+              
+                    if (password_verify($request->get("password"),$pass)) {
+                      
+                   
+                 
+                        return new Response("login done");  
+                        /*echo "<script >localStorage.setItem('email', '$email');</script>";
+                        echo "<script >localStorage.setItem('Role', '$Role');</script>";    
+                      
+                          echo "<script >localStorage.setItem('email', '$email');</script>";
+                          echo "<script >localStorage.setItem('Role', '$Role');</script>";    */
+    
+                    } else {
+                     
+                        return new Response("login failed");  
+                    }
+                #    echo "<script >  console.log('$encoded')</script>";
+                  #  echo "<script >  console.log('$pass')</script>";
+                 #   $bar = substr($encoded,0,7) ;
+                   # $bar2 = substr($pass,0,7) ;
+                  #  echo "<script >  console.log('$bar')</script>";
+                   # echo "<script >  console.log('$bar2')</script>";
+                   /* if($bar==$bar2){
+                        echo "<script >localStorage.setItem('email', '$email');</script>";
+                        echo "<script >localStorage.setItem('Role', '$Role');</script>";             
+                        $ok=true;
+                        echo "<script >  console.log('welcome')</script>";
+                       # return $this->redirectToRoute('indexAdmin');
+                    }else{
+                       # return $this->redirectToRoute('security_login');
+                    
+                    } 
+                    */
+                    }
+                    
+                
+               // return new Response(json_encode($data));
+    }
+
+    /**
+     * @Route("/Security/isncri/insciptionMobile/", name="sdsd", methods={"GET"})
+     */
+    public function insciptionMobile(Request $request, EntityManagerInterface $manager,UserPasswordEncoderInterface  $encoder)
+     {  
+        $user = new User();
+        $email =  $request->get("email");
+
+
+
+  
+  
+   
+   $em=$this->getDoctrine()->getRepository(User::class);
+   $VarName = $em->findOneBy(['email'=>$email]);
+   
+   if( is_null($VarName)){
+       $user->setEmail($email);
+    $pass=$request->get("password");
+    $hash = password_hash( $pass, PASSWORD_DEFAULT);
+    $user->setPassword($hash);
+    $user->setCin($request->get("cin")) ; 
+    $user->setNom($request->get("nom")) ;  
+    $user->setPrenom($request->get("prenom")) ; 
+    $user->setEmail($request->get("email")) ;   
+    $user->setTel($request->get("tel")) ;  
+    $user->setImage($request->get("image")) ;
+    $user->setDatenaissance($request->get("datenaissance")) ; 
+    $manager->persist($user);
+    $manager->flush();
+  
+    return new Response("inscription done");  
+   }else{
+    return new Response("inscription failed");  
+   }
+
+
+
+}
 }
